@@ -1,5 +1,6 @@
 ﻿using APITopicTwister.Models;
 using Microsoft.AspNetCore.Mvc;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,11 @@ namespace APITopicTwister.Controllers
 {
     public class PlayerController : Controller
     {
-        public Player CreatePlayer() {
-            return null;
+        [HttpGet]
+        public Player CreatePlayer(string name) {
+            PlayerService playerService = new PlayerService();
+            Player player = playerService.CreatePlayer(name);
+            return player;
         }
         
     }

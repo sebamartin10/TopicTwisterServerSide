@@ -1,7 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="APITopicTwister">
+      <HintPath>..\APITopicTwister\bin\Debug\net5.0\APITopicTwister.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>
