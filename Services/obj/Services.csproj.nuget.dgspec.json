@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Services\\Services.csproj": {}
+    "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Services\\Services.csproj": {}
   },
   "projects": {
-    "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Services\\Services.csproj": {
+    "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Services\\Services.csproj",
+        "projectUniqueName": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Services\\Services.csproj",
-        "packagesPath": "C:\\Users\\molyp\\.nuget\\packages\\",
-        "outputPath": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Services\\obj\\",
+        "projectPath": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\Cristian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Services\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\molyp\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Cristian\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

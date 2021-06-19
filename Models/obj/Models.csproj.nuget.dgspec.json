@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Models\\Models.csproj": {}
+    "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Models\\Models.csproj": {}
   },
   "projects": {
-    "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Models\\Models.csproj": {
+    "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Models\\Models.csproj",
+        "projectUniqueName": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Models\\Models.csproj",
-        "packagesPath": "C:\\Users\\molyp\\.nuget\\packages\\",
-        "outputPath": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Models\\obj\\",
+        "projectPath": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Models\\Models.csproj",
+        "packagesPath": "C:\\Users\\Cristian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Models\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\molyp\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Cristian\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -49,6 +45,10 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "NuGet.Frameworks": {
+              "target": "Package",
+              "version": "[5.10.0, )"
             }
           },
           "imports": [

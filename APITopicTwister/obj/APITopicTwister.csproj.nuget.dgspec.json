@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj": {}
+    "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj": {}
   },
   "projects": {
-    "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj": {
+    "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj",
+        "projectUniqueName": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj",
         "projectName": "APITopicTwister",
-        "projectPath": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj",
-        "packagesPath": "C:\\Users\\molyp\\.nuget\\packages\\",
-        "outputPath": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\APITopicTwister\\obj\\",
+        "projectPath": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj",
+        "packagesPath": "C:\\Users\\Cristian\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\APITopicTwister\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\molyp\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Cristian\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -46,21 +42,21 @@
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[5.0.0, )",
+              "version": "[5.0.7, )",
               "noWarn": [
                 "NU1605"
               ]
             },
             "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
               "target": "Package",
-              "version": "[5.0.0, )",
+              "version": "[5.0.7, )",
               "noWarn": [
                 "NU1605"
               ]
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[5.6.3, )"
+              "version": "[6.1.4, )"
             }
           },
           "imports": [
