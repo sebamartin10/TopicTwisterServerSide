@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Tests
 {
-    class PlayerShould
+    public class PlayerShould
     {
+
     }
 }
