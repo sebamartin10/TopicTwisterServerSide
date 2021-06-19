@@ -39,3 +39,44 @@ C:\Users\Cyber-Place\Documents\Curso Etermax\Topic Twister\Server\TopicTwisterSe
 C:\Users\Cyber-Place\Documents\Curso Etermax\Topic Twister\Server\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Models.dll
 C:\Users\Cyber-Place\Documents\Curso Etermax\Topic Twister\Server\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Models.pdb
 C:\Users\Cyber-Place\Documents\Curso Etermax\Topic Twister\Server\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.csprojAssemblyReference.cache
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\appsettings.Development.json
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\appsettings.json
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.exe
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.deps.json
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.runtimeconfig.json
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.runtimeconfig.dev.json
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\ref\APITopicTwister.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.pdb
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.OpenApi.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Models.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Services.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Models.pdb
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Services.pdb
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.csprojAssemblyReference.cache
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.GeneratedMSBuildEditorConfig.editorconfig
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.AssemblyInfoInputs.cache
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.AssemblyInfo.cs
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.csproj.CoreCompileInputs.cache
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.MvcApplicationPartsAssemblyInfo.cs
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.MvcApplicationPartsAssemblyInfo.cache
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\staticwebassets\APITopicTwister.StaticWebAssets.Manifest.cache
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\staticwebassets\APITopicTwister.StaticWebAssets.xml
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\scopedcss\bundle\APITopicTwister.styles.css
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.RazorTargetAssemblyInfo.cache
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.csproj.CopyComplete
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\ref\APITopicTwister.dll
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.pdb
+D:\_Curso de Videojuegos\repo github\ProyectoIntegrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.genruntimeconfig.cache

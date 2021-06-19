@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Cyber-Place\\Documents\\Curso Etermax\\Topic Twister\\Server\\TopicTwisterServerSide\\Services\\Services.csproj": {}
+    "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Services\\Services.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Cyber-Place\\Documents\\Curso Etermax\\Topic Twister\\Server\\TopicTwisterServerSide\\Services\\Services.csproj": {
+    "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Cyber-Place\\Documents\\Curso Etermax\\Topic Twister\\Server\\TopicTwisterServerSide\\Services\\Services.csproj",
+        "projectUniqueName": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "C:\\Users\\Cyber-Place\\Documents\\Curso Etermax\\Topic Twister\\Server\\TopicTwisterServerSide\\Services\\Services.csproj",
-        "packagesPath": "C:\\Users\\Cyber-Place\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Cyber-Place\\Documents\\Curso Etermax\\Topic Twister\\Server\\TopicTwisterServerSide\\Services\\obj\\",
+        "projectPath": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\molyp\\.nuget\\packages\\",
+        "outputPath": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Cyber-Place\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\molyp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
