@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Services.Errors
 {
-    public class ErrorTopicTwister
+    public class ResponseTopicTwister
     {
-        public int ErrorCode { get; set; }
-        public string ErrorMessage { get; set; }
+        public int ResponseCode { get; set; } = 0;
+        public string ResponseMessage { get; set; } = String.Empty;
     }
 }
