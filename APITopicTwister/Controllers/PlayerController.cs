@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
+using Services.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,10 @@ namespace APITopicTwister.Controllers
 {
     public class PlayerController : Controller
     {
-        [HttpGet("CreatePlayer/{name}")]
-        public Player CreatePlayer(string name) {
+        [HttpGet("CreatePlayer")]
+        public PlayerDTO CreatePlayer(PlayerDTO playerDTO) {
             PlayerService playerService = new PlayerService();
-            Player player = playerService.CreatePlayer(name);
+            PlayerDTO player = playerService.CreatePlayer(playerDTO.playerName);
             return player;
         }
         

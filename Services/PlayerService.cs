@@ -1,4 +1,5 @@
 ﻿using Models;
+using Services.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,14 +8,20 @@ namespace Services
 {
     public class PlayerService
     {
-        public Player CreatePlayer(string name)
+        public PlayerDTO CreatePlayer(string name)
         {
             Player player = new Player
             {
                 PlayerID = Guid.NewGuid().ToString(),
                 PlayerName = name
             };
-            return player;
+
+            PlayerDTO playerDTO = new PlayerDTO
+            {
+                playerID = player.PlayerID,
+                playerName = player.PlayerName
+            };
+            return playerDTO;
         }
     }
 }
