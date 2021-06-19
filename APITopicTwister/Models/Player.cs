@@ -7,5 +7,7 @@ namespace APITopicTwister.Models
 {
     public class Player
     {
+        public string PlayerID { get; set; }
+        public string PlayerName { get; set; }
     }
 }
