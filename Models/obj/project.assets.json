@@ -180,23 +180,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Cyber-Place\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\molyp\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Cyber-Place\\Documents\\Curso Etermax\\Topic Twister\\Server\\TopicTwisterServerSide\\Models\\Models.csproj",
+      "projectUniqueName": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Models\\Models.csproj",
       "projectName": "Models",
-      "projectPath": "C:\\Users\\Cyber-Place\\Documents\\Curso Etermax\\Topic Twister\\Server\\TopicTwisterServerSide\\Models\\Models.csproj",
-      "packagesPath": "C:\\Users\\Cyber-Place\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Cyber-Place\\Documents\\Curso Etermax\\Topic Twister\\Server\\TopicTwisterServerSide\\Models\\obj\\",
+      "projectPath": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Models\\Models.csproj",
+      "packagesPath": "C:\\Users\\molyp\\.nuget\\packages\\",
+      "outputPath": "D:\\_Curso de Videojuegos\\repo github\\ProyectoIntegrador\\TopicTwisterServerSide\\Models\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Cyber-Place\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\molyp\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -239,7 +240,7 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
