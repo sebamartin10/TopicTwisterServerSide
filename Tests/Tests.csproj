@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Services">
       <HintPath>..\Services\bin\Debug\netcoreapp5.0\Services.dll</HintPath>
     </Reference>

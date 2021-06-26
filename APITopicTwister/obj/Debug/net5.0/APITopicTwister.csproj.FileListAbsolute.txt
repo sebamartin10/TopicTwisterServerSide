@@ -121,3 +121,44 @@ C:\Users\Cristian\Documents\Proyectos\TopicTwisterServerSide\APITopicTwister\obj
 C:\Users\Cristian\Documents\Proyectos\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\ref\APITopicTwister.dll
 C:\Users\Cristian\Documents\Proyectos\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.pdb
 C:\Users\Cristian\Documents\Proyectos\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.genruntimeconfig.cache
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\appsettings.Development.json
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\appsettings.json
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.exe
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.deps.json
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.runtimeconfig.json
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.runtimeconfig.dev.json
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\ref\APITopicTwister.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\APITopicTwister.pdb
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Microsoft.OpenApi.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Models.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Services.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Models.pdb
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\bin\Debug\net5.0\Services.pdb
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.csprojAssemblyReference.cache
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.GeneratedMSBuildEditorConfig.editorconfig
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.AssemblyInfoInputs.cache
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.AssemblyInfo.cs
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.csproj.CoreCompileInputs.cache
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.MvcApplicationPartsAssemblyInfo.cs
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.MvcApplicationPartsAssemblyInfo.cache
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\staticwebassets\APITopicTwister.StaticWebAssets.Manifest.cache
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\staticwebassets\APITopicTwister.StaticWebAssets.xml
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\scopedcss\bundle\APITopicTwister.styles.css
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.RazorTargetAssemblyInfo.cache
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.csproj.CopyComplete
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\ref\APITopicTwister.dll
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.pdb
+D:\_mio\Proyecto integrador\TopicTwisterServerSide\APITopicTwister\obj\Debug\net5.0\APITopicTwister.genruntimeconfig.cache

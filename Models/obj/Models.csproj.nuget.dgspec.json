@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Models\\Models.csproj": {}
+    "D:\\_mio\\Proyecto integrador\\TopicTwisterServerSide\\Models\\Models.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Models\\Models.csproj": {
+    "D:\\_mio\\Proyecto integrador\\TopicTwisterServerSide\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Models\\Models.csproj",
+        "projectUniqueName": "D:\\_mio\\Proyecto integrador\\TopicTwisterServerSide\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Models\\Models.csproj",
-        "packagesPath": "C:\\Users\\Cristian\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\Models\\obj\\",
+        "projectPath": "D:\\_mio\\Proyecto integrador\\TopicTwisterServerSide\\Models\\Models.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "D:\\_mio\\Proyecto integrador\\TopicTwisterServerSide\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Cristian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

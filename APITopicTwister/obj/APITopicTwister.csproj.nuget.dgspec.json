@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj": {}
+    "D:\\_mio\\Proyecto integrador\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj": {
+    "D:\\_mio\\Proyecto integrador\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj",
+        "projectUniqueName": "D:\\_mio\\Proyecto integrador\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj",
         "projectName": "APITopicTwister",
-        "projectPath": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj",
-        "packagesPath": "C:\\Users\\Cristian\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Cristian\\Documents\\Proyectos\\TopicTwisterServerSide\\APITopicTwister\\obj\\",
+        "projectPath": "D:\\_mio\\Proyecto integrador\\TopicTwisterServerSide\\APITopicTwister\\APITopicTwister.csproj",
+        "packagesPath": "C:\\Users\\USUARIO\\.nuget\\packages\\",
+        "outputPath": "D:\\_mio\\Proyecto integrador\\TopicTwisterServerSide\\APITopicTwister\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Cristian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USUARIO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -77,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

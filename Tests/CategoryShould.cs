@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Services;
+using Services.DTOs;
 using Services.Errors;
 
 namespace Tests
@@ -22,13 +23,13 @@ namespace Tests
 
         [Test]
 
-        public void ReturnThreeCategoriesNames()
+        public void ReturnThreeCategories()
         {
             //given
             int value = 3;
 
             //when
-            int amount = categoryService.GetRandomCategoriesName(value).Count;
+            int amount = categoryService.GetRandomCategories(value).Count;
 
             //assert
             Assert.AreEqual(value, amount);
@@ -39,7 +40,7 @@ namespace Tests
         public void NotRepeatCategoryNamesIfAmountOfCategoriesIsGreaterThanAmountAsk()
         {
             //When
-            List<string> categoriesName = categoryService.GetRandomCategoriesName(5);
+            List<CategoryDTO> categoriesName = categoryService.GetRandomCategories(5);
             //Assert
             Assert.AreNotEqual(categoriesName[0], categoriesName[1]);
             Assert.AreNotEqual(categoriesName[0], categoriesName[2]);
@@ -58,8 +59,8 @@ namespace Tests
         public void RepeatCategoryNamesIfAmountOfCategoriesIsLowerThanAmountAsk()
         {
             //When
-            List<string> categoriesName = categoryService.GetRandomCategoriesName(categoryService.CategoryList.Count + 1);
-            List<string> categoriesAuxiliar = categoriesName;
+            List<CategoryDTO> categoriesName = categoryService.GetRandomCategories(categoryService.CategoryList.Count + 1);
+            List<CategoryDTO> categoriesAuxiliar = categoriesName;
             categoriesAuxiliar.RemoveAt(categoriesAuxiliar.Count - 1);
 
             //Assert
@@ -72,7 +73,7 @@ namespace Tests
         public void ReturnEmptyList(int amountOfCategories)
         {
             //When
-            List<string> categoriesName = categoryService.GetRandomCategoriesName(amountOfCategories);
+            List<CategoryDTO> categoriesName = categoryService.GetRandomCategories(amountOfCategories);
             //Assert
             Assert.AreEqual(0, categoriesName.Count);
 
