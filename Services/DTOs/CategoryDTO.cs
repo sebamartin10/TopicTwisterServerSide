@@ -8,8 +8,8 @@ namespace Services.DTOs
 {
     public class CategoryDTO
     {
-        public string CategoryID;
-        public string CategoryName;
-        
+        public string CategoryID { get; set; }
+        public string CategoryName { get; set; }
+
     }
 }

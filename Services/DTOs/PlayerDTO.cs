@@ -8,8 +8,8 @@ namespace Services.DTOs
 {
     public class PlayerDTO
     {
-        public string playerID;
-        public string playerName;
+        public string playerID { get; set; }
+        public string playerName { get; set; }
         
     }
 }
