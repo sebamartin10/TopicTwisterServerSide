@@ -1,4 +1,6 @@
 ﻿using Models;
+using Repository.Contracts;
+using Repository.Repos;
 using Services.DTOs;
 using Services.Errors;
 using System;
@@ -9,20 +11,39 @@ namespace Services
 {
     public class PlayerService
     {
-        public PlayerDTO CreatePlayer(string name)
+        public (PlayerDTO,ResponseTopicTwister) CreatePlayer(string name)
         {
-            Player player = new Player
+            ResponseTopicTwister response = new ResponseTopicTwister();
+            try
             {
-                PlayerID = Guid.NewGuid().ToString(),
-                PlayerName = name
-            };
+                response = VerifyName(name);
+                if (response.ResponseCode!=0) {
+                    return (null, response);
+                }
+                Player player = new Player
+                {
+                    PlayerID = Guid.NewGuid().ToString(),
+                    PlayerName = name
+                };
+                PlayerRepository playerRepo = new PlayerRepository();
+                playerRepo.Create(player);
 
-            PlayerDTO playerDTO = new PlayerDTO
+                PlayerDTO playerDTO = new PlayerDTO
+                {
+                    playerID = player.PlayerID,
+                    playerName = player.PlayerName
+                };
+                return (playerDTO,response);
+            }
+            catch (Exception ex)
             {
-                playerID = player.PlayerID,
-                playerName = player.PlayerName
-            };
-            return playerDTO;
+                response.ResponseCode = -1;
+                response.ResponseMessage = ex.Message;
+                return (null, response);
+            }
+            
+
+            
         }
 
         public static ResponseTopicTwister VerifyName(string name)
