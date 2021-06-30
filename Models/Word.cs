@@ -8,6 +8,7 @@ namespace Models
     {
         public string WordID { get; set; }
         public string WordName { get; set; }
+        public string LetterID { get; set; }
         public virtual Letter Letter { get; set; }
     }
 }

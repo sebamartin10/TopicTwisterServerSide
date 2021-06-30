@@ -11,7 +11,7 @@ namespace Services.DTOs
     {
         public string WordID { get; set; }
         public string WordName { get; set; }
-        public virtual Letter Letter { get; set; }
+        public string LetterID { get; set; }
 
     }
 }

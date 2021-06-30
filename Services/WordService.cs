@@ -32,23 +32,28 @@ namespace Services
                 LetterRepository letterRepository = new LetterRepository();
                 Letter letter = new Letter();
                 letter = letterRepository.FindByLetter(startLetter);
+                if (letter == null) {
+                    response.ResponseCode = -1;
+                    response.ResponseMessage = "La letra no existe";
+                    return response;
+                }
                 wordRepository = new WordRepository();
 
                 Word word = new Word
                 {
                     WordID = Guid.NewGuid().ToString(),
                     WordName = name,
-                    Letter = letter
+                    LetterID = letter.LetterID
                 };
 
                 wordRepository.Create(word);
 
                 response.Dto = new WordDTO
-
+                
                 {
                     WordID = word.WordID,
                     WordName = word.WordName,
-                    Letter = word.Letter 
+                    LetterID = word.LetterID 
                 };
                 return response;
             }
