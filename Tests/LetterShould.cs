@@ -16,7 +16,7 @@ namespace Tests
             //Given
             LetterService letterService = new LetterService();
             //When
-            char letter = letterService.GetRandomLetter();
+            char letter = letterService.GetRandomLetter().Dto.LetterName;
             //Assert
             Assert.IsNotNull(letter);
         }

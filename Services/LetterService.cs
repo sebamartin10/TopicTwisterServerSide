@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Models;
+using Repository.Contracts;
+using Repository.Repos;
+using Services.DTOs;
+using Services.Errors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,25 +13,73 @@ namespace Services
 {
     public class LetterService
     {
-        List<char> listOfLetters = new List<char>();
-        public List<char> ListOfLetters { get { return listOfLetters; } }
+        //List<char> listOfLetters = new List<char>();
+        //public List<char> ListOfLetters { get { return listOfLetters; } }
         //char letterSelected;
-        public LetterService()
-        {
-            listOfLetters.AddRange(new List<char>() {
-            'a',
-            'e',
-            'i',
-            'o',
-            'u'
-        });
-        }
-        public char GetRandomLetter()
-        {
-            Random rdm = new Random();
+        //public LetterService()
+        //{
+        //    listOfLetters.AddRange(new List<char>() {
+        //    'a',
+        //    'e',
+        //    'i',
+        //    'o',
+        //    'u'
+        //});
+        //}
+        private List<Letter> letterList = new List<Letter>();
+        public List<Letter> LetterList => LetterList;
 
-            int randomIndex = rdm.Next(0, listOfLetters.Count);
-            return listOfLetters[randomIndex];
+        ILetterRepository letterRepo;
+        public ResponseTopicTwister<LetterDTO> CreateLetter(char name)
+        {
+            try
+            {
+                ResponseTopicTwister<LetterDTO> response = new ResponseTopicTwister<LetterDTO>();
+
+                Letter letter = new Letter
+                {
+                    LetterID = Guid.NewGuid().ToString(),
+                    LetterName = name
+                };
+
+                letterRepo = new LetterRepository();
+                letterRepo.Create(letter);
+
+                response.Dto = new LetterDTO
+
+                {
+                    LetterID = letter.LetterID,
+                    LetterName = letter.LetterName
+                };
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new ResponseTopicTwister<LetterDTO>(null, -1, ex.Message);
+            }
+        }
+
+        public ResponseTopicTwister<LetterDTO> GetRandomLetter()
+        {
+            try
+            {
+                ResponseTopicTwister<LetterDTO> response = new ResponseTopicTwister<LetterDTO>();
+                letterRepo = new LetterRepository();
+                LetterDTO letterDTO = new LetterDTO();
+                Random rdm = new Random();
+                List<Letter> letters = new List<Letter>();
+                int randomIndex = rdm.Next(0, letterList.Count);
+                letters.Add(letterList[randomIndex]);
+                letterDTO.LetterID = letterList[randomIndex].LetterID;
+                letterDTO.LetterName = letterList[randomIndex].LetterName;
+                response.Dto = letterDTO;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new ResponseTopicTwister<LetterDTO>(new LetterDTO(), -1, ex.Message);
+            }
+
         }
     }
 }
