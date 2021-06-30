@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
 namespace Repository.Migrations
 {
     [DbContext(typeof(SQLServerContext))]
-    partial class SQLServerContextModelSnapshot : ModelSnapshot
+    [Migration("20210630222531_update models")]
+    partial class updatemodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,26 +131,6 @@ namespace Repository.Migrations
                     b.ToTable("Round");
                 });
 
-            modelBuilder.Entity("Models.RoundCategory", b =>
-                {
-                    b.Property<string>("RoundCategoryID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CategoryID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("RoundID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("RoundCategoryID");
-
-                    b.HasIndex("CategoryID");
-
-                    b.HasIndex("RoundID");
-
-                    b.ToTable("RoundCategory");
-                });
-
             modelBuilder.Entity("Models.Session", b =>
                 {
                     b.Property<string>("SessionID")
@@ -197,26 +179,6 @@ namespace Repository.Migrations
                     b.ToTable("Word");
                 });
 
-            modelBuilder.Entity("Models.WordCategory", b =>
-                {
-                    b.Property<string>("WordCategoryID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CategoryID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("WordID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("WordCategoryID");
-
-                    b.HasIndex("CategoryID");
-
-                    b.HasIndex("WordID");
-
-                    b.ToTable("WordCategory");
-                });
-
             modelBuilder.Entity("Models.Answer", b =>
                 {
                     b.HasOne("Models.Category", "Category")
@@ -262,21 +224,6 @@ namespace Repository.Migrations
                     b.Navigation("Letter");
                 });
 
-            modelBuilder.Entity("Models.RoundCategory", b =>
-                {
-                    b.HasOne("Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryID");
-
-                    b.HasOne("Models.Round", "Round")
-                        .WithMany()
-                        .HasForeignKey("RoundID");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Round");
-                });
-
             modelBuilder.Entity("Models.Turn", b =>
                 {
                     b.HasOne("Models.Player", "Player")
@@ -297,21 +244,6 @@ namespace Repository.Migrations
                         .HasForeignKey("LetterID");
 
                     b.Navigation("Letter");
-                });
-
-            modelBuilder.Entity("Models.WordCategory", b =>
-                {
-                    b.HasOne("Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryID");
-
-                    b.HasOne("Models.Word", "Word")
-                        .WithMany()
-                        .HasForeignKey("WordID");
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Word");
                 });
 
             modelBuilder.Entity("Models.Player", b =>

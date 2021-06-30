@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Models
 {
-    class Session
+    public class Session
     {
         public string SessionID { get; set; }
         public virtual ICollection<Round> Rounds { get; set; }

@@ -4,10 +4,11 @@ using System.Text;
 
 namespace Models
 {
-    class PlayerSession
+    public class PlayerSession
     {
         public string PlayerSessionID { get; set; }
-        public virtual Player Player { get; set; }
+        public string PlayerID { get; set; }
+        public string SessionID { get; set; }
         public virtual Session Session { get; set; }
 
 }

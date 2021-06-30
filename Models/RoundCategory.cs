@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Models
 {
-    class RoundCategory
+    public class RoundCategory
     {
         public string RoundCategoryID { get; set; }
         public virtual Category Category { get; set; }
