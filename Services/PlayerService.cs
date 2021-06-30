@@ -11,44 +11,42 @@ namespace Services
 {
     public class PlayerService
     {
-        public (PlayerDTO,ResponseTopicTwister) CreatePlayer(string name)
+        public ResponseTopicTwister<PlayerDTO> CreatePlayer(string name)
         {
-            ResponseTopicTwister response = new ResponseTopicTwister();
             try
             {
-                response = VerifyName(name);
+                ResponseTopicTwister<PlayerDTO> response = VerifyName(name);
                 if (response.ResponseCode!=0) {
-                    return (null, response);
+                    return (response);
                 }
+
                 Player player = new Player
                 {
                     PlayerID = Guid.NewGuid().ToString(),
                     PlayerName = name
                 };
-                PlayerRepository playerRepo = new PlayerRepository();
+
+                IPlayerRepository playerRepo = new PlayerRepository();
                 playerRepo.Create(player);
 
-                PlayerDTO playerDTO = new PlayerDTO
+                response.Dto = new PlayerDTO
                 {
                     playerID = player.PlayerID,
                     playerName = player.PlayerName
                 };
-                return (playerDTO,response);
+
+                return response;
             }
             catch (Exception ex)
             {
-                response.ResponseCode = -1;
-                response.ResponseMessage = ex.Message;
-                return (null, response);
-            }
-            
-
+                return new ResponseTopicTwister<PlayerDTO>(null,-1,ex.Message);
+            }         
             
         }
 
-        public static ResponseTopicTwister VerifyName(string name)
+        public static ResponseTopicTwister<PlayerDTO> VerifyName(string name)
         {
-            ResponseTopicTwister response = new ResponseTopicTwister();
+            ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
             if (name.Length<4) {
                 response.ResponseCode = -1;
                 response.ResponseMessage = "Nombre debe tener al menos 4 (cuatro) caracteres.";

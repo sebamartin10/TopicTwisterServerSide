@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using Services;
+using Services.DTOs;
 using Services.Errors;
 
 namespace Tests
@@ -21,7 +22,7 @@ namespace Tests
             //Given
             PlayerService playerService = new PlayerService();
             //When
-            ResponseTopicTwister result = PlayerService.VerifyName(name);
+            ResponseTopicTwister<PlayerDTO> result = PlayerService.VerifyName(name);
             //Then
             Assert.AreEqual(expected, result.ResponseCode);
         }

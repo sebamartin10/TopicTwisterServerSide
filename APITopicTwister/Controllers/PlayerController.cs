@@ -9,15 +9,13 @@ using System.Threading.Tasks;
 
 namespace APITopicTwister.Controllers
 {
-    public class PlayerController : Controller
-    {
+    public class PlayerController : Controller {
         [HttpGet("CreatePlayer")]
-        public (PlayerDTO,ResponseTopicTwister) CreatePlayer(PlayerDTO playerDTO) {
-            //SqlServerContext context = new SqlServerContext();
+        public ResponseTopicTwister<PlayerDTO> CreatePlayer(PlayerDTO playerDTO) {
             PlayerService playerService = new PlayerService();
-            (PlayerDTO,ResponseTopicTwister) response = playerService.CreatePlayer(playerDTO.playerName);
+            ResponseTopicTwister<PlayerDTO> response = playerService.CreatePlayer(playerDTO.playerName);
             return response;
         }
-        
+
     }
 }
