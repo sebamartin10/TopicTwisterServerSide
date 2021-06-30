@@ -65,6 +65,7 @@ namespace Services
             {
                 ResponseTopicTwister<LetterDTO> response = new ResponseTopicTwister<LetterDTO>();
                 letterRepo = new LetterRepository();
+                letterList = letterRepo.FindAllLetter();
                 LetterDTO letterDTO = new LetterDTO();
                 Random rdm = new Random();
                 List<Letter> letters = new List<Letter>();

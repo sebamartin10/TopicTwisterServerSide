@@ -27,7 +27,7 @@ namespace Repository.Repos
 
         public List<Letter> FindAllLetter()
         {
-            throw new NotImplementedException();
+            return context.Letters.ToList();
         }
 
 
