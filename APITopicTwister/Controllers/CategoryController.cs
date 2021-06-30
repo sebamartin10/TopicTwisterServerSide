@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Repository.Repos;
 using Services;
 using Services.DTOs;
 using Services.Errors;
@@ -14,7 +15,7 @@ namespace APITopicTwister.Controllers
         [HttpGet("CreateCategory")]
         public ResponseTopicTwister<CategoryDTO> CreateCategory(CategoryDTO categoryDTO)
         {
-            CategoryService categoryService = new CategoryService();
+            CategoryService categoryService = new CategoryService(new CategoryRepository());
             ResponseTopicTwister<CategoryDTO> response = categoryService.CreateCategory(categoryDTO.CategoryName);
             return response;
         }
@@ -22,17 +23,10 @@ namespace APITopicTwister.Controllers
         [HttpGet("GetRandomCategories")]
         public ResponseTopicTwister<List<CategoryDTO>> GetRandomCategories()
         {
-            CategoryService categoryService = new CategoryService();
+            CategoryService categoryService = new CategoryService(new CategoryRepository());
             ResponseTopicTwister<List<CategoryDTO>> response = categoryService.GetRandomCategories(3);
             return response;
         }
 
-        //[HttpGet("GetRandomCategory")]
-        //public CategoryDTO GetRandomCategory()
-        //{
-        //    CategoryService categoryService = new CategoryService();
-        //    List<CategoryDTO> categoryDTO = categoryService.GetRandomCategories(3);
-        //    return categoryDTO[0];
-        //}
     }
 }

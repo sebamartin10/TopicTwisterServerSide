@@ -13,18 +13,15 @@ namespace Services
 {
     public class CategoryService
     {
-        //private List<Category> categoryList = new List<Category>();
-        //public List<Category> CategoryList => categoryList;
-       
-        //public CategoryService()
-        //{
-        //    //TODO - Traer desde base de datos
-        //    categoryList.Add(new Category("Objeto"));
-        //    categoryList.Add(new Category("Cine"));
-        //    categoryList.Add(new Category("Musica"));
-        //    categoryList.Add(new Category("Animal"));
-        //    categoryList.Add(new Category("Fruta o Verdura"));
-        //}
+        private List<Category> categoryList = new List<Category>();
+        public List<Category> CategoryList => categoryList;
+
+        ICategoryRepository categoryRepository;
+
+        public CategoryService(ICategoryRepository categoryRepository) {
+            this.categoryRepository = categoryRepository;
+            categoryList = categoryRepository.FindAllCategory();
+        }
 
         public ResponseTopicTwister<CategoryDTO> CreateCategory(string name)
         {
@@ -37,9 +34,8 @@ namespace Services
                     CategoryID = Guid.NewGuid().ToString(),
                     CategoryName = name
                 };
-                
-                ICategoryRepository categoryRepo = new CategoryRepository();
-                categoryRepo.Create(category);
+
+                categoryRepository.Create(category);
 
                 response.Dto = new CategoryDTO
 
@@ -65,10 +61,8 @@ namespace Services
             {
                 return new ResponseTopicTwister<List<CategoryDTO>>(new List<CategoryDTO>());
             }
-            ICategoryRepository categoryRepo = new CategoryRepository();
 
             Random random = new Random();
-            List<Category> categoryList = categoryRepo.FindAllCategory();
             List<Category> categories = new List<Category>();
 
             for (int i = 0; i < amountOfCategoriesAskedToReturn;)

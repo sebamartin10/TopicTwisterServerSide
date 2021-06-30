@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Repository">
+      <HintPath>..\Repository\bin\Debug\netcoreapp5.0\Repository.dll</HintPath>
+    </Reference>
     <Reference Include="Services">
       <HintPath>..\Services\bin\Debug\netcoreapp5.0\Services.dll</HintPath>
     </Reference>
