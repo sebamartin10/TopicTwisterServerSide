@@ -12,7 +12,7 @@ namespace APITopicTwister.Controllers
 {
     public class CategoryController : Controller
     {
-        [HttpGet("CreateCategory")]
+        [HttpPost("CreateCategory")]
         public ResponseTopicTwister<CategoryDTO> CreateCategory(CategoryDTO categoryDTO)
         {
             CategoryService categoryService = new CategoryService(new CategoryRepository());

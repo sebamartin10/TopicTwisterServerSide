@@ -12,10 +12,10 @@ namespace APITopicTwister.Controllers
 {
     public class WordController : Controller
     {
-        [HttpGet("CreateWord")]
+        [HttpPost("CreateWord")]
         public ResponseTopicTwister<WordDTO> CreateWord(WordDTO wordDTO)
         {
-            WordService wordService = new WordService(new WordRepository());
+            WordService wordService = new WordService();
             ResponseTopicTwister<WordDTO> response = wordService.CreateWord(wordDTO.WordName);
             return response;
         }

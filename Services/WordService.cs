@@ -18,10 +18,10 @@ namespace Services
 
         IWordRepository wordRepository;
 
-        public WordService(IWordRepository wordRepository) {
-            this.wordRepository = wordRepository;
-            wordList = wordRepository.FindAllWord();
-        }
+        //public WordService(IWordRepository wordRepository) {
+        //    this.wordRepository = wordRepository;
+        //    wordList = wordRepository.FindAllWord();
+        //}
 
         public ResponseTopicTwister<WordDTO> CreateWord(string name)
         {
@@ -32,6 +32,7 @@ namespace Services
                 LetterRepository letterRepository = new LetterRepository();
                 Letter letter = new Letter();
                 letter = letterRepository.FindByLetter(startLetter);
+                wordRepository = new WordRepository();
 
                 Word word = new Word
                 {
@@ -46,7 +47,8 @@ namespace Services
 
                 {
                     WordID = word.WordID,
-                    WordName = word.WordName
+                    WordName = word.WordName,
+                    Letter = word.Letter 
                 };
                 return response;
             }

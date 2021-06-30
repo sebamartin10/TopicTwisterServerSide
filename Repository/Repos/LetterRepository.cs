@@ -33,7 +33,10 @@ namespace Repository.Repos
 
         public Letter FindByLetter(char letterName)
         {
-            return context.Letters.
+            Letter letter = (from x in context.Letters
+                             where x.LetterName == letterName
+                             select x).FirstOrDefault();
+            return letter;
         }
     }
 }

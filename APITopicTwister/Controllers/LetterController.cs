@@ -12,7 +12,7 @@ namespace APITopicTwister.Controllers
 {
     public class LetterController: Controller
     {
-        [HttpGet("CreateLetter")]
+        [HttpPost("CreateLetter")]
         public ResponseTopicTwister<LetterDTO> CreateCategory(LetterDTO letterDTO)
         {
             LetterService letterService = new LetterService();
