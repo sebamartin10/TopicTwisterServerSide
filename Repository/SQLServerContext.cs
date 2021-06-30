@@ -13,6 +13,7 @@ namespace Repository
         public DbSet<Player> Players { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Letter> Letters { get; set; }
+        public DbSet<Word> Words { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=SQL5101.site4now.net;Initial Catalog=db_a76b7c_jsmartin;User Id=db_a76b7c_jsmartin_admin;Password=Gringo544");
@@ -27,6 +28,9 @@ namespace Repository
             });
             builder.Entity<Letter>(entity => {
                 entity.ToTable("Letter");
+            });
+            builder.Entity<Word>(entity => {
+                entity.ToTable("Word");
             });
         }
     }

@@ -7,33 +7,33 @@ using System.Linq;
 
 namespace Repository.Repos
 {
-    public class LetterRepository : ILetterRepository
+    public class WordRepository : IWordRepository
     {
         private readonly SQLServerContext context;
-        public LetterRepository() {
+        public WordRepository()
+        {
             context = new SQLServerContext();
         }
-        public void Create(Letter letter)
+        public void Create(Word word)
         {
-            context.Letters.Add(letter);
+            context.Words.Add(word);
             context.SaveChanges();
 
         }
 
-        public void Delete(Letter letter)
+        public void Delete(Word word)
         {
             throw new NotImplementedException();
         }
 
-        public List<Letter> FindAllLetter()
+        public List<Word> FindAllWord()
         {
-            return context.Letters.ToList();
+            return context.Words.ToList();
         }
 
-
-        public Letter FindByLetter(char letterName)
+        public Word FindByWord(string wordName)
         {
-            return context.Letters.
+            throw new NotImplementedException();
         }
     }
 }
