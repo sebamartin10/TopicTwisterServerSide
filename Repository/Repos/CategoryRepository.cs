@@ -27,7 +27,8 @@ namespace Repository.Repos
 
         public List<Category> FindAllCategory()
         {
-            throw new NotImplementedException();
+            return context.Categories.ToList();
+
         }
 
         public Category FindByCategory(string categoryName)

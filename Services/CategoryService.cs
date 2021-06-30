@@ -63,9 +63,10 @@ namespace Services
             {
                 return new ResponseTopicTwister<List<CategoryDTO>>();
             }
+            ICategoryRepository categoryRepo = new CategoryRepository();
 
             Random random = new Random();
-            List<Category> categories = new List<Category>(amountOfCategoriesAskedToReturn);
+            List<Category> categories = categoryRepo.FindAllCategory();
 
             for (int i = 0; i < amountOfCategoriesAskedToReturn;)
             {
