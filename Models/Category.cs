@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Models
 {
-    public class Category : IEquatable<Category>
+    public class Category /*: IEquatable<Category>*/
     {
         public string CategoryName { get; set; }
         public string CategoryID { get; set; }
@@ -18,16 +18,16 @@ namespace Models
         //    //CategoryID = name;
         //}
 
-        public bool Equals(Category other)
-        {
-            if (other == null)
-                return false;
+        //public bool Equals(Category other)
+        //{
+        //    if (other == null)
+        //        return false;
 
-            if (this.CategoryID == other.CategoryID)
-                return true;
-            else
-                return false;
-        }
+        //    if (this.CategoryID == other.CategoryID)
+        //        return true;
+        //    else
+        //        return false;
+        //}
 
     }
 
