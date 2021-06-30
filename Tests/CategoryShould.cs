@@ -54,18 +54,18 @@ namespace Tests
             Assert.AreNotEqual(categoriesName[3], categoriesName[4]);
         }
 
-        [Test]
+        //[Test]
 
-        public void RepeatCategoryNamesIfAmountOfCategoriesIsLowerThanAmountAsk()
-        {
-            //When
-            List<CategoryDTO> categoriesName = categoryService.GetRandomCategories(categoryService.CategoryList.Count + 1).Dto;
-            List<CategoryDTO> categoriesAuxiliar = categoriesName;
-            categoriesAuxiliar.RemoveAt(categoriesAuxiliar.Count - 1);
+        //public void RepeatCategoryNamesIfAmountOfCategoriesIsLowerThanAmountAsk()
+        //{
+        //    //When
+        //    List<CategoryDTO> categoriesName = categoryService.GetRandomCategories(categoryService.CategoryList.Count + 1).Dto;
+        //    List<CategoryDTO> categoriesAuxiliar = categoriesName;
+        //    categoriesAuxiliar.RemoveAt(categoriesAuxiliar.Count - 1);
 
-            //Assert
-            Assert.IsTrue(categoriesAuxiliar.Contains(categoriesName[categoriesName.Count - 1]));
-        }
+        //    //Assert
+        //    Assert.IsTrue(categoriesAuxiliar.Contains(categoriesName[categoriesName.Count - 1]));
+        //}
 
         [TestCase(0)]
         [TestCase(-1)]

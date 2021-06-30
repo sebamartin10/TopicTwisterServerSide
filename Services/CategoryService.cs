@@ -13,8 +13,8 @@ namespace Services
 {
     public class CategoryService
     {
-        private List<Category> categoryList = new List<Category>();
-        public List<Category> CategoryList => categoryList;
+        //private List<Category> categoryList = new List<Category>();
+        //public List<Category> CategoryList => categoryList;
        
         //public CategoryService()
         //{
@@ -57,16 +57,19 @@ namespace Services
 
         public ResponseTopicTwister<List<CategoryDTO>> GetRandomCategories(int amountOfCategoriesAskedToReturn)
         {
+            try
+            { 
             ResponseTopicTwister<List<CategoryDTO>> response = new ResponseTopicTwister<List<CategoryDTO>>();
 
             if (amountOfCategoriesAskedToReturn <= 0)
             {
-                return new ResponseTopicTwister<List<CategoryDTO>>();
+                return new ResponseTopicTwister<List<CategoryDTO>>(new List<CategoryDTO>());
             }
             ICategoryRepository categoryRepo = new CategoryRepository();
 
             Random random = new Random();
-            List<Category> categories = categoryRepo.FindAllCategory();
+            List<Category> categoryList = categoryRepo.FindAllCategory();
+            List<Category> categories = new List<Category>();
 
             for (int i = 0; i < amountOfCategoriesAskedToReturn;)
             {
@@ -92,33 +95,38 @@ namespace Services
             }
             response.Dto = categoriesDTOs;
             return response;
+            }
+            catch (Exception ex)
+            {
+                return new ResponseTopicTwister<List<CategoryDTO>>(new List<CategoryDTO>(), -1, ex.Message);
+            }
         }
 
-        public List<Category> GetCategories(List<string> categoriesNames)
-        {
-            List<Category> categories = new List<Category>();
-            for (int i = 0; i < categoriesNames.Count; i++)
-            {
-                foreach (var category in categoryList)
-                {
-                    if (category.CategoryName == categoriesNames[i])
-                    {
-                        categories.Add(category);
-                    }
-                }
-            }
-            return categories;
-        }
+        //public List<Category> GetCategories(List<string> categoriesNames)
+        //{
+        //    List<Category> categories = new List<Category>();
+        //    for (int i = 0; i < categoriesNames.Count; i++)
+        //    {
+        //        foreach (var category in categoryList)
+        //        {
+        //            if (category.CategoryName == categoriesNames[i])
+        //            {
+        //                categories.Add(category);
+        //            }
+        //        }
+        //    }
+        //    return categories;
+        //}
 
-        public List<string> GetCategoriesNames(List<Category> categories)
-        {
-            List<string> categoriesName = new List<string>();
-            foreach (Category category in categories)
-            {
-                categoriesName.Add(category.CategoryName);
-            }
-            return categoriesName;
-        }
+        //public List<string> GetCategoriesNames(List<Category> categories)
+        //{
+        //    List<string> categoriesName = new List<string>();
+        //    foreach (Category category in categories)
+        //    {
+        //        categoriesName.Add(category.CategoryName);
+        //    }
+        //    return categoriesName;
+        //}
 
 
     }
