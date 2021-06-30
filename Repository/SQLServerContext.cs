@@ -11,6 +11,7 @@ namespace Repository
     {
         
         public DbSet<Player> Players { get; set; }
+        public DbSet<Category> Categories { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=SQL5101.site4now.net;Initial Catalog=db_a76b7c_jsmartin;User Id=db_a76b7c_jsmartin_admin;Password=Gringo544");
@@ -19,6 +20,9 @@ namespace Repository
         {
             builder.Entity<Player>(entity => {
                 entity.ToTable("Player");
+            });
+            builder.Entity<Category>(entity => {
+                entity.ToTable("Category");
             });
         }
     }

@@ -29,7 +29,7 @@ namespace Tests
             int value = 3;
 
             //when
-            int amount = categoryService.GetRandomCategories(value).Count;
+            int amount = categoryService.GetRandomCategories(value).Dto.Count;
 
             //assert
             Assert.AreEqual(value, amount);
@@ -40,7 +40,7 @@ namespace Tests
         public void NotRepeatCategoryNamesIfAmountOfCategoriesIsGreaterThanAmountAsk()
         {
             //When
-            List<CategoryDTO> categoriesName = categoryService.GetRandomCategories(5);
+            List<CategoryDTO> categoriesName = categoryService.GetRandomCategories(5).Dto;
             //Assert
             Assert.AreNotEqual(categoriesName[0], categoriesName[1]);
             Assert.AreNotEqual(categoriesName[0], categoriesName[2]);
@@ -59,7 +59,7 @@ namespace Tests
         public void RepeatCategoryNamesIfAmountOfCategoriesIsLowerThanAmountAsk()
         {
             //When
-            List<CategoryDTO> categoriesName = categoryService.GetRandomCategories(categoryService.CategoryList.Count + 1);
+            List<CategoryDTO> categoriesName = categoryService.GetRandomCategories(categoryService.CategoryList.Count + 1).Dto;
             List<CategoryDTO> categoriesAuxiliar = categoriesName;
             categoriesAuxiliar.RemoveAt(categoriesAuxiliar.Count - 1);
 
@@ -73,7 +73,7 @@ namespace Tests
         public void ReturnEmptyList(int amountOfCategories)
         {
             //When
-            List<CategoryDTO> categoriesName = categoryService.GetRandomCategories(amountOfCategories);
+            List<CategoryDTO> categoriesName = categoryService.GetRandomCategories(amountOfCategories).Dto;
             //Assert
             Assert.AreEqual(0, categoriesName.Count);
 

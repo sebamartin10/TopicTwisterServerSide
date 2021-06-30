@@ -8,11 +8,16 @@ namespace Models
     {
         public string CategoryName { get; set; }
         public string CategoryID { get; set; }
-        public Category(string name)
-        {
-            CategoryName = name;
-            CategoryID = name;
-        }
+        //public Category()
+        //{
+        //}
+
+        //public Category(string name)
+        //{
+        //    CategoryName = name;
+        //    //CategoryID = name;
+        //}
+
         public bool Equals(Category other)
         {
             if (other == null)

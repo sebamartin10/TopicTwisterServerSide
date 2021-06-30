@@ -4,7 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
+using Repository.Contracts;
+using Repository.Repos;
 using Services.DTOs;
+using Services.Errors;
 
 namespace Services
 {
@@ -13,32 +16,52 @@ namespace Services
         private List<Category> categoryList = new List<Category>();
         public List<Category> CategoryList => categoryList;
        
-        public CategoryService()
-        {
-            //TODO - Traer desde base de datos
-            categoryList.Add(new Category("Objeto"));
-            categoryList.Add(new Category("Cine"));
-            categoryList.Add(new Category("Musica"));
-            categoryList.Add(new Category("Animal"));
-            categoryList.Add(new Category("Fruta o Verdura"));
-        }
+        //public CategoryService()
+        //{
+        //    //TODO - Traer desde base de datos
+        //    categoryList.Add(new Category("Objeto"));
+        //    categoryList.Add(new Category("Cine"));
+        //    categoryList.Add(new Category("Musica"));
+        //    categoryList.Add(new Category("Animal"));
+        //    categoryList.Add(new Category("Fruta o Verdura"));
+        //}
 
-        private CategoryDTO CreateCategoryDTO(Category category)
+        public ResponseTopicTwister<CategoryDTO> CreateCategory(string name)
         {
-            CategoryDTO categoryDTO = new CategoryDTO
-
+            try
             {
-                CategoryID = category.CategoryID,
-                CategoryName = category.CategoryName
-            };
-            return categoryDTO;
+                ResponseTopicTwister<CategoryDTO> response = new ResponseTopicTwister<CategoryDTO>();
+
+                Category category = new Category
+                {
+                    CategoryID = Guid.NewGuid().ToString(),
+                    CategoryName = name
+                };
+                
+                ICategoryRepository categoryRepo = new CategoryRepository();
+                categoryRepo.Create(category);
+
+                response.Dto = new CategoryDTO
+
+                {
+                    CategoryID = category.CategoryID,
+                    CategoryName = category.CategoryName
+                };
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new ResponseTopicTwister<CategoryDTO>(null, -1, ex.Message);
+            }
         }
 
-        public List<CategoryDTO> GetRandomCategories(int amountOfCategoriesAskedToReturn)
+        public ResponseTopicTwister<List<CategoryDTO>> GetRandomCategories(int amountOfCategoriesAskedToReturn)
         {
+            ResponseTopicTwister<List<CategoryDTO>> response = new ResponseTopicTwister<List<CategoryDTO>>();
+
             if (amountOfCategoriesAskedToReturn <= 0)
             {
-                return new List<CategoryDTO>();
+                return new ResponseTopicTwister<List<CategoryDTO>>();
             }
 
             Random random = new Random();
@@ -61,10 +84,13 @@ namespace Services
             List<CategoryDTO> categoriesDTOs = new List<CategoryDTO>(amountOfCategoriesAskedToReturn);
             for (int i = 0; i < amountOfCategoriesAskedToReturn; i++)
             {
-                CategoryDTO categoryDTO = CreateCategoryDTO(categories[i]);
+                CategoryDTO categoryDTO = new CategoryDTO();
+                categoryDTO.CategoryName = categories[i].CategoryName;
+                categoryDTO.CategoryID = categories[i].CategoryID;
                 categoriesDTOs.Add(categoryDTO);
             }
-            return categoriesDTOs;
+            response.Dto = categoriesDTOs;
+            return response;
         }
 
         public List<Category> GetCategories(List<string> categoriesNames)
