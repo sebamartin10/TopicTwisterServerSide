@@ -33,7 +33,11 @@ namespace Repository.Repos
             throw new NotImplementedException();
         }
 
+<<<<<<< HEAD
         public Turn FindById(string id)
+=======
+        public Turn FindByTurn(string id)
+>>>>>>> f3fb79ae11e9873747f02695f0a64cc5e3267509
         {
             Turn turn = context.Turns.Single<Turn>(c => c.TurnID == id);
             return turn;

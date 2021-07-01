@@ -31,6 +31,14 @@ namespace Repository.Repos
             throw new NotImplementedException();
         }
 
+        public WordCategory FindByWordAndCategory(string wordID, string categoryID)
+        {
+            WordCategory wordCategory = (from x in context.WordCategories
+                         where x.WordID == wordID && x.CategoryID == categoryID 
+                         select x).FirstOrDefault();
+            return wordCategory;
+        }
+
         public WordCategory FindByWordCategoryID(string WordCategoryID)
         {
             throw new NotImplementedException();
