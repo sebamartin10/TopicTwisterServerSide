@@ -41,7 +41,7 @@ namespace Services
                 Word word = new Word();
                 WordRepository wordRepository = new WordRepository();
 
-                WordCategory wordCategory = new WordCategory;
+                WordCategory wordCategory = new WordCategory();
                 WordCategoryRepository wordCategoryRepository = new WordCategoryRepository();
 
                 if (wordRepository.FindByWord(wordAnswered) != null &&
