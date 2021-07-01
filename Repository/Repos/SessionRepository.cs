@@ -38,7 +38,7 @@ namespace Repository.Repos
             return context.Sessions.ToList();
         }
 
-        public Session GetById(string id)
+        public Session FindById(string id)
         {
             Session session = context.Sessions.Single<Session>(c => c.SessionID == id);
             return session;

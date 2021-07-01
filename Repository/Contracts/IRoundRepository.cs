@@ -11,6 +11,6 @@ namespace Repository.Contracts
         public void Delete(Round round);
         public void Update(Round round);
         //public List<Round> GetAllRoundsBySessionID(string sessionId);
-        public Round GetById(string id);
+        public Round FindById(string id);
     }
 }

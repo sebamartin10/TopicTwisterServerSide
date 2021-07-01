@@ -10,6 +10,6 @@ namespace Repository.Contracts
         public void Create(Turn turn);
         public void Delete(Turn turn);
         public void Update(Turn turn);
-        public Turn GetById(string id);
+        public Turn FindById(string id);
     }
 }

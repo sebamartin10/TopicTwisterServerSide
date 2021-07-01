@@ -23,9 +23,8 @@ namespace Repository.Repos
 
         public void Update(Round round)
         {
-            // Esto tiene sentido? O primero debo hacer un find con el id?
             context.Rounds.Update(round);
-            //context.SaveChanges();
+            context.SaveChanges();
         }
 
         public void Delete(Round round)
@@ -33,9 +32,11 @@ namespace Repository.Repos
             throw new NotImplementedException();
         }
 
-        public Round GetById(string id)
+        public Round FindById(string id)
         {
-            Round round = context.Rounds.Single<Round>(c => c.RoundID == id);
+            Round round = (from x in context.Rounds
+                           where x.RoundID == id
+                           select x).First();
             return round;
         }
     }

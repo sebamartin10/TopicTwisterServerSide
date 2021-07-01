@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Services.DTOs
 {
-    public class TurnDTO
+    public class RoundDTO
     {
-        public string TurnID { get; set; }
-        public string PlayerID { get; set; }
         public string RoundID { get; set; }
-        public virtual List<string> Answers { get; set; }
+        public string SessionID { get; set; }
+        public string LetterID { get; set; }
+        public virtual ICollection<TurnDTO> Turns { get; set; }
     }
 }

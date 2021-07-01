@@ -9,8 +9,8 @@ namespace Repository.Contracts
     {
         public void Create(Session session);
         public void Delete(Session session);
-        public void Update(Session session;
-        public Session GetById(string id);
+        public void Update(Session session);
+        public Session FindById(string id);
         public List<Session> FindAllSessions();
     }
 }
