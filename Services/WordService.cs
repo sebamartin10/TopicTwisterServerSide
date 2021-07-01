@@ -18,11 +18,6 @@ namespace Services
 
         IWordRepository wordRepository;
 
-        //public WordService(IWordRepository wordRepository) {
-        //    this.wordRepository = wordRepository;
-        //    wordList = wordRepository.FindAllWord();
-        //}
-
         public ResponseTopicTwister<WordDTO> CreateWord(string name)
         {
             try
