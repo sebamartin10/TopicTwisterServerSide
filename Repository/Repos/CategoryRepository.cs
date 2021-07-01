@@ -33,7 +33,10 @@ namespace Repository.Repos
 
         public Category FindByCategory(string categoryName)
         {
-            throw new NotImplementedException();
+            Category category = (from x in context.Categories
+                             where x.CategoryName == categoryName
+                             select x).FirstOrDefault();
+            return category;
         }
 
     }

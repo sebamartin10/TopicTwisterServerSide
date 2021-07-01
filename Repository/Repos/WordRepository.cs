@@ -33,7 +33,10 @@ namespace Repository.Repos
 
         public Word FindByWord(string wordName)
         {
-            throw new NotImplementedException();
+            Word word = (from x in context.Words
+                             where x.WordName == wordName
+                             select x).FirstOrDefault();
+            return word;
         }
     }
 }
