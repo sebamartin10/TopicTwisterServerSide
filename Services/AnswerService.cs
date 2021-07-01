@@ -64,7 +64,6 @@ namespace Services
                     AnswerID = Guid.NewGuid().ToString(),
                     WordAnswered = wordAnswered,
                     WordID = word.WordID,
-                    LetterID = letter.LetterID,
                     CategoryID = category.CategoryID,
                     TurnID = turn.TurnID,
                     Correct = isCorrect
@@ -78,7 +77,6 @@ namespace Services
                     AnswerID = Guid.NewGuid().ToString(),
                     WordAnswered = wordAnswered,
                     WordID = word.WordID,
-                    LetterID = letter.LetterID,
                     CategoryID = category.CategoryID,
                     TurnID = turn.TurnID,
                     Correct = isCorrect

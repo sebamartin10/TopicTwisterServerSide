@@ -12,7 +12,6 @@ namespace Services.DTOs
         public string AnswerID { get; set; }
         public string WordAnswered { get; set; }
         public string WordID { get; set; }
-        public string LetterID { get; set; }
         public string CategoryID { get; set; }
         public string TurnID { get; set; }
         public bool Correct { get; set; }
