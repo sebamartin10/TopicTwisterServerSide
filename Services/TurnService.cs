@@ -45,9 +45,12 @@ namespace Services
         public TurnDTO ConvertToDTO(Turn turn)
         {
             List<AnswerDTO> answersListDto = new List<AnswerDTO>();
-            foreach(var answer in turn.Answers)
+            if (turn.Answers != null)
             {
-                answersListDto.Add(answerService.ConvertToDTO(answer));
+                foreach (var answer in turn.Answers)
+                {
+                    answersListDto.Add(answerService.ConvertToDTO(answer));
+                }
             }
             TurnDTO turnDto = new TurnDTO
             {

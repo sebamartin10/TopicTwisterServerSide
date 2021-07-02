@@ -23,22 +23,29 @@ namespace Repository.Repos
 
         public void Delete(RoundCategory roundCategory)
         {
-            throw new NotImplementedException();
+            context.RoundCategories.Remove(roundCategory);
+            context.SaveChanges();
         }
 
         public List<RoundCategory> FindAllRoundCategory()
         {
-            throw new NotImplementedException();
+            return context.RoundCategories.ToList();
         }
 
         public RoundCategory FindByRoundAndCategory(string RoundID, string CategoryID)
         {
-            throw new NotImplementedException();
+            RoundCategory roundCategory = (from x in context.RoundCategories
+                                           where x.RoundID == RoundID && x.CategoryID == CategoryID
+                                           select x).First();
+            return roundCategory;
         }
 
         public RoundCategory FindByRoundCategoryID(string RoundCategoryID)
         {
-            throw new NotImplementedException();
+            RoundCategory roundCategory = (from x in context.RoundCategories
+                                           where x.RoundCategoryID == RoundCategoryID
+                                           select x).First();
+            return roundCategory;
         }
     }
 }

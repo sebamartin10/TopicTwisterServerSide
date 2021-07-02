@@ -12,13 +12,13 @@ namespace APITopicTwister.Controllers
 {
     public class PlayerSessionController : Controller
     {
-        //[HttpPost("CreatePlayerSession")]
-        //public ResponseTopicTwister<PlayerSessionDTO> CreatePlayerSession(PlayerDTO playerDTO, SessionDTO sessionDTO)
-        //{
-        //    PlayerSessionService playerSessionService = new PlayerSessionService();
-        //    ResponseTopicTwister<PlayerSessionDTO> response = playerSessionService.CreatePlayerSession(playerDTO.playerID, sessionDTO.sessionID);
-        //    return response;
-        //}
+        [HttpPost("CreatePlayerSession")]
+        public ResponseTopicTwister<PlayerSessionDTO> CreatePlayerSession(PlayerDTO playerDTO, SessionDTO sessionDTO)
+        {
+            PlayerSessionService playerSessionService = new PlayerSessionService();
+            ResponseTopicTwister<PlayerSessionDTO> response = playerSessionService.CreatePlayerSession(playerDTO.playerID, sessionDTO.SessionID);
+            return response;
+        }
 
 
     }

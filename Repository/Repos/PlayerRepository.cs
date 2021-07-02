@@ -22,23 +22,27 @@ namespace Repository.Repos
 
         public void Delete(Player player)
         {
-            throw new NotImplementedException();
+            context.Players.Remove(player);
+            context.SaveChanges();
         }
 
         public List<Player> FindAll()
         {
-            throw new NotImplementedException();
+            return context.Players.ToList();
         }
 
-        public Player FindByUser(string user)
+        public Player FindById(string id)
         {
-
-            return null;
+            Player player = (from x in context.Players
+                           where x.PlayerID == id
+                           select x).First();
+            return player;
         }
 
         public void Update(Player player)
         {
-            throw new NotImplementedException();
+            context.Players.Update(player);
+            context.SaveChanges();
         }
     }
 }

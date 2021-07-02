@@ -22,7 +22,8 @@ namespace Repository.Repos
 
         public void Delete(Letter letter)
         {
-            throw new NotImplementedException();
+            context.Letters.Remove(letter);
+            context.SaveChanges();
         }
 
         public List<Letter> FindAllLetter()

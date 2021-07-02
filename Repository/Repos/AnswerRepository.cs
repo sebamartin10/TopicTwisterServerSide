@@ -22,7 +22,8 @@ namespace Repository.Repos
 
         public void Delete(Answer answer)
         {
-            throw new NotImplementedException();
+            context.Answers.Remove(answer);
+            context.SaveChanges();
         }
 
         public List<Answer> FindAllAnswer()

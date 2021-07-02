@@ -30,7 +30,8 @@ namespace Repository.Repos
 
         public void Delete(Round round)
         {
-            throw new NotImplementedException();
+            context.Rounds.Remove(round);
+            context.SaveChanges();
         }
 
         public Round FindById(string id)

@@ -10,7 +10,7 @@ namespace Repository.Contracts
         public void Create(Player player);
         public void Update(Player player);
         public void Delete(Player player);
-        public Player FindByUser(string user);
+        public Player FindById(string id);
         public List<Player> FindAll();
     }
 }
