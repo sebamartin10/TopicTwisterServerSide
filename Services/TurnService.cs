@@ -14,29 +14,16 @@ namespace Services
     public class TurnService
     {
         private TurnRepository turnRepository;
-        public ResponseTopicTwister<TurnDTO> CreateTurn(string playerId, string roundId)
+        private AnswerService answerService;
+
+        public TurnService()
+        {
+            this.answerService = new AnswerService();
+        }
+        public Turn CreateTurn(Player player, string playerId, string roundId)
         {
             try
             {
-                ResponseTopicTwister<TurnDTO> responseTurn = new ResponseTopicTwister<TurnDTO>();
-                //RoundRepository roundRepository = new RoundRepository();
-                //Round round = new Round();
-                //round = roundRepository.FindById(roundId);
-                PlayerRepository playerRepository = new PlayerRepository();
-                Player player = new Player();
-                player = playerRepository.FindByUser(playerId);
-                //if (round == nul)
-                //{
-                //    responseTurn.ResponseCode = -1;
-                //    responseTurn.ResponseMessage = "La ronda no existe";
-                //    return responseTurn;
-                //}
-                if (player == null)
-                {
-                    responseTurn.ResponseCode = -1;
-                    responseTurn.ResponseMessage = "El usuario no existe";
-                    return responseTurn;
-                }
                 turnRepository = new TurnRepository();
                 Turn turn = new Turn
                 {
@@ -48,20 +35,28 @@ namespace Services
 
                 turnRepository.Create(turn);
 
-                responseTurn.Dto = new TurnDTO
-
-                {
-                    TurnID = turn.TurnID,
-                    PlayerID = turn.PlayerID,
-                    RoundID = turn.RoundID,
-                    Answers = new List<string>()
-                };
-                return responseTurn;
+                return turn;
             }
-            catch (Exception ex)
+            catch
             {
-                return new ResponseTopicTwister<TurnDTO>(null, -1, ex.Message);
+                return null;
             }
+        }
+        public TurnDTO ConvertToDTO(Turn turn)
+        {
+            List<AnswerDTO> answersListDto = new List<AnswerDTO>();
+            foreach(var answer in turn.Answers)
+            {
+                answersListDto.Add(answerService.ConvertToDTO(answer));
+            }
+            TurnDTO turnDto = new TurnDTO
+            {
+                TurnID = turn.TurnID,
+                PlayerID = turn.PlayerID,
+                RoundID = turn.RoundID,
+                Answers = answersListDto
+            };
+            return turnDto;
         }
         //public static void FinishTurn(float time, List<Word> words, Round round)
         //{

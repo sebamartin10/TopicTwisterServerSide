@@ -29,7 +29,13 @@ namespace Repository.Repos
         {
             return context.Letters.ToList();
         }
-
+        public Letter FindById(string id)
+        {
+            Letter letter = (from x in context.Letters
+                             where x.LetterID == id
+                             select x).First();
+            return letter;
+        }
 
         public Letter FindByLetter(char letterName)
         {
@@ -38,5 +44,6 @@ namespace Repository.Repos
                              select x).FirstOrDefault();
             return letter;
         }
+
     }
 }
