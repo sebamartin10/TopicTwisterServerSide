@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Models
+namespace Services.DTOs
 {
-    public class RoundCategory
+    public class RoundCategoryDTO
     {
         public string RoundCategoryID { get; set; }
         public string CategoryID { get; set; }
-        public virtual Category Category { get; set; }
         public string RoundID { get; set; }
-        public virtual Round Round { get; set; }
     }
 }

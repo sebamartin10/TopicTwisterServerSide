@@ -39,5 +39,12 @@ namespace Repository.Repos
             return category;
         }
 
+        public Category FindByCategoryID(string categoryID)
+        {
+            Category category = (from x in context.Categories
+                                 where x.CategoryID == categoryID
+                                 select x).FirstOrDefault();
+            return category;
+        }
     }
 }

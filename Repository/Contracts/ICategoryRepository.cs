@@ -10,6 +10,7 @@ namespace Repository.Contracts
         public void Create(Category category);
         public void Delete(Category category);
         public Category FindByCategory(string categoryName);
+        public Category FindByCategoryID(string categoryID);
         public List<Category> FindAllCategory();
     }
 }
