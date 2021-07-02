@@ -23,23 +23,19 @@ namespace Repository.Repos
 
         public void Update(Turn turn)
         {
-            // Esto tiene sentido? O primero debo hacer un find con el id?
             context.Turns.Update(turn);
-            //context.SaveChanges();
+            context.SaveChanges();
         }
 
         public void Delete(Turn turn)
         {
             throw new NotImplementedException();
         }
-
-<<<<<<< HEAD
-        public Turn FindById(string id)
-=======
         public Turn FindByTurn(string id)
->>>>>>> f3fb79ae11e9873747f02695f0a64cc5e3267509
         {
-            Turn turn = context.Turns.Single<Turn>(c => c.TurnID == id);
+            Turn turn = (from x in context.Turns
+                           where x.TurnID == id
+                           select x).First();
             return turn;
         }
     }

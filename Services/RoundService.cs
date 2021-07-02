@@ -14,6 +14,12 @@ namespace Services
     public class RoundService
     {
         private RoundRepository roundRepository;
+        private TurnService turnService;
+
+        public RoundService()
+        {
+            this.turnService = new TurnService();
+        }
 
         private Player CheckPlayer(string playerId)
         {
@@ -28,6 +34,13 @@ namespace Services
             Session session = new Session();
             session = sessionRepository.FindById(sessionId);
             return session;
+        }
+        private Letter CheckLetter(string letterId)
+        {
+            LetterRepository letterRepository = new LetterRepository();
+            Letter letter = new Letter();
+            letter = letterRepository.FindById(letterId);
+            return letter;
         }
 
         public ResponseTopicTwister<RoundDTO> CreateRound(string player1Id, string player2Id, string sessionId)
@@ -74,7 +87,6 @@ namespace Services
                     return responseRound;
                 }
 
-                TurnService turnService = new TurnService();
                 Turn turn1 = turnService.CreateTurn(player1, player1Id, restoredRound.RoundID);
                 Turn turn2 = turnService.CreateTurn(player2, player2Id, restoredRound.RoundID);
                 if (turn1 == null || turn2 == null)
@@ -82,23 +94,31 @@ namespace Services
                     responseRound.ResponseCode = -1;
                     responseRound.ResponseMessage = "Los turnos no pudieron ser creados";
                     return responseRound;
-                }                
+                }
 
-                TurnDTO turn1Dto = turnService.ConvertToDTO(turn1);
-
-                TurnDTO turn2Dto = turnService.ConvertToDTO(turn2);
-
-                responseRound.Dto = new RoundDTO
-                {
-                    RoundID = round.RoundID,
-                    Turns = new List<TurnDTO> { turn1Dto, turn2Dto }
-                };
+                responseRound.Dto = this.ConvertToDTO(restoredRound);
                 return responseRound;
             }
             catch (Exception ex)
             {
                 return new ResponseTopicTwister<RoundDTO>(null, -1, ex.Message);
             }
+        }
+        public RoundDTO ConvertToDTO(Round round)
+        {
+            List<TurnDTO> turnsListDto = new List<TurnDTO>();
+            foreach (var turn in round.Turns)
+            {
+                turnsListDto.Add(turnService.ConvertToDTO(turn));
+            }
+            RoundDTO roundDto = new RoundDTO
+            {
+                RoundID = round.RoundID,
+                SessionID = round.SessionID,
+                LetterID = round.LetterID,
+                Turns = turnsListDto
+            };
+            return roundDto;
         }
         public ResponseTopicTwister<RoundDTO> AddLetter(string roundId, string letterId)
         {
@@ -111,24 +131,19 @@ namespace Services
                 if (round == null)
                 {
                     responseRound.ResponseCode = -1;
-                    responseRound.ResponseMessage = "La ronda no se encuentra";
+                    responseRound.ResponseMessage = "La ronda no existe";
                     return responseRound;
                 }
-                round.LetterID = letterId;
-                roundRepository.Update(round);
-
-                TurnService turnService = new TurnService();
-                List<TurnDTO> turnListDto = new List<TurnDTO>();
-                for (int i=0; i < round.Turns.Count; i++)
+                Letter letter = CheckLetter(letterId);
+                if (letter == null)
                 {
-                    turnListDto.Add(turnService.ConvertToDTO(round));
+                    responseRound.ResponseCode = -1;
+                    responseRound.ResponseMessage = "La letra no existe";
+                    return responseRound;
                 }
-
-                responseRound.Dto = new RoundDTO
-                {
-                    RoundID = round.RoundID,
-                    Turns = new List<TurnDTO> { turn1Dto, turn2Dto }
-                };
+                round.LetterID = letter.LetterID;
+                roundRepository.Update(round);
+                responseRound.Dto = this.ConvertToDTO(round);
                 return responseRound;
             } catch (Exception ex)
             {

@@ -89,6 +89,21 @@ namespace Services
             }
         }
 
+        public AnswerDTO ConvertToDTO(Answer answer)
+        {
+            AnswerDTO answerDto = new AnswerDTO
+            {
+                AnswerID = answer.AnswerID,
+                WordAnswered = answer.WordAnswered,
+                WordID = answer.WordID,
+                CategoryID = answer.CategoryID,
+                TurnID = answer.TurnID,
+                Correct = answer.Correct
+
+            };
+            return answerDto;
+        }
+
         //public ResponseTopicTwister<AnswerDTO> GetResultAnswer()
         //{
         //    try

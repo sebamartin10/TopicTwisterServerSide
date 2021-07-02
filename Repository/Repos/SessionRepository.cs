@@ -23,9 +23,8 @@ namespace Repository.Repos
 
         public void Update(Session session)
         {
-            // Esto tiene sentido? O primero debo hacer un find con el id?
             context.Sessions.Update(session);
-            //context.SaveChanges();
+            context.SaveChanges();
         }
 
         public void Delete(Session session)
@@ -40,7 +39,9 @@ namespace Repository.Repos
 
         public Session FindById(string id)
         {
-            Session session = context.Sessions.Single<Session>(c => c.SessionID == id);
+            Session session = (from x in context.Sessions
+                           where x.SessionID == id
+                           select x).First();
             return session;
         }
     }

@@ -14,6 +14,12 @@ namespace Services
     public class TurnService
     {
         private TurnRepository turnRepository;
+        private AnswerService answerService;
+
+        public TurnService()
+        {
+            this.answerService = new AnswerService();
+        }
         public Turn CreateTurn(Player player, string playerId, string roundId)
         {
             try
@@ -38,12 +44,17 @@ namespace Services
         }
         public TurnDTO ConvertToDTO(Turn turn)
         {
+            List<AnswerDTO> answersListDto = new List<AnswerDTO>();
+            foreach(var answer in turn.Answers)
+            {
+                answersListDto.Add(answerService.ConvertToDTO(answer));
+            }
             TurnDTO turnDto = new TurnDTO
             {
                 TurnID = turn.TurnID,
                 PlayerID = turn.PlayerID,
                 RoundID = turn.RoundID,
-                Answers = new List<string>()
+                Answers = answersListDto
             };
             return turnDto;
         }

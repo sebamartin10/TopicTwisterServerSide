@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repos
 {
@@ -35,6 +36,7 @@ namespace Repository.Repos
         public Round FindById(string id)
         {
             Round round = (from x in context.Rounds
+                           .Include(x => x.Turns)
                            where x.RoundID == id
                            select x).First();
             return round;

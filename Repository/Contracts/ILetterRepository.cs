@@ -10,6 +10,7 @@ namespace Repository.Contracts
         public void Create(Letter letter);
         public void Delete(Letter letter);
         public Letter FindByLetter(char letterName);
+        public Letter FindById(string id);
         public List<Letter> FindAllLetter();
     }
 }

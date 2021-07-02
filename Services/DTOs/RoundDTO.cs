@@ -11,6 +11,6 @@ namespace Services.DTOs
         public string RoundID { get; set; }
         public string SessionID { get; set; }
         public string LetterID { get; set; }
-        public virtual ICollection<TurnDTO> Turns { get; set; }
+        public virtual List<TurnDTO> Turns { get; set; }
     }
 }
