@@ -22,7 +22,8 @@ namespace Repository.Repos
 
         public void Delete(Category category)
         {
-            throw new NotImplementedException();
+            context.Categories.Remove(category);
+            context.SaveChanges();
         }
 
         public List<Category> FindAllCategory()

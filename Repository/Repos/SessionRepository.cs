@@ -29,7 +29,8 @@ namespace Repository.Repos
 
         public void Delete(Session session)
         {
-            throw new NotImplementedException();
+            context.Sessions.Remove(session);
+            context.SaveChanges();
         }
 
         public List<Session> FindAllSessions()

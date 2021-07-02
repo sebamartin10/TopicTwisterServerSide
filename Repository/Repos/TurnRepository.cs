@@ -29,7 +29,7 @@ namespace Repository.Repos
 
         public void Delete(Turn turn)
         {
-            throw new NotImplementedException();
+            context.Turns.Remove(turn);
         }
         public Turn FindByTurn(string id)
         {

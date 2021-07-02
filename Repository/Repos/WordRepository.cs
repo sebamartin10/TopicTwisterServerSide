@@ -23,7 +23,8 @@ namespace Repository.Repos
 
         public void Delete(Word word)
         {
-            throw new NotImplementedException();
+            context.Words.Remove(word);
+            context.SaveChanges();
         }
 
         public List<Word> FindAllWord()

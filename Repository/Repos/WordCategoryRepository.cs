@@ -28,7 +28,7 @@ namespace Repository.Repos
 
         public List<WordCategory> FindAllWordCategory()
         {
-            throw new NotImplementedException();
+            return context.WordCategories.ToList();
         }
 
         public WordCategory FindByWordAndCategory(string wordID, string categoryID)
@@ -41,7 +41,10 @@ namespace Repository.Repos
 
         public WordCategory FindByWordCategoryID(string WordCategoryID)
         {
-            throw new NotImplementedException();
+            WordCategory wordCategory = (from x in context.WordCategories
+                                         where x.WordCategoryID == WordCategoryID
+                                         select x).FirstOrDefault();
+            return wordCategory;
         }
     }
 }

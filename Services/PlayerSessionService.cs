@@ -16,45 +16,45 @@ namespace Services
         IPlayerSessionRepository playerSessionRepository;
 
 
-        //public ResponseTopicTwister<PlayerSessionDTO> CreatePlayerSession(string playerID, string sessionID)
-        //{
-        //    try
-        //    {
-        //        ResponseTopicTwister<PlayerSessionDTO> response = new ResponseTopicTwister<PlayerSessionDTO>();
-                
-        //        playerSessionRepository = new PlayerSessionRepository();
+        public ResponseTopicTwister<PlayerSessionDTO> CreatePlayerSession(string playerID, string sessionID)
+        {
+            try
+            {
+                ResponseTopicTwister<PlayerSessionDTO> response = new ResponseTopicTwister<PlayerSessionDTO>();
 
-        //        Player player = new Player();
-        //        PlayerRepository playerRepository = new PlayerRepository();
-        //        player = playerRepository.FindByPlayerID(playerID);
+                playerSessionRepository = new PlayerSessionRepository();
 
-        //        Session session = new Session();
-        //        SessionRepository sessionRepository = new SessionRepository();
-        //        session = sessionRepository.FindById(sessionID);
+                Player player = new Player();
+                PlayerRepository playerRepository = new PlayerRepository();
+                player = playerRepository.FindById(playerID);
 
-        //        PlayerSession playerSession = new PlayerSession()
-        //        {
-        //            PlayerSessionID = Guid.NewGuid().ToString(),
-        //            PlayerID = player.PlayerID,
-        //            SessionID = session.SessionID
-        //        };
+                Session session = new Session();
+                SessionRepository sessionRepository = new SessionRepository();
+                session = sessionRepository.FindById(sessionID);
 
-        //        playerSessionRepository.Create(playerSession);
+                PlayerSession playerSession = new PlayerSession()
+                {
+                    PlayerSessionID = Guid.NewGuid().ToString(),
+                    PlayerID = player.PlayerID,
+                    SessionID = session.SessionID
+                };
 
-        //        response.Dto = new PlayerSessionDTO
-                
-        //        {
-        //            PlayerSessionID = Guid.NewGuid().ToString(),
-        //            PlayerID = player.PlayerID,
-        //            SessionID = session.SessionID
-        //        };
-        //        return response;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new ResponseTopicTwister<PlayerSessionDTO>(null, -1, ex.Message);
-        //    }
-        //}
+                playerSessionRepository.Create(playerSession);
 
-     }
+                response.Dto = new PlayerSessionDTO
+
+                {
+                    PlayerSessionID = Guid.NewGuid().ToString(),
+                    PlayerID = player.PlayerID,
+                    SessionID = session.SessionID
+                };
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new ResponseTopicTwister<PlayerSessionDTO>(null, -1, ex.Message);
+            }
+        }
+
+    }
 }

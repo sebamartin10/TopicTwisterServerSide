@@ -25,7 +25,7 @@ namespace Services
         {
             PlayerRepository playerRepository = new PlayerRepository();
             Player player = new Player();
-            player = playerRepository.FindByUser(playerId);
+            player = playerRepository.FindById(playerId);
             return player;
         }
         private Session CheckSession(string sessionId)
@@ -83,7 +83,7 @@ namespace Services
                 if(restoredRound == null)
                 {
                     responseRound.ResponseCode = -1;
-                    responseRound.ResponseMessage = "No se pudo recuperar la ronda";
+                    responseRound.ResponseMessage = "No se pudo crear la ronda";
                     return responseRound;
                 }
 
@@ -107,9 +107,12 @@ namespace Services
         public RoundDTO ConvertToDTO(Round round)
         {
             List<TurnDTO> turnsListDto = new List<TurnDTO>();
-            foreach (var turn in round.Turns)
+            if (round.Turns != null)
             {
-                turnsListDto.Add(turnService.ConvertToDTO(turn));
+                foreach (var turn in round.Turns)
+                {
+                    turnsListDto.Add(turnService.ConvertToDTO(turn));
+                }
             }
             RoundDTO roundDto = new RoundDTO
             {

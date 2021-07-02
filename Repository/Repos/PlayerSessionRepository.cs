@@ -23,22 +23,29 @@ namespace Repository.Repos
 
         public void Delete(PlayerSession playerSession)
         {
-            throw new NotImplementedException();
+            context.PlayerSessions.Remove(playerSession);
+            context.SaveChanges();
         }
 
         public List<PlayerSession> FindAllPlayerSession()
         {
-            throw new NotImplementedException();
+            return context.PlayerSessions.ToList();
         }
 
         public PlayerSession FindByPlayerAndSession(string PlayerID, string SessionID)
         {
-            throw new NotImplementedException();
+            PlayerSession playerSession = (from x in context.PlayerSessions
+                                           where x.PlayerID == PlayerID && x.SessionID == SessionID
+                                           select x).First();
+            return playerSession;
         }
 
         public PlayerSession FindByPlayerSessionID(string PlayerSessionID)
         {
-            throw new NotImplementedException();
+            PlayerSession playerSession = (from x in context.PlayerSessions
+                                           where x.PlayerSessionID == PlayerSessionID
+                                           select x).First();
+            return playerSession;
         }
     }
 }
