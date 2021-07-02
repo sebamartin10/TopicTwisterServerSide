@@ -7,36 +7,36 @@ using System.Linq;
 
 namespace Repository.Repos
 {
-    public class RoundCategoryRepository : IRoundCategoryRepository
+    public class PlayerSessionRepository : IPlayerSessionRepository
     {
         private readonly SQLServerContext context;
-        public RoundCategoryRepository()
+        public PlayerSessionRepository()
         {
             context = new SQLServerContext();
         }
 
-        public void Create(RoundCategory roundCategory)
+        public void Create(PlayerSession playerSession)
         {
-            context.RoundCategories.Add(roundCategory);
+            context.PlayerSessions.Add(playerSession);
             context.SaveChanges();
         }
 
-        public void Delete(RoundCategory roundCategory)
+        public void Delete(PlayerSession playerSession)
         {
             throw new NotImplementedException();
         }
 
-        public List<RoundCategory> FindAllRoundCategory()
+        public List<PlayerSession> FindAllPlayerSession()
         {
             throw new NotImplementedException();
         }
 
-        public RoundCategory FindByRoundAndCategory(string RoundID, string CategoryID)
+        public PlayerSession FindByPlayerAndSession(string PlayerID, string SessionID)
         {
             throw new NotImplementedException();
         }
 
-        public RoundCategory FindByRoundCategoryID(string RoundCategoryID)
+        public PlayerSession FindByPlayerSessionID(string PlayerSessionID)
         {
             throw new NotImplementedException();
         }
