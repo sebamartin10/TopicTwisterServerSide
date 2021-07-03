@@ -21,7 +21,16 @@ namespace Services
             try
             {
                 ResponseTopicTwister<AnswerDTO> response = new ResponseTopicTwister<AnswerDTO>();
+
                 
+                WordService wordService = new WordService();
+                response = wordService.VerifyWord(wordAnswered);
+                if (response.ResponseCode!=0) {
+                    return response;
+                }
+                wordAnswered = wordService.ConvertToUppercase(wordAnswered);
+                wordAnswered = wordService.ConvertWordBlankSpaces(wordAnswered);
+
                 answerRepository = new AnswerRepository();
                 
                 Category category = new Category();

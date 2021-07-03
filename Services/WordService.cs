@@ -57,6 +57,52 @@ namespace Services
                 return new ResponseTopicTwister<WordDTO>(null, -1, ex.Message);
             }
         }
+        public ResponseTopicTwister<AnswerDTO> VerifyWord(string wordAnswered) {
+            ResponseTopicTwister<AnswerDTO> response = new ResponseTopicTwister<AnswerDTO>();
+            response = VerifyNull(wordAnswered);
+            if (response.ResponseCode!=0) {
+                return response;
+            }
+            response = VerifyDigits(wordAnswered);
+            if (response.ResponseCode!=0) {
+                return response;
+            }
+            return response;
+        }
+        public string ConvertToUppercase(string wordAnswered)
+        {
+            return wordAnswered.ToUpper();
+            
+        }
 
-     }
+        public ResponseTopicTwister<AnswerDTO> VerifyDigits(string wordAnswered)
+        {
+            ResponseTopicTwister<AnswerDTO> response = new ResponseTopicTwister<AnswerDTO>();
+            foreach (char ch in wordAnswered) {
+                if (Char.IsDigit(ch)) {
+                    response.ResponseCode = -1;
+                    response.ResponseMessage = "La palabra contiene dígitos";
+                    return response;
+                }
+                return response;
+            }
+            throw new NotImplementedException();
+        }
+
+        public string ConvertWordBlankSpaces(string actualWord)
+        {
+            string wordAnswered = actualWord.TrimStart().TrimEnd();
+            return wordAnswered;
+        }
+
+        public ResponseTopicTwister<AnswerDTO> VerifyNull(string wordAnswered)
+        {
+            ResponseTopicTwister<AnswerDTO> response = new ResponseTopicTwister<AnswerDTO>();
+            if (String.IsNullOrEmpty(wordAnswered)) {
+                response.ResponseCode = -1;
+                response.ResponseMessage = "La palabra respondida es nula o vacía";
+            }
+            return response;
+        }
+    }
 }
