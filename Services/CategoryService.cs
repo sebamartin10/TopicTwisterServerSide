@@ -96,6 +96,29 @@ namespace Services
             }
         }
 
+        public ResponseTopicTwister<List<CategoryDTO>> GetAllCategories()
+        {
+            try
+            {
+                ResponseTopicTwister<List<CategoryDTO>> response = new ResponseTopicTwister<List<CategoryDTO>>();
+
+                List<CategoryDTO> categoriesDTOs = new List<CategoryDTO>(this.categoryList.Count);
+                for (int i = 0; i < this.categoryList.Count; i++)
+                {
+                    CategoryDTO categoryDTO = new CategoryDTO();
+                    categoryDTO.CategoryName = this.categoryList[i].CategoryName;
+                    categoryDTO.CategoryID = this.categoryList[i].CategoryID;
+                    categoriesDTOs.Add(categoryDTO);
+                }
+                response.Dto = categoriesDTOs;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new ResponseTopicTwister<List<CategoryDTO>>(new List<CategoryDTO>(), -1, ex.Message);
+            }
+        }
+
         //public List<Category> GetCategories(List<string> categoriesNames)
         //{
         //    List<Category> categories = new List<Category>();

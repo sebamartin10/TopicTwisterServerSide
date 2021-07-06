@@ -27,5 +27,13 @@ namespace APITopicTwister.Controllers
             ResponseTopicTwister<LetterDTO> response = letterService.GetRandomLetter();
             return response;
         }
+
+        [HttpGet("GetAllLetters")]
+        public ResponseTopicTwister<List<LetterDTO>> GetAllLetters()
+        {
+            LetterService letterService = new LetterService();
+            ResponseTopicTwister<List<LetterDTO>> response = letterService.GetAllLetters();
+            return response;
+        }
     }
 }

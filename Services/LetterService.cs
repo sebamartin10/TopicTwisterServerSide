@@ -14,9 +14,10 @@ namespace Services
     public class LetterService
     {
         private List<Letter> letterList = new List<Letter>();
-        public List<Letter> LetterList => LetterList;
+        public List<Letter> LetterList => letterList;
 
         ILetterRepository letterRepo;
+
         public ResponseTopicTwister<LetterDTO> CreateLetter(char name)
         {
             try
@@ -43,6 +44,31 @@ namespace Services
             catch (Exception ex)
             {
                 return new ResponseTopicTwister<LetterDTO>(null, -1, ex.Message);
+            }
+        }
+
+        public ResponseTopicTwister<List<LetterDTO>> GetAllLetters()
+        {
+            try
+            {
+                ResponseTopicTwister<List<LetterDTO>> response = new ResponseTopicTwister<List<LetterDTO>>();
+                letterRepo = new LetterRepository();
+                List<Letter> letters = new List<Letter>();
+                letters = letterRepo.FindAllLetter();
+                List<LetterDTO> letterDtos = new List<LetterDTO>(letters.Count);
+                for (int i = 0; i < letters.Count; i++)
+                {
+                    LetterDTO letterDTO = new LetterDTO();
+                    letterDTO.LetterID = letters[i].LetterID;
+                    letterDTO.LetterName = letters[i].LetterName;
+                    letterDtos.Add(letterDTO);
+                }
+                response.Dto = letterDtos;
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new ResponseTopicTwister<List<LetterDTO>>(new List<LetterDTO>(), -1, ex.Message);
             }
         }
 

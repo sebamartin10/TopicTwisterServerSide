@@ -28,5 +28,13 @@ namespace APITopicTwister.Controllers
             return response;
         }
 
+        [HttpGet("GetAllCategories")]
+        public ResponseTopicTwister<List<CategoryDTO>> GetAllCategories()
+        {
+            CategoryService categoryService = new CategoryService(new CategoryRepository());
+            ResponseTopicTwister<List<CategoryDTO>> response = categoryService.GetAllCategories();
+            return response;
+        }
+
     }
 }
