@@ -15,9 +15,15 @@ namespace Services
         {
             try
             {
-                ResponseTopicTwister<PlayerDTO> response = VerifyName(name);
+                name = name.ToUpper();
+                ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
+                response = VerifyName(name);
                 if (response.ResponseCode!=0) {
                     return (response);
+                }
+                response = VerifyPlayerDuplicated(name);
+                if (response.ResponseCode!=0) {
+                    return response;
                 }
 
                 Player player = new Player
@@ -50,6 +56,22 @@ namespace Services
             if (name.Length<4) {
                 response.ResponseCode = -1;
                 response.ResponseMessage = "Nombre debe tener al menos 4 (cuatro) caracteres.";
+            }
+            return response;
+        }
+        public static ResponseTopicTwister<PlayerDTO> VerifyPlayerDuplicated(string name) {
+            ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
+            PlayerRepository playerRepo = new PlayerRepository();
+            Player player = playerRepo.FindByName(name);
+            if (player != null) {
+                response.ResponseCode = -1;
+                response.ResponseMessage = "El jugador ya existe";
+                response.Dto = new PlayerDTO
+                {
+                    playerID = player.PlayerID,
+                    playerName = player.PlayerName
+                };
+                return response;
             }
             return response;
         }

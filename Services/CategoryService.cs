@@ -53,7 +53,7 @@ namespace Services
 
         public ResponseTopicTwister<List<CategoryDTO>> GetRandomCategories(int amountOfCategoriesAskedToReturn)
         {
-            try
+          try
             { 
             ResponseTopicTwister<List<CategoryDTO>> response = new ResponseTopicTwister<List<CategoryDTO>>();
 

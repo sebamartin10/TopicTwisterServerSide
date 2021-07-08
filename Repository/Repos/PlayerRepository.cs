@@ -38,6 +38,13 @@ namespace Repository.Repos
                            select x).First();
             return player;
         }
+        public Player FindByName(string name)
+        {
+            Player player = (from x in context.Players
+                             where x.PlayerName == name
+                             select x).FirstOrDefault();
+            return player;
+        }
 
         public void Update(Player player)
         {
