@@ -16,63 +16,70 @@ namespace Services
         private RoundRepository roundRepository;
         private TurnService turnService;
 
-        public RoundService()
-        {
+        public RoundService() {
             this.turnService = new TurnService();
         }
 
-        private Player CheckPlayer(string playerId)
-        {
+        private Player CheckPlayer(string playerId) {
             PlayerRepository playerRepository = new PlayerRepository();
             Player player = new Player();
             player = playerRepository.FindById(playerId);
             return player;
         }
-        private Session CheckSession(string sessionId)
-        {
+        private Session CheckSession(string sessionId) {
             SessionRepository sessionRepository = new SessionRepository();
             Session session = new Session();
             session = sessionRepository.FindById(sessionId);
             return session;
         }
-        private Letter CheckLetter(string letterId)
-        {
+
+        private Letter CheckLetter(string letterId) {
             LetterRepository letterRepository = new LetterRepository();
             Letter letter = new Letter();
             letter = letterRepository.FindById(letterId);
             return letter;
         }
 
-        public ResponseTopicTwister<RoundDTO> CreateRound(string player1Id, string player2Id, string sessionId)
-        {
-            try
-            {
+        internal Round CreateRound(Player player1, Player player2, Session session) {
+            roundRepository = new RoundRepository();
+            Round round = new Round {
+                RoundID = Guid.NewGuid().ToString(),
+                SessionID = session.SessionID
+            };
+            roundRepository.Create(round);
+
+            Turn turn1 = turnService.CreateTurn(player1, round.RoundID);
+            Turn turn2 = turnService.CreateTurn(player2, round.RoundID);
+
+            round.Turns = new List<Turn>() { turn1, turn2 };
+
+            return round;
+        }
+
+        public ResponseTopicTwister<RoundDTO> CreateRound(string player1Id, string player2Id, string sessionId) {
+            try {
                 ResponseTopicTwister<RoundDTO> responseRound = new ResponseTopicTwister<RoundDTO>();
                 PlayerRepository playerRepository = new PlayerRepository();
                 Player player1 = CheckPlayer(player1Id);
                 Player player2 = CheckPlayer(player2Id);
                 Session session = CheckSession(sessionId);
-                if (player1 == null)
-                {
+                if (player1 == null) {
                     responseRound.ResponseCode = -1;
                     responseRound.ResponseMessage = "El jugaror 1 no existe";
                     return responseRound;
                 }
-                if (player2 == null)
-                {
+                if (player2 == null) {
                     responseRound.ResponseCode = -1;
                     responseRound.ResponseMessage = "El jugaror 2 no existe";
                     return responseRound;
                 }
-                if (session == null)
-                {
+                if (session == null) {
                     responseRound.ResponseCode = -1;
                     responseRound.ResponseMessage = "La sesion no existe";
                     return responseRound;
                 }
                 roundRepository = new RoundRepository();
-                Round round = new Round
-                {
+                Round round = new Round {
                     RoundID = Guid.NewGuid().ToString(),
                     SessionID = sessionId
                 };
@@ -80,17 +87,15 @@ namespace Services
 
                 Round restoredRound = roundRepository.FindById(round.RoundID);
 
-                if(restoredRound == null)
-                {
+                if (restoredRound == null) {
                     responseRound.ResponseCode = -1;
                     responseRound.ResponseMessage = "No se pudo crear la ronda";
                     return responseRound;
                 }
 
-                Turn turn1 = turnService.CreateTurn(player1, player1Id, restoredRound.RoundID);
-                Turn turn2 = turnService.CreateTurn(player2, player2Id, restoredRound.RoundID);
-                if (turn1 == null || turn2 == null)
-                {
+                Turn turn1 = turnService.CreateTurn(player1, restoredRound.RoundID);
+                Turn turn2 = turnService.CreateTurn(player2, restoredRound.RoundID);
+                if (turn1 == null || turn2 == null) {
                     responseRound.ResponseCode = -1;
                     responseRound.ResponseMessage = "Los turnos no pudieron ser creados";
                     return responseRound;
@@ -98,24 +103,20 @@ namespace Services
 
                 responseRound.Dto = this.ConvertToDTO(restoredRound);
                 return responseRound;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 return new ResponseTopicTwister<RoundDTO>(null, -1, ex.Message);
             }
         }
-        public RoundDTO ConvertToDTO(Round round)
-        {
+
+
+        public RoundDTO ConvertToDTO(Round round) {
             List<TurnDTO> turnsListDto = new List<TurnDTO>();
-            if (round.Turns != null)
-            {
-                foreach (var turn in round.Turns)
-                {
+            if (round.Turns != null) {
+                foreach (var turn in round.Turns) {
                     turnsListDto.Add(turnService.ConvertToDTO(turn));
                 }
             }
-            RoundDTO roundDto = new RoundDTO
-            {
+            RoundDTO roundDto = new RoundDTO {
                 RoundID = round.RoundID,
                 SessionID = round.SessionID,
                 LetterID = round.LetterID,
@@ -123,23 +124,19 @@ namespace Services
             };
             return roundDto;
         }
-        public ResponseTopicTwister<RoundDTO> AddLetter(string roundId, string letterId)
-        {
-            try
-            {
+        public ResponseTopicTwister<RoundDTO> AddLetter(string roundId, string letterId) {
+            try {
                 ResponseTopicTwister<RoundDTO> responseRound = new ResponseTopicTwister<RoundDTO>();
                 roundRepository = new RoundRepository();
                 Round round = new Round();
                 round = roundRepository.FindById(roundId);
-                if (round == null)
-                {
+                if (round == null) {
                     responseRound.ResponseCode = -1;
                     responseRound.ResponseMessage = "La ronda no existe";
                     return responseRound;
                 }
                 Letter letter = CheckLetter(letterId);
-                if (letter == null)
-                {
+                if (letter == null) {
                     responseRound.ResponseCode = -1;
                     responseRound.ResponseMessage = "La letra no existe";
                     return responseRound;
@@ -148,8 +145,7 @@ namespace Services
                 roundRepository.Update(round);
                 responseRound.Dto = this.ConvertToDTO(round);
                 return responseRound;
-            } catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 return new ResponseTopicTwister<RoundDTO>(null, -1, ex.Message);
             }
         }

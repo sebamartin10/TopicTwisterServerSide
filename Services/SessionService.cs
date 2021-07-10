@@ -16,27 +16,69 @@ namespace Services
         private SessionRepository sessionRepository;
         private RoundService roundService;
 
-        public SessionService()
-        {
+        public SessionService() {
             this.roundService = new RoundService();
         }
 
-        public ResponseTopicTwister<SessionDTO> CreateSession()
-        {
-            try
-            {
+        public SessionDTO CreateSession(string player1ID, string player2ID) {
+
+            sessionRepository = new SessionRepository();
+            Session session = new Session {
+                SessionID = Guid.NewGuid().ToString(),
+            };
+            sessionRepository.Create(session);
+
+            PlayerRepository playerRepository = new PlayerRepository();
+
+            Player player1 = playerRepository.FindById(player1ID);
+            Player player2 = playerRepository.FindById(player2ID);
+
+            RoundService roundService = new RoundService();
+
+            int amountOfRounds = 3;
+            Round[] rounds = new Round[amountOfRounds];
+            for (int i = 0; i < amountOfRounds; i++) {
+                if (i % 2 == 0) {
+                    rounds[i] = roundService.CreateRound(player1, player2, session);
+                } else {
+                    rounds[i] = roundService.CreateRound(player2, player1, session);
+                }
+            }
+
+            session.Rounds = rounds;
+
+            PlayerSessionRepository playerSessionRepository = new PlayerSessionRepository();
+
+            PlayerSession playerSession = new PlayerSession() {
+                PlayerID = player1.PlayerID,
+                PlayerSessionID = Guid.NewGuid().ToString(),
+                SessionID = session.SessionID
+            };
+            playerSessionRepository.Create(playerSession);
+
+            PlayerSession playerSession2 = new PlayerSession() {
+                PlayerID = player1.PlayerID,
+                PlayerSessionID = Guid.NewGuid().ToString(),
+                SessionID = session.SessionID
+            };
+
+            playerSessionRepository.Create(playerSession2);
+
+            return ConvertToDTO(session);
+        }
+
+        public ResponseTopicTwister<SessionDTO> CreateSession() {
+            try {
                 ResponseTopicTwister<SessionDTO> responseSession = new ResponseTopicTwister<SessionDTO>();
                 sessionRepository = new SessionRepository();
-                Session session = new Session
-                {
+                Session session = new Session {
                     SessionID = Guid.NewGuid().ToString()
                 };
                 sessionRepository.Create(session);
 
                 Session restoredSession = sessionRepository.FindById(session.SessionID);
 
-                if(restoredSession == null)
-                {
+                if (restoredSession == null) {
                     responseSession.ResponseCode = -1;
                     responseSession.ResponseMessage = "No se pudo crear la sesion";
                     return responseSession;
@@ -44,69 +86,53 @@ namespace Services
 
                 responseSession.Dto = this.ConvertToDTO(restoredSession);
                 return responseSession;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 return new ResponseTopicTwister<SessionDTO>(null, -1, ex.Message);
             }
         }
-        public SessionDTO ConvertToDTO(Session session)
-        {
+        public SessionDTO ConvertToDTO(Session session) {
             List<RoundDTO> roundsListDto = new List<RoundDTO>();
-            if (session.Rounds != null)
-            {
-                foreach (var round in session.Rounds)
-                {
+            if (session.Rounds != null) {
+                foreach (var round in session.Rounds) {
                     roundsListDto.Add(roundService.ConvertToDTO(round));
                 }
             }
-            SessionDTO sessionDto = new SessionDTO
-            {
+            SessionDTO sessionDto = new SessionDTO {
                 SessionID = session.SessionID,
                 Rounds = roundsListDto
             };
             return sessionDto;
         }
-        public ResponseTopicTwister<List<SessionDTO>> GetAllSessions()
-        {
-            try
-            {
+        public ResponseTopicTwister<List<SessionDTO>> GetAllSessions() {
+            try {
                 ResponseTopicTwister<List<SessionDTO>> responseSessions = new ResponseTopicTwister<List<SessionDTO>>();
                 sessionRepository = new SessionRepository();
                 List<Session> sessions = new List<Session>();
                 sessions = sessionRepository.FindAllSessions();
                 List<SessionDTO> sessionsDto = new List<SessionDTO>();
-                foreach(Session session in sessions)
-                {
+                foreach (Session session in sessions) {
                     sessionsDto.Add(this.ConvertToDTO(session));
                 }
                 responseSessions.Dto = sessionsDto;
                 return responseSessions;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 return new ResponseTopicTwister<List<SessionDTO>>(null, -1, ex.Message);
             }
         }
-        public ResponseTopicTwister<SessionDTO> GetSessionById(string sessionId)
-        {
-            try
-            {
+        public ResponseTopicTwister<SessionDTO> GetSessionById(string sessionId) {
+            try {
                 ResponseTopicTwister<SessionDTO> responseSession = new ResponseTopicTwister<SessionDTO>();
                 sessionRepository = new SessionRepository();
                 Session session = new Session();
                 session = sessionRepository.FindById(sessionId);
-                if (session == null)
-                {
+                if (session == null) {
                     responseSession.ResponseCode = -1;
                     responseSession.ResponseMessage = "No se pudo encontrar la sesion";
                     return responseSession;
                 }
                 responseSession.Dto = this.ConvertToDTO(session);
                 return responseSession;
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 return new ResponseTopicTwister<SessionDTO>(null, -1, ex.Message);
             }
         }

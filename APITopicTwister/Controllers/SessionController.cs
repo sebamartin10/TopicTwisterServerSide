@@ -17,6 +17,17 @@ namespace APITopicTwister.Controllers
             return response;
         }
 
+        [HttpGet("CreateSessionByPlayers")]
+        public ResponseTopicTwister<SessionDTO> CreateSession(string player1, string player2) {
+            try {
+                SessionService sessionService = new SessionService();
+                SessionDTO response = sessionService.CreateSession(player1, player2);
+                return new ResponseTopicTwister<SessionDTO>(response);
+            } catch (Exception e){
+                return new ResponseTopicTwister<SessionDTO>(null,-1,e.Message);
+            }
+        }
+
         [HttpGet("GetAllSessions")]
         public ResponseTopicTwister<List<SessionDTO>> GetAllSessions()
         {

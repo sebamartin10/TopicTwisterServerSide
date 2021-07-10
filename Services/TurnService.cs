@@ -16,44 +16,35 @@ namespace Services
         private TurnRepository turnRepository;
         private AnswerService answerService;
 
-        public TurnService()
-        {
+        public TurnService() {
             this.answerService = new AnswerService();
         }
-        public Turn CreateTurn(Player player, string playerId, string roundId)
-        {
-            try
-            {
-                turnRepository = new TurnRepository();
-                Turn turn = new Turn
-                {
-                    TurnID = Guid.NewGuid().ToString(),
-                    PlayerID = playerId,
-                    RoundID = roundId,
-                    Player = player
-                };
 
-                turnRepository.Create(turn);
+        public Turn CreateTurn(Player player, string roundId) {
+            turnRepository = new TurnRepository();
+            Turn turn = new Turn {
+                TurnID = Guid.NewGuid().ToString(),
+                PlayerID = player.PlayerID,
+                RoundID = roundId,
+                //Player = player,
+                Answers = new List<Answer>()
+            };
 
-                return turn;
-            }
-            catch
-            {
-                return null;
-            }
+            turnRepository.Create(turn);
+
+            turn.Player = player;
+
+            return turn;
         }
-        public TurnDTO ConvertToDTO(Turn turn)
-        {
+
+        public TurnDTO ConvertToDTO(Turn turn) {
             List<AnswerDTO> answersListDto = new List<AnswerDTO>();
-            if (turn.Answers != null)
-            {
-                foreach (var answer in turn.Answers)
-                {
+            if (turn.Answers != null) {
+                foreach (var answer in turn.Answers) {
                     answersListDto.Add(answerService.ConvertToDTO(answer));
                 }
             }
-            TurnDTO turnDto = new TurnDTO
-            {
+            TurnDTO turnDto = new TurnDTO {
                 TurnID = turn.TurnID,
                 PlayerID = turn.PlayerID,
                 RoundID = turn.RoundID,
