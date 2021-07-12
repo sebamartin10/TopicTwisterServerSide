@@ -9,6 +9,9 @@ namespace Services.DTOs
     public class SessionDTO
     {
         public string SessionID { get; set; }
-        public virtual List<RoundDTO> Rounds { get; set; }
+        public List<RoundDTO> Rounds { get; set; }
+
+        public RoundDTO CurrentRound { get; set; }
+        public bool Finished { get; set; }
     }
 }

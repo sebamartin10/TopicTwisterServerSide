@@ -116,11 +116,24 @@ namespace Services
                     turnsListDto.Add(turnService.ConvertToDTO(turn));
                 }
             }
+            LetterDTO letterDTO = null;
+            if (round.Letter != null) {
+                letterDTO = new LetterDTO() {
+                    LetterID = round.Letter.LetterID,
+                    LetterName = round.Letter.LetterName
+                };
+            }
             RoundDTO roundDto = new RoundDTO {
                 RoundID = round.RoundID,
-                SessionID = round.SessionID,
-                LetterID = round.LetterID,
-                Turns = turnsListDto
+                //SessionID = round.SessionID,
+                letter = letterDTO,
+                Turns = turnsListDto,
+                Winners = null,//todo GetWinners()
+                CurrentPlayer = null,//ToDo GetCurrentPlayer
+                CurrentTurn = turnsListDto.FirstOrDefault(), //ToDo GetCurrentTurn
+                categories = null, //Todo FindCategories
+                Finished = false //Todo Finished
+
             };
             return roundDto;
         }

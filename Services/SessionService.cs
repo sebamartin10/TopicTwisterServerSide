@@ -99,7 +99,8 @@ namespace Services
             }
             SessionDTO sessionDto = new SessionDTO {
                 SessionID = session.SessionID,
-                Rounds = roundsListDto
+                Rounds = roundsListDto,
+                CurrentRound = roundsListDto.FirstOrDefault()//ToDo GetCurrentRound
             };
             return sessionDto;
         }

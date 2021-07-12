@@ -11,16 +11,36 @@ namespace Services
 {
     public class PlayerService
     {
+        private static PlayerDTO PlayerToDTO(Player player) {
+            return new PlayerDTO() {
+                playerID = player.PlayerID,
+                playerName = player.PlayerName
+            };
+        }
+
+        public PlayerDTO GetOpponent(string playerID) {
+            IPlayerRepository playerRepository = new PlayerRepository();
+            Player player = playerRepository.FindById(playerID);
+
+            Player opponent =null;
+            while(opponent== null || opponent == player) {
+                opponent = playerRepository.FindRandomPlayer();
+            }
+
+            return PlayerToDTO(opponent) ;
+        }
+
         public ResponseTopicTwister<PlayerDTO> CreatePlayer(string name)
         {
             try
             {
-                name = name.ToUpper();
                 ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
                 response = VerifyName(name);
                 if (response.ResponseCode!=0) {
                     return (response);
                 }
+
+                name = name.ToUpper();
                 response = VerifyPlayerDuplicated(name);
                 if (response.ResponseCode!=0) {
                     return response;
@@ -35,11 +55,7 @@ namespace Services
                 IPlayerRepository playerRepo = new PlayerRepository();
                 playerRepo.Create(player);
 
-                response.Dto = new PlayerDTO
-                {
-                    playerID = player.PlayerID,
-                    playerName = player.PlayerName
-                };
+                response.Dto = PlayerToDTO(player);
 
                 return response;
             }
@@ -53,7 +69,7 @@ namespace Services
         public static ResponseTopicTwister<PlayerDTO> VerifyName(string name)
         {
             ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
-            if (name.Length<4) {
+            if (string.IsNullOrEmpty(name)||name.Length<4) {
                 response.ResponseCode = -1;
                 response.ResponseMessage = "Nombre debe tener al menos 4 (cuatro) caracteres.";
             }
@@ -66,11 +82,7 @@ namespace Services
             if (player != null) {
                 response.ResponseCode = -1;
                 response.ResponseMessage = "El jugador ya existe";
-                response.Dto = new PlayerDTO
-                {
-                    playerID = player.PlayerID,
-                    playerName = player.PlayerName
-                };
+                response.Dto = PlayerToDTO(player);
                 return response;
             }
             return response;

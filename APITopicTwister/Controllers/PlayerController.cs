@@ -17,5 +17,17 @@ namespace APITopicTwister.Controllers
             return response;
         }
 
+        [HttpGet("GetOpponent")]
+        public ResponseTopicTwister<PlayerDTO> GetOpponent(PlayerDTO playerDTO) {
+            try {
+                PlayerService playerService = new PlayerService();
+                PlayerDTO dto = playerService.GetOpponent(playerDTO.playerID);
+                return new ResponseTopicTwister<PlayerDTO>(dto);
+            } catch (Exception e) {
+                return new ResponseTopicTwister<PlayerDTO>(null,-1,e.Message);
+            }
+        }
+
     }
+
 }

@@ -47,8 +47,12 @@ namespace Services
             TurnDTO turnDto = new TurnDTO {
                 TurnID = turn.TurnID,
                 PlayerID = turn.PlayerID,
-                RoundID = turn.RoundID,
-                Answers = answersListDto
+                //RoundID = turn.RoundID,
+                Answers = answersListDto,
+                Finished = false, //ToDo Finished
+                FinishTime = 0, //ToDo FinishTime
+                CorrentAnswers = 0 //Todo CorrectAnsers
+
             };
             return turnDto;
         }

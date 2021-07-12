@@ -12,5 +12,6 @@ namespace Repository.Contracts
         public void Delete(Player player);
         public Player FindById(string id);
         public List<Player> FindAll();
+        public Player FindRandomPlayer();
     }
 }

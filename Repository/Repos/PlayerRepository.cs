@@ -46,6 +46,15 @@ namespace Repository.Repos
             return player;
         }
 
+        public Player FindRandomPlayer() {
+            Player[] players = context.Players.ToArray();
+
+            if (players.Length==0) 
+                return null;
+
+            return players[new Random().Next(0,players.Length)];
+        }
+
         public void Update(Player player)
         {
             context.Players.Update(player);
