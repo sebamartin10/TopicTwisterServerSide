@@ -8,6 +8,7 @@ namespace Models
     {
         public string PlayerID { get; set; }
         public string PlayerName { get; set; }
+        public string Password { get; set; }
         public virtual ICollection<PlayerSession> PlayerSessions { get; set; }
     }
 }

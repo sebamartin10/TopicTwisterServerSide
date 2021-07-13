@@ -26,5 +26,9 @@ namespace Tests
             //Then
             Assert.AreEqual(expected, result.ResponseCode);
         }
+
+        public void Prove_Identity_With_User_And_Password() {
+        
+        }
     }
 }
