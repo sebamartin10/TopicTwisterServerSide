@@ -14,7 +14,8 @@ namespace Services
         private static PlayerDTO PlayerToDTO(Player player) {
             return new PlayerDTO() {
                 playerID = player.PlayerID,
-                playerName = player.PlayerName
+                playerName = player.PlayerName,
+                password = player.Password
             };
         }
 
@@ -89,27 +90,27 @@ namespace Services
             return response;
         }
 
-        public static ResponseTopicTwister<PlayerDTO> RegisterPlayer(string name, string password, string id)
+        public static ResponseTopicTwister<PlayerDTO> RegisterPlayer(PlayerDTO playerDTO)
         {
             try
             {
                 ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
-                response = VerifyName(name);
+                response = VerifyName(playerDTO.playerName);
 
                 if (response.ResponseCode != 0)
                 {
                     return (response);
                 }
 
-                response = VerifyPass(password);
+                response = VerifyPass(playerDTO.password);
 
                 if (response.ResponseCode != 0)
                 {
                     return (response);
                 }
 
-                name = name.ToUpper();
-                response = VerifyPlayerDuplicated(name);
+                playerDTO.playerName = playerDTO.playerName.ToUpper();
+                response = VerifyPlayerDuplicated(playerDTO.playerName);
                 if (response.ResponseCode != 0)
                 {
                     return response;
@@ -117,15 +118,15 @@ namespace Services
 
                 Player player = new Player
                 {
-                    PlayerID = id,
-                    PlayerName = name,
-                    Password = password
+                    PlayerID = playerDTO.playerID,
+                    PlayerName = playerDTO.playerName,
+                    Password = playerDTO.password
                 };
 
                 IPlayerRepository playerRepo = new PlayerRepository();
                 playerRepo.Create(player);
                 Player playerValidator = new Player();
-                playerValidator = playerRepo.FindById(id);
+                playerValidator = playerRepo.FindById(playerDTO.playerID);
                 if (playerValidator == null)
                 {
                     response.ResponseCode = -1;

@@ -63,6 +63,7 @@ namespace Tests
             Assert.AreEqual(expected, result.ResponseCode);
         }
 
+        [Test]
         public void Register_A_Player()
         {
             //Given
@@ -72,7 +73,7 @@ namespace Tests
             playerDTO.password = "pass123";
             playerDTO.playerID = Guid.NewGuid().ToString();
             //When
-            ResponseTopicTwister<PlayerDTO> result = PlayerService.RegisterPlayer(playerDTO.playerName, playerDTO.password, playerDTO.playerID);
+            ResponseTopicTwister<PlayerDTO> result = PlayerService.RegisterPlayer(playerDTO);
             //Then
             Assert.AreEqual(playerDTO.playerID, result.Dto.playerID);
         }
