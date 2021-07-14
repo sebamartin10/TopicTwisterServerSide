@@ -2,6 +2,7 @@
 using Services;
 using Services.DTOs;
 using Services.Errors;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,18 @@ using System.Threading.Tasks;
 
 namespace APITopicTwister.Controllers
 {
+    [ApiController]
+    [Route("session")]
     public class SessionController : Controller {
-        [HttpGet("CreateSession")]
+        /*[HttpGet("CreateSession")]
         public ResponseTopicTwister<SessionDTO> CreateSession() {
             SessionService sessionService = new SessionService();
             ResponseTopicTwister<SessionDTO> response = sessionService.CreateSession();
             return response;
-        }
+        }*/
 
-        [HttpGet("CreateSessionByPlayers")]
+        [HttpGet("{player1}/vs/{player2}")]
+        [SwaggerOperation(Summary = "Start new session for 2 players")]
         public ResponseTopicTwister<SessionDTO> CreateSession(string player1, string player2) {
             try {
                 SessionService sessionService = new SessionService();
@@ -28,7 +32,8 @@ namespace APITopicTwister.Controllers
             }
         }
 
-        [HttpGet("GetAllSessions")]
+        [HttpGet]
+        [SwaggerOperation(Summary = "Get all sessions")]
         public ResponseTopicTwister<List<SessionDTO>> GetAllSessions()
         {
             SessionService sessionService = new SessionService();
@@ -36,11 +41,12 @@ namespace APITopicTwister.Controllers
             return response;
         }
 
-        [HttpGet("GetSessionById")]
-        public ResponseTopicTwister<SessionDTO> GetSessionById(SessionDTO sessionDto)
+        [HttpGet("{sessionID}")]
+        [SwaggerOperation(Summary = "Get a session")]
+        public ResponseTopicTwister<SessionDTO> GetSessionById(string sessionID)
         {
             SessionService sessionService = new SessionService();
-            ResponseTopicTwister<SessionDTO> response = sessionService.GetSessionById(sessionDto.SessionID);
+            ResponseTopicTwister<SessionDTO> response = sessionService.GetSessionById(sessionID);
             return response;
         }
     }

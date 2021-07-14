@@ -89,7 +89,7 @@ namespace Services
             return response;
         }
 
-        public static ResponseTopicTwister<PlayerDTO> RegisterPlayer(string name, string password, string id)
+        public ResponseTopicTwister<PlayerDTO> RegisterPlayer(string name, string password, string id)
         {
             try
             {

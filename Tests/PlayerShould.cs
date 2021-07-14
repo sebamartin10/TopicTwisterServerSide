@@ -72,7 +72,7 @@ namespace Tests
             playerDTO.password = "pass123";
             playerDTO.playerID = Guid.NewGuid().ToString();
             //When
-            ResponseTopicTwister<PlayerDTO> result = PlayerService.RegisterPlayer(playerDTO.playerName, playerDTO.password, playerDTO.playerID);
+            ResponseTopicTwister<PlayerDTO> result = playerService.RegisterPlayer(playerDTO.playerName, playerDTO.password, playerDTO.playerID);
             //Then
             Assert.AreEqual(playerDTO.playerID, result.Dto.playerID);
         }
