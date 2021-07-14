@@ -28,6 +28,15 @@ namespace APITopicTwister.Controllers
             }
         }
 
+        [HttpGet("RegisterPlayer")]
+        public ResponseTopicTwister<PlayerDTO> RegisterPlayer(PlayerDTO playerDTO)
+        {
+            PlayerService playerService = new PlayerService();
+            ResponseTopicTwister<PlayerDTO> response = playerService.CreatePlayer(playerDTO.playerName);
+            return response;
+        }
+
+
     }
 
 }
