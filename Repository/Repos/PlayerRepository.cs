@@ -45,6 +45,13 @@ namespace Repository.Repos
                              select x).FirstOrDefault();
             return player;
         }
+        public Player FindByNameAndPassword(string name,string password)
+        {
+            Player player = (from x in context.Players
+                             where x.PlayerName == name && x.Password==password
+                             select x).FirstOrDefault();
+            return player;
+        }
 
         public Player FindRandomPlayer() {
             Player[] players = context.Players.ToArray();

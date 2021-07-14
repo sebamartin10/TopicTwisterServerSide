@@ -66,6 +66,25 @@ namespace Services
             
         }
 
+        public ResponseTopicTwister<PlayerDTO> Login(PlayerDTO playerDTO)
+        {
+            ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
+            PlayerRepository playerRepo = new PlayerRepository();
+            Player player = playerRepo.FindByNameAndPassword(playerDTO.playerName,playerDTO.password);
+            if (player==null) {
+                response.ResponseCode = -1;
+                response.ResponseMessage = "Credenciales incorrectas.";
+                return response;
+            }
+            response.Dto = new PlayerDTO
+            {
+                playerID = player.PlayerID,
+                playerName = player.PlayerName,
+                password = player.Password
+            };
+            return response;
+        }
+
         public static ResponseTopicTwister<PlayerDTO> VerifyName(string name)
         {
             ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();

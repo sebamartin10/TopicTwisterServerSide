@@ -10,6 +10,7 @@ namespace Services.DTOs
     {
         public string playerID { get; set; }
         public string playerName { get; set; }
-        
+        public string password { get; set; }
+
     }
 }
