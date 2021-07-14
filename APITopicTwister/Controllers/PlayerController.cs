@@ -21,7 +21,7 @@ namespace APITopicTwister.Controllers
             return response;
         }
 
-        [HttpGet("{playerID}/Opponent")]
+        [HttpGet("{playerID}/opponent")]
         [SwaggerOperation(Summary = "Get a opponent for a player")]
         public ResponseTopicTwister<PlayerDTO> GetOpponent(string playerID) {
             //throw new Exception("Hola Mundo");

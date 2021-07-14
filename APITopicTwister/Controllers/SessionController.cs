@@ -20,7 +20,7 @@ namespace APITopicTwister.Controllers
             return response;
         }*/
 
-        [HttpGet("{player1}/vs/{player2}")]
+        [HttpGet("{player1},{player2}")]
         [SwaggerOperation(Summary = "Start new session for 2 players")]
         public ResponseTopicTwister<SessionDTO> CreateSession(string player1, string player2) {
             try {
