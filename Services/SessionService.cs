@@ -57,7 +57,7 @@ namespace Services
             playerSessionRepository.Create(playerSession);
 
             PlayerSession playerSession2 = new PlayerSession() {
-                PlayerID = player1.PlayerID,
+                PlayerID = player2.PlayerID,
                 PlayerSessionID = Guid.NewGuid().ToString(),
                 SessionID = session.SessionID
             };
