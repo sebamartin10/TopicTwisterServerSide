@@ -10,6 +10,7 @@ namespace Services.DTOs
     {
         public string RoundID { get; set; }
         //public string SessionID { get; set; }
+        public string LetterID { get; set; }
         public LetterDTO letter { get; set; }
         public List<TurnDTO> Turns { get; set; }
         public bool Finished { get; set; }

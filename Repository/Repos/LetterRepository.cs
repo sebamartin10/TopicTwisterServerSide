@@ -34,7 +34,7 @@ namespace Repository.Repos
         {
             Letter letter = (from x in context.Letters
                              where x.LetterID == id
-                             select x).First();
+                             select x).FirstOrDefault();
             return letter;
         }
 

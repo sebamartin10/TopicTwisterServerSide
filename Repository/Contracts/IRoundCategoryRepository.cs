@@ -11,6 +11,7 @@ namespace Repository.Contracts
         public void Delete(RoundCategory roundCategory);
         public RoundCategory FindByRoundCategoryID(string RoundCategoryID);
         public RoundCategory FindByRoundAndCategory(string RoundID, string CategoryID);
+        public List<RoundCategory> FindAllByRound(string RoundID);
         public List<RoundCategory> FindAllRoundCategory();
     }
 }

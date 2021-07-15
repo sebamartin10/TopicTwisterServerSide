@@ -39,7 +39,7 @@ namespace Repository.Repos
             Round round = (from x in context.Rounds
                            .Include(x => x.Turns)
                            where x.RoundID == id
-                           select x).First();
+                           select x).FirstOrDefault();
             return round;
         }
     }

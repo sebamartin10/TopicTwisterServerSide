@@ -15,9 +15,15 @@ namespace Services
     {
         private TurnRepository turnRepository;
         private AnswerService answerService;
+        private CategoryService categoryService;
+        private RoundRepository roundRepository;
+        private RoundCategoryRepository roundCategoryRepository;
 
         public TurnService() {
             this.answerService = new AnswerService();
+            this.categoryService = new CategoryService(new CategoryRepository());
+            this.roundCategoryRepository = new RoundCategoryRepository();
+            this.roundRepository = new RoundRepository();
         }
 
         public Turn CreateTurn(Player player, string roundId) {
@@ -27,7 +33,8 @@ namespace Services
                 PlayerID = player.PlayerID,
                 RoundID = roundId,
                 //Player = player,
-                Answers = new List<Answer>()
+                Answers = new List<Answer>(),
+                finished = false
             };
 
             turnRepository.Create(turn);
@@ -47,18 +54,91 @@ namespace Services
             TurnDTO turnDto = new TurnDTO {
                 TurnID = turn.TurnID,
                 PlayerID = turn.PlayerID,
-                //RoundID = turn.RoundID,
                 Answers = answersListDto,
-                Finished = false, //ToDo Finished
-                FinishTime = 0, //ToDo FinishTime
-                CorrentAnswers = 0 //Todo CorrectAnsers
-
+                Finished = turn.finished,
+                FinishTime = turn.finishTime,
+                CorrentAnswers = turn.correctAnswers
             };
             return turnDto;
         }
-        //public static void FinishTurn(float time, List<Word> words, Round round)
-        //{
+        private Letter CheckLetter(string letterId)
+        {
+            LetterRepository letterRepository = new LetterRepository();
+            Letter letter = new Letter();
+            letter = letterRepository.FindById(letterId);
+            return letter;
+        }
+        private Category CheckCategory(string categoryId)
+        {
+            Category category = new Category();
+            category = categoryService.GetCategory(categoryId);
+            return category;
+        }
 
-        //}
+        public ResponseTopicTwister<TurnDTO> FinishTurn(string turnId, float time, List<string> wordsAnswered)
+        {
+            try
+            {
+                ResponseTopicTwister<TurnDTO> responseTurn = new ResponseTopicTwister<TurnDTO>();
+                turnRepository = new TurnRepository();
+                Turn turn = new Turn();
+                turn = turnRepository.FindByTurn(turnId);
+                if (turn == null)
+                {
+                    responseTurn.ResponseCode = -1;
+                    responseTurn.ResponseMessage = "El turno no existe";
+                    return responseTurn;
+                }
+                Round round = roundRepository.FindById(turn.RoundID);
+                List<RoundCategory> roundCategories = roundCategoryRepository.FindAllByRound(turn.RoundID);
+                if (round == null)
+                {
+                    responseTurn.ResponseCode = -1;
+                    responseTurn.ResponseMessage = "La ronda no existe";
+                    return responseTurn;
+                }
+                if (round.LetterID == null)
+                {
+                    responseTurn.ResponseCode = -1;
+                    responseTurn.ResponseMessage = "El turno no contiene letra";
+                    return responseTurn;
+                }
+                if (roundCategories == null)
+                {
+                    responseTurn.ResponseCode = -1;
+                    responseTurn.ResponseMessage = "El turno no contiene categorias";
+                    return responseTurn;
+                }
+                
+                if (wordsAnswered.Count != roundCategories.Count)
+                {
+                    responseTurn.ResponseCode = -1;
+                    responseTurn.ResponseMessage = $"La cantidad de respuestas recibidas es diferente de las esperadas: {roundCategories.Count}";
+                    return responseTurn;
+                }
+                int countCorrect = 0;
+                Letter letter = round.Letter;
+                for (int i = 0; i < wordsAnswered.Count; i++)
+                {
+                    Category category = CheckCategory(roundCategories[i].CategoryID);
+                    Answer answer = answerService.CreateAnswerService(
+                        wordsAnswered[i],
+                        category.CategoryName,
+                        letter.LetterName,
+                        turnId
+                    );
+                    turn.Answers.Add(answer);
+                    if (answer.Correct) countCorrect++;
+                }
+                turn.correctAnswers = countCorrect;
+                turn.finishTime = time;
+                turn.finished = true;
+                return responseTurn;
+            }
+            catch (Exception ex)
+            {
+                return new ResponseTopicTwister<TurnDTO>(null, -1, ex.Message);
+            }
+        }
     }
 }
