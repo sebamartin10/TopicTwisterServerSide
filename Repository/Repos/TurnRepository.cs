@@ -35,8 +35,6 @@ namespace Repository.Repos
         public Turn FindByTurn(string id)
         {
             Turn turn = (from x in context.Turns
-                         .Include(x => x.Categories)
-                         .Include(x => x.Letter)
                          where x.TurnID == id
                            select x).First();
             return turn;

@@ -48,18 +48,24 @@ namespace Services
                 }
             }
             List<CategoryDTO> categoriesListDto = new List<CategoryDTO>();
-            if (turn.Categories != null)
+            if (turn.CategoriesID != null)
             {
-                foreach (var category in turn.Categories)
+                string[] categoriesId = turn.CategoriesID.Split(',');
+                foreach (var categoryId in categoriesId)
                 {
-                    categoriesListDto.Add(categoryService.ConvertToDTO(category));
+                    Category getCategory = CheckCategory(categoryId);
+                    if (getCategory != null) categoriesListDto.Add(categoryService.ConvertToDTO(getCategory));
                 }
             }
             LetterDTO letterDTO = new LetterDTO();
-            if (turn.Letter != null)
+            if (turn.LetterID != null)
             {
-                letterDTO.LetterID = turn.Letter.LetterID;
-                letterDTO.LetterName = turn.Letter.LetterName;
+                Letter letter = CheckLetter(turn.LetterID);
+                if (letter != null)
+                {
+                    letterDTO.LetterID = letter.LetterID;
+                    letterDTO.LetterName = letter.LetterName;
+                }
             }
             TurnDTO turnDto = new TurnDTO {
                 TurnID = turn.TurnID,
@@ -100,7 +106,8 @@ namespace Services
                     responseTurn.ResponseMessage = "El turno no existe";
                     return responseTurn;
                 }
-                List<Category> categoryList = new List<Category>();
+                List<string> categoryList = new List<string>();
+                string categoryIds = "";
                 foreach(string categoryId in categories)
                 {
                     Category category = CheckCategory(categoryId);
@@ -111,9 +118,10 @@ namespace Services
                         return responseTurn;
                     } else
                     {
-                        categoryList.Add(category);
+                        categoryList.Add(categoryId);
                     }
                 }
+                categoryIds = String.Join(',', categoryList);
                 Letter letter = CheckLetter(letterId);
                 if (letter == null)
                 {
@@ -121,7 +129,8 @@ namespace Services
                     responseTurn.ResponseMessage = "La letra no existe";
                     return responseTurn;
                 }
-                turn.Letter = letter;
+                turn.CategoriesID = categoryIds;
+                turn.LetterID = letter.LetterID;
                 turnRepository.Update(turn);
                 responseTurn.Dto = this.ConvertToDTO(turn);
                 return responseTurn;
@@ -146,31 +155,34 @@ namespace Services
                     responseTurn.ResponseMessage = "El turno no existe";
                     return responseTurn;
                 }
-                if (turn.Letter == null)
+                if (turn.LetterID == null)
                 {
                     responseTurn.ResponseCode = -1;
                     responseTurn.ResponseMessage = "El turno no contiene letra";
                     return responseTurn;
                 }
-                if (turn.Categories == null)
+                if (turn.CategoriesID == null)
                 {
                     responseTurn.ResponseCode = -1;
                     responseTurn.ResponseMessage = "El turno no contiene categorias";
                     return responseTurn;
                 }
-                if (wordsAnswered.Count != turn.Categories.Count)
+                string[] categoriesIds = turn.CategoriesID.Split(',');
+                if (wordsAnswered.Count != categoriesIds.Length)
                 {
                     responseTurn.ResponseCode = -1;
-                    responseTurn.ResponseMessage = $"La cantidad de respuestas recibidas es diferente de las esperadas: {turn.Categories.Count}";
+                    responseTurn.ResponseMessage = $"La cantidad de respuestas recibidas es diferente de las esperadas: {categoriesIds.Length}";
                     return responseTurn;
                 }
                 int countCorrect = 0;
+                Letter letter = CheckLetter(turn.LetterID);
                 for (int i = 0; i < wordsAnswered.Count; i++)
                 {
+                    Category category = CheckCategory(categoriesIds[i]);
                     Answer answer = answerService.CreateAnswerService(
                         wordsAnswered[i],
-                        turn.Categories.ElementAt<Category>(i).CategoryName,
-                        turn.Letter.LetterName,
+                        category.CategoryName,
+                        letter.LetterName,
                         turnId
                     );
                     turn.Answers.Add(answer);
