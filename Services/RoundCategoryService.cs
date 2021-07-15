@@ -56,5 +56,16 @@ namespace Services
             }
         }
 
+        public RoundCategoryDTO ConvertToDTO(RoundCategory roundCategory)
+        {
+            RoundCategoryDTO roundCategoryDto = new RoundCategoryDTO
+            {
+                RoundCategoryID = Guid.NewGuid().ToString(),
+                RoundID = roundCategory.RoundID,
+                CategoryID = roundCategory.CategoryID
+            };
+            return roundCategoryDto;
+        }
+
      }
 }

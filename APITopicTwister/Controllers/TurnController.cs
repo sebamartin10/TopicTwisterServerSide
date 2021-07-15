@@ -12,11 +12,11 @@ namespace APITopicTwister.Controllers
 {
     public class TurnController : Controller
     {
-        [HttpPost("AddLetterAndCategories")]
-        public ResponseTopicTwister<TurnDTO> AddLetterAndCategories(string turnId, string letterId, List<string> categories)
+        [HttpPost("FinishTurn")]
+        public ResponseTopicTwister<TurnDTO> FinishTurn(string turnId, float time, List<string> wordsAnswered)
         {
             TurnService turnService = new TurnService();
-            ResponseTopicTwister<TurnDTO> response = turnService.AddLetterAndCategories(turnId, letterId, categories);
+            ResponseTopicTwister<TurnDTO> response = turnService.FinishTurn(turnId, time, wordsAnswered);
             return response;
         }
 

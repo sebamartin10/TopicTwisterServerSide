@@ -15,9 +15,11 @@ namespace Services
     {
         private RoundRepository roundRepository;
         private TurnService turnService;
+        private CategoryService categoryService;
 
         public RoundService() {
             this.turnService = new TurnService();
+            this.categoryService = new CategoryService(new CategoryRepository());
         }
 
         private Player CheckPlayer(string playerId) {
@@ -38,6 +40,12 @@ namespace Services
             Letter letter = new Letter();
             letter = letterRepository.FindById(letterId);
             return letter;
+        }
+        private Category CheckCategory(string categoryId)
+        {
+            Category category = new Category();
+            category = categoryService.GetCategory(categoryId);
+            return category;
         }
 
         internal Round CreateRound(Player player1, Player player2, Session session) {
@@ -136,6 +144,53 @@ namespace Services
 
             };
             return roundDto;
+        }
+        public ResponseTopicTwister<RoundDTO> AddLetterAndCategories(string roundId, string letterId, List<string> categories)
+        {
+            try
+            {
+                ResponseTopicTwister<RoundDTO> responseTurn = new ResponseTopicTwister<RoundDTO>();
+                RoundRepository roundRepository = new RoundRepository();
+                RoundCategoryService roundCategoryService = new RoundCategoryService();
+                Round round = new Round();
+                round = roundRepository.FindById(roundId);
+                if (round == null)
+                {
+                    responseTurn.ResponseCode = -1;
+                    responseTurn.ResponseMessage = "La ronda no existe";
+                    return responseTurn;
+                }
+                foreach (string categoryId in categories)
+                {
+                    Category category = CheckCategory(categoryId);
+                    if (category == null)
+                    {
+                        responseTurn.ResponseCode = -1;
+                        responseTurn.ResponseMessage = $"La categoria {categoryId} no existe";
+                        return responseTurn;
+                    }
+                    else
+                    {
+                        roundCategoryService.CreateRoundCategory(roundId, categoryId);
+                    }
+                }
+                Letter letter = CheckLetter(letterId);
+                if (letter == null)
+                {
+                    responseTurn.ResponseCode = -1;
+                    responseTurn.ResponseMessage = "La letra no existe";
+                    return responseTurn;
+                }
+                round.LetterID = letter.LetterID;
+                round.Letter = letter;
+                roundRepository.Update(round);
+                responseTurn.Dto = this.ConvertToDTO(round);
+                return responseTurn;
+            }
+            catch (Exception ex)
+            {
+                return new ResponseTopicTwister<RoundDTO>(null, -1, ex.Message);
+            }
         }
         public ResponseTopicTwister<RoundDTO> AddLetter(string roundId, string letterId) {
             try {

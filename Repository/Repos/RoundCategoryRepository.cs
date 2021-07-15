@@ -40,6 +40,14 @@ namespace Repository.Repos
             return roundCategory;
         }
 
+        public List<RoundCategory> FindAllByRound(string RoundID)
+        {
+            List<RoundCategory> roundCategoryAll = (from x in context.RoundCategories
+                                                  where x.RoundID == RoundID
+                                                  select x).ToList();
+            return roundCategoryAll;
+        }
+
         public RoundCategory FindByRoundCategoryID(string RoundCategoryID)
         {
             RoundCategory roundCategory = (from x in context.RoundCategories

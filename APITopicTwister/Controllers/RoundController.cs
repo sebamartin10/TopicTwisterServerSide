@@ -17,11 +17,11 @@ namespace APITopicTwister.Controllers
             return response;
         }
 
-        [HttpGet("RoundAddLetter")]
-        public ResponseTopicTwister<RoundDTO> RoundAddLetter(SessionDTO sessionDto, LetterDTO letter)
+        [HttpPost("AddLetterAndCategories")]
+        public ResponseTopicTwister<RoundDTO> AddLetterAndCategories(string roundId, string letterId, List<string> categoriesID)
         {
             RoundService roundService = new RoundService();
-            ResponseTopicTwister<RoundDTO> response = roundService.AddLetter(sessionDto.SessionID, letter.LetterID);
+            ResponseTopicTwister<RoundDTO> response = roundService.AddLetterAndCategories(roundId, letterId, categoriesID);
             return response;
         }
     }

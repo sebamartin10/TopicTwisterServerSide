@@ -11,8 +11,6 @@ namespace Services.DTOs
         public string TurnID { get; set; }
         public string PlayerID { get; set; }
         public virtual List<AnswerDTO> Answers { get; set; }
-        public virtual List<CategoryDTO> Categories { get; set; }
-        public LetterDTO Letter { get; set; }
         public bool Finished { get; set; }
         public float FinishTime { get; set; }
         public int CorrentAnswers { get; set; }
