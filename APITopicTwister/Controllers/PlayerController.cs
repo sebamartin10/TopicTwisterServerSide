@@ -38,6 +38,12 @@ namespace APITopicTwister.Controllers
             return response;
         }
 
+        [HttpPost("login")]
+        public ResponseTopicTwister<PlayerDTO> Login(PlayerDTO playerDTO) {
+            PlayerService playerService = new PlayerService();
+            ResponseTopicTwister<PlayerDTO> response = playerService.Login(playerDTO);
+            return response;
+        }
 
     }
 
