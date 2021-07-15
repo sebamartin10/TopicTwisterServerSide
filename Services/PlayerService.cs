@@ -41,7 +41,7 @@ namespace Services
                 }
 
                 name = name.ToUpper();
-                response = VerifyPlayerDuplicated(name);
+                response = VerifyPlayerDuplicated(name, "");
                 if (response.ResponseCode!=0) {
                     return response;
                 }
@@ -76,15 +76,17 @@ namespace Services
             }
             return response;
         }
-        public static ResponseTopicTwister<PlayerDTO> VerifyPlayerDuplicated(string name) {
+        public static ResponseTopicTwister<PlayerDTO> VerifyPlayerDuplicated(string name, string password) {
             ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
             PlayerRepository playerRepo = new PlayerRepository();
             Player player = playerRepo.FindByName(name);
-            if (player != null) {
+            if (player != null && password == player.Password) {
                 response.ResponseCode = -1;
-                response.ResponseMessage = "El jugador ya existe";
+                response.ResponseMessage = "El jugador ya existe y la password es valida";//TODO LOGIN
                 response.Dto = PlayerToDTO(player);
-                return response;
+            } else if (player != null) {
+                response.ResponseCode = -1;
+                response.ResponseMessage = "El jugador ya existe, Contraseña invalida!";
             }
             return response;
         }
@@ -109,7 +111,7 @@ namespace Services
                 }
 
                 name = name.ToUpper();
-                response = VerifyPlayerDuplicated(name);
+                response = VerifyPlayerDuplicated(name, password);
                 if (response.ResponseCode != 0)
                 {
                     return response;
