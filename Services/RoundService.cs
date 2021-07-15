@@ -135,6 +135,7 @@ namespace Services
                 RoundID = round.RoundID,
                 //SessionID = round.SessionID,
                 letter = letterDTO,
+                LetterID = round.LetterID,
                 Turns = turnsListDto,
                 Winners = null,//todo GetWinners()
                 CurrentPlayer = null,//ToDo GetCurrentPlayer
@@ -182,7 +183,7 @@ namespace Services
                     return responseTurn;
                 }
                 round.LetterID = letter.LetterID;
-                round.Letter = letter;
+                //round.Letter = letter;
                 roundRepository.Update(round);
                 responseTurn.Dto = this.ConvertToDTO(round);
                 return responseTurn;

@@ -42,7 +42,7 @@ namespace Repository.Repos
         {
             Session session = (from x in context.Sessions
                            where x.SessionID == id
-                           select x).First();
+                           select x).FirstOrDefault();
             return session;
         }
     }

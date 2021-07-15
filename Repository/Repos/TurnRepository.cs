@@ -36,7 +36,7 @@ namespace Repository.Repos
         {
             Turn turn = (from x in context.Turns
                          where x.TurnID == id
-                           select x).First();
+                           select x).FirstOrDefault();
             return turn;
         }
     }
