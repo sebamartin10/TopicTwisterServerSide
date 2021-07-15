@@ -105,10 +105,7 @@ namespace Services
                 List<CategoryDTO> categoriesDTOs = new List<CategoryDTO>(this.categoryList.Count);
                 for (int i = 0; i < this.categoryList.Count; i++)
                 {
-                    CategoryDTO categoryDTO = new CategoryDTO();
-                    categoryDTO.CategoryName = this.categoryList[i].CategoryName;
-                    categoryDTO.CategoryID = this.categoryList[i].CategoryID;
-                    categoriesDTOs.Add(categoryDTO);
+                    categoriesDTOs.Add(this.ConvertToDTO(this.categoryList[i]));
                 }
                 response.Dto = categoriesDTOs;
                 return response;
@@ -117,6 +114,20 @@ namespace Services
             {
                 return new ResponseTopicTwister<List<CategoryDTO>>(new List<CategoryDTO>(), -1, ex.Message);
             }
+        }
+
+        public Category GetCategory(string categoryId)
+        {
+            Category category = categoryRepository.FindByCategoryID(categoryId);
+            return category;
+        }
+
+        public CategoryDTO ConvertToDTO(Category category)
+        {
+            CategoryDTO categoryDTO = new CategoryDTO();
+            categoryDTO.CategoryName = category.CategoryName;
+            categoryDTO.CategoryID = category.CategoryID;
+            return categoryDTO;
         }
 
         //public List<Category> GetCategories(List<string> categoriesNames)

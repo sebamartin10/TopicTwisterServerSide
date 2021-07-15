@@ -29,7 +29,6 @@ namespace Repository.Repos
         public List<Category> FindAllCategory()
         {
             return context.Categories.ToList();
-
         }
 
         public Category FindByCategory(string categoryName)

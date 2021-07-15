@@ -58,16 +58,61 @@ namespace Services
             }
         }
         public ResponseTopicTwister<AnswerDTO> VerifyWord(string wordAnswered) {
+            // Esto lo cambie por que cuesta mucho integrar con otros servicios
+
             ResponseTopicTwister<AnswerDTO> response = new ResponseTopicTwister<AnswerDTO>();
-            response = VerifyNull(wordAnswered);
-            if (response.ResponseCode!=0) {
-                return response;
-            }
-            response = VerifyDigits(wordAnswered);
-            if (response.ResponseCode!=0) {
-                return response;
+            //response = VerifyNull(wordAnswered);
+            //if (response.ResponseCode!=0) {
+            //    return response;
+            //}
+            //response = VerifyDigits(wordAnswered);
+            //if (response.ResponseCode!=0) {
+            //    return response;
+            //}
+            //return response;
+            bool verifyWord = VerifyWordService(wordAnswered);
+            if(!verifyWord)
+            {
+                response.ResponseCode = -1;
+                response.ResponseMessage = "La palabra esta vacia o contiene digitos";
+            } else
+            {
+                response.ResponseCode = 0;
             }
             return response;
+        }
+        public bool VerifyWordService (string wordAnswered)
+        {
+            bool isOk = VerifyNullService(wordAnswered);
+            if (!isOk)
+            {
+                return isOk;
+            }
+            isOk = VerifyDigitsService(wordAnswered);
+            if (!isOk)
+            {
+                return isOk;
+            }
+            return isOk;
+        }
+        public bool VerifyNullService(string wordAnswered)
+        {
+            if (String.IsNullOrEmpty(wordAnswered))
+            {
+                return false;
+            }
+            return true;
+        }
+        public bool VerifyDigitsService(string wordAnswered)
+        {
+            foreach (char ch in wordAnswered)
+            {
+                if (Char.IsDigit(ch))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         public string ConvertToUppercase(string wordAnswered)
         {

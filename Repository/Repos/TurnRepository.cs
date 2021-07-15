@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repos
 {
@@ -34,7 +35,9 @@ namespace Repository.Repos
         public Turn FindByTurn(string id)
         {
             Turn turn = (from x in context.Turns
-                           where x.TurnID == id
+                         .Include(x => x.Categories)
+                         .Include(x => x.Letter)
+                         where x.TurnID == id
                            select x).First();
             return turn;
         }
