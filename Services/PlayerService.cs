@@ -30,42 +30,6 @@ namespace Services
             return PlayerToDTO(opponent) ;
         }
 
-        public ResponseTopicTwister<PlayerDTO> CreatePlayer(string name)
-        {
-            try
-            {
-                ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
-                response = VerifyName(name);
-                if (response.ResponseCode!=0) {
-                    return (response);
-                }
-
-                name = name.ToUpper();
-                response = VerifyPlayerDuplicated(name, "");
-                if (response.ResponseCode!=0) {
-                    return response;
-                }
-
-                Player player = new Player
-                {
-                    PlayerID = Guid.NewGuid().ToString(),
-                    PlayerName = name
-                };
-
-                IPlayerRepository playerRepo = new PlayerRepository();
-                playerRepo.Create(player);
-
-                response.Dto = PlayerToDTO(player);
-
-                return response;
-            }
-            catch (Exception ex)
-            {
-                return new ResponseTopicTwister<PlayerDTO>(null,-1,ex.Message);
-            }         
-            
-        }
-
         public ResponseTopicTwister<PlayerDTO> Login(PlayerDTO playerDTO) {
             ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
             PlayerRepository playerRepo = new PlayerRepository();
@@ -77,8 +41,8 @@ namespace Services
             }
             response.Dto = new PlayerDTO {
                 playerID = player.PlayerID,
-                playerName = player.PlayerName,
-                password = player.Password
+                playerName = player.PlayerName
+                //,password = player.Password
             };
             return response;
         }
@@ -92,17 +56,14 @@ namespace Services
             }
             return response;
         }
+
         public static ResponseTopicTwister<PlayerDTO> VerifyPlayerDuplicated(string name, string password) {
             ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
             PlayerRepository playerRepo = new PlayerRepository();
             Player player = playerRepo.FindByName(name);
-            if (player != null && password == player.Password) {
+            if (player != null) {
                 response.ResponseCode = -1;
-                response.ResponseMessage = "El jugador ya existe y la password es valida";//TODO LOGIN
-                response.Dto = PlayerToDTO(player);
-            } else if (player != null) {
-                response.ResponseCode = -1;
-                response.ResponseMessage = "El jugador ya existe, Contraseña invalida!";
+                response.ResponseMessage = "¡El jugador ya existe!";
             }
             return response;
         }
@@ -112,15 +73,14 @@ namespace Services
             try
             {
                 ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
-                response = VerifyName(name);
 
+                response = VerifyName(name);
                 if (response.ResponseCode != 0)
                 {
                     return (response);
                 }
 
                 response = VerifyPass(password);
-
                 if (response.ResponseCode != 0)
                 {
                     return (response);
@@ -132,7 +92,7 @@ namespace Services
                 {
                     return response;
                 }
-
+                id = !string.IsNullOrEmpty(id) ? id : Guid.NewGuid().ToString();
                 Player player = new Player
                 {
                     PlayerID = id,
