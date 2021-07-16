@@ -39,9 +39,9 @@ namespace Services
             Round[] rounds = new Round[amountOfRounds];
             for (int i = 0; i < amountOfRounds; i++) {
                 if (i % 2 == 0) {
-                    rounds[i] = roundService.CreateRound(player1, player2, session);
+                    rounds[i] = roundService.CreateRound(player1, player2, session, i + 1);
                 } else {
-                    rounds[i] = roundService.CreateRound(player2, player1, session);
+                    rounds[i] = roundService.CreateRound(player2, player1, session, i + 1);
                 }
             }
 
@@ -137,6 +137,6 @@ namespace Services
                 return new ResponseTopicTwister<SessionDTO>(null, -1, ex.Message);
             }
         }
-        
+
     }
 }

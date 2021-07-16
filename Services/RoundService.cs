@@ -48,11 +48,12 @@ namespace Services
             return category;
         }
 
-        internal Round CreateRound(Player player1, Player player2, Session session) {
+        internal Round CreateRound(Player player1, Player player2, Session session, int roundNumber) {
             roundRepository = new RoundRepository();
             Round round = new Round {
                 RoundID = Guid.NewGuid().ToString(),
-                SessionID = session.SessionID
+                SessionID = session.SessionID,
+                roundNumber = roundNumber
             };
             roundRepository.Create(round);
 
