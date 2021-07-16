@@ -40,7 +40,7 @@ namespace Services
                     List<Round> rounds = roundRepo.FindBySession(sessionActive.SessionID);
                     asDTO.RoundsCount = rounds.Count;
 
-                    Round actualRound = rounds.Where(x => x.Finished == false).First();
+                    Round actualRound = rounds.Where(x => x.Finished == false).OrderBy(x=>x.roundNumber).First();
                     asDTO.CurrentRoundNumber = actualRound.roundNumber;
                     Player oponent = turnRepo.FindOponent(playerID);
                     asDTO.OpponentName = oponent.PlayerName;

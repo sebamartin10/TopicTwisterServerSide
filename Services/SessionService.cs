@@ -25,6 +25,7 @@ namespace Services
             sessionRepository = new SessionRepository();
             Session session = new Session {
                 SessionID = Guid.NewGuid().ToString(),
+                isActive = true
             };
             sessionRepository.Create(session);
 
