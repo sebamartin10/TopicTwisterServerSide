@@ -24,6 +24,7 @@ namespace APITopicTwister.Controllers
             ResponseTopicTwister<List<ActiveSessionDTO>> response = new ResponseTopicTwister<List<ActiveSessionDTO>>();
             PlayerSessionService playerSessionService = new PlayerSessionService();
             response = playerSessionService.GetActiveSessionsByPlayer(playerID);
+            return response;
         }
 
 
