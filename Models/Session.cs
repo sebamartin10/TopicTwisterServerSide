@@ -8,5 +8,6 @@ namespace Models
     {
         public string SessionID { get; set; }
         public virtual ICollection<Round> Rounds { get; set; }
+        public bool isActive { get; set; }
     }
 }

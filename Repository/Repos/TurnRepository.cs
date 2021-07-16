@@ -39,5 +39,12 @@ namespace Repository.Repos
                            select x).FirstOrDefault();
             return turn;
         }
+        public Player FindOponent(string NoOponentplayerID) {
+            Player player = (from x in context.Turns
+                             .Include(y=>y.Player)
+                             where x.PlayerID != NoOponentplayerID
+                             select x.Player).First();
+            return player;
+        }
     }
 }

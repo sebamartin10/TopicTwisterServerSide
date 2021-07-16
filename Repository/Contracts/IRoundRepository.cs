@@ -12,5 +12,6 @@ namespace Repository.Contracts
         public void Update(Round round);
         //public List<Round> GetAllRoundsBySessionID(string sessionId);
         public Round FindById(string id);
+        public List<Round> FindBySession(string sessionID);
     }
 }

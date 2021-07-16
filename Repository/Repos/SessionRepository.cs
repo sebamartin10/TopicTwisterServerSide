@@ -10,6 +10,9 @@ namespace Repository.Repos
     public class SessionRepository : ISessionRepository
     {
         private readonly SQLServerContext context;
+
+        
+
         public SessionRepository()
         {
             context = new SQLServerContext();
@@ -45,5 +48,6 @@ namespace Repository.Repos
                            select x).FirstOrDefault();
             return session;
         }
+        
     }
 }

@@ -137,5 +137,6 @@ namespace Services
                 return new ResponseTopicTwister<SessionDTO>(null, -1, ex.Message);
             }
         }
+        
     }
 }

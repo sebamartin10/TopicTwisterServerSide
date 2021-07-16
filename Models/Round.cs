@@ -12,5 +12,7 @@ namespace Models
         public string SessionID { get; set; }
         public string LetterID { get; set; }
         public virtual Letter Letter { get; set; }
+        public bool Finished { get; set; }
+        public int roundNumber { get; set; }
     }
 }

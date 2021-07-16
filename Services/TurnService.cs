@@ -25,7 +25,11 @@ namespace Services
             this.roundCategoryRepository = new RoundCategoryRepository();
             this.roundRepository = new RoundRepository();
         }
-
+        public Player GetOponent(string playerID) {
+            TurnRepository turnRepo = new TurnRepository();
+            Player oponent = turnRepo.FindOponent(playerID);
+            return oponent;
+        }
         public Turn CreateTurn(Player player, string roundId) {
             turnRepository = new TurnRepository();
             Turn turn = new Turn {

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repos
 {
@@ -31,7 +32,13 @@ namespace Repository.Repos
         {
             return context.PlayerSessions.ToList();
         }
-
+        public List<Session> FindAllActivePlayerSessions(string playerID) {
+            List<Session> activeSessions = (from x in context.PlayerSessions
+                                            .Include(y => y.Session)
+                                            where x.PlayerID == playerID && x.Session.isActive == true
+                                            select x.Session).ToList();
+            return activeSessions;
+        } 
         public PlayerSession FindByPlayerAndSession(string PlayerID, string SessionID)
         {
             PlayerSession playerSession = (from x in context.PlayerSessions

@@ -12,5 +12,6 @@ namespace Repository.Contracts
         public void Update(Session session);
         public Session FindById(string id);
         public List<Session> FindAllSessions();
+       
     }
 }

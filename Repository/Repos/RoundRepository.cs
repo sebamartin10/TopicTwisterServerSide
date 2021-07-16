@@ -11,6 +11,9 @@ namespace Repository.Repos
     public class RoundRepository : IRoundRepository
     {
         private readonly SQLServerContext context;
+
+        
+
         public RoundRepository()
         {
             context = new SQLServerContext();
@@ -41,6 +44,16 @@ namespace Repository.Repos
                            where x.RoundID == id
                            select x).FirstOrDefault();
             return round;
+        }
+
+        public List<Round> FindBySession(string sessionID)
+        {
+            List<Round> rounds = (from x in context.Rounds
+                                  .Include(y => y.Turns)
+                                  where x.SessionID == sessionID
+                                  select x).ToList();
+            return rounds;
+
         }
     }
 }
