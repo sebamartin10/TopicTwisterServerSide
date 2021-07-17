@@ -39,8 +39,8 @@ namespace Services
                     
                     finishedSessionDTO.playerLocalStatus = sessionsResults.Where(x => x.Player.PlayerID == playerID).First().StatusPlayer;
                     Player playerOponent = sessionsResults.Where(x => x.Player.PlayerID != playerID).First().Player;
-                    finishedSessionDTO.OponentID = playerOponent.PlayerID;
-                    finishedSessionDTO.OponentName = playerOponent.PlayerName;
+                    finishedSessionDTO.OpponentID = playerOponent.PlayerID;
+                    finishedSessionDTO.OpponentName = playerOponent.PlayerName;
                     response.Dto.Add(finishedSessionDTO);
                 }
                 return response;
