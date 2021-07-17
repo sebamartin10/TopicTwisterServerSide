@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Repos
 {
@@ -47,6 +48,13 @@ namespace Repository.Repos
                            where x.SessionID == id
                            select x).FirstOrDefault();
             return session;
+        }
+        public List<SessionResult> GetSessionResults(string sessionID) {
+            Session session = (from x in context.Sessions
+                                                  .Include(y => y.SessionResults)
+                                                  where x.SessionID == sessionID
+                                                  select x).First();
+            return session.SessionResults.ToList();
         }
         
     }

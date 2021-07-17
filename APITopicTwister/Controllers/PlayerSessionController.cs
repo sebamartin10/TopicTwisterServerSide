@@ -26,6 +26,13 @@ namespace APITopicTwister.Controllers
             response = playerSessionService.GetActiveSessionsByPlayer(playerID);
             return response;
         }
+        [HttpGet("sessions/finished/{playerID}")]
+        public ResponseTopicTwister<List<FinishedSessionDTO>> GetFinishedSessionsByPlayer(string playerID) {
+            ResponseTopicTwister<List<FinishedSessionDTO>> response = new ResponseTopicTwister<List<FinishedSessionDTO>>();
+            PlayerSessionService playerSessionService = new PlayerSessionService();
+            response = playerSessionService.GetFinishedSessionsByPlayer(playerID);
+            return response;
+        }
 
 
     }

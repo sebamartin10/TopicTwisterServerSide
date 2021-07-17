@@ -7,6 +7,7 @@ using Models;
 using Repository.Contracts;
 using Repository.Repos;
 using Services.DTOs;
+using Services.Enums;
 using Services.Errors;
 
 namespace Services
@@ -14,7 +15,46 @@ namespace Services
     public class PlayerSessionService
     {
         IPlayerSessionRepository playerSessionRepository;
+        public ResponseTopicTwister<List<FinishedSessionDTO>> GetFinishedSessionsByPlayer(string playerID) {
+            ResponseTopicTwister<List<FinishedSessionDTO>> response = new ResponseTopicTwister<List<FinishedSessionDTO>>();
+            try
+            {
+                RoundRepository roundRepo = new RoundRepository();
+                TurnRepository turnRepo = new TurnRepository();
+                SessionService sessionService = new SessionService();
 
+                response.Dto = new List<FinishedSessionDTO>();
+                PlayerSessionRepository playerSessionRepo = new PlayerSessionRepository();
+                List<Session> finishedSessions = playerSessionRepo.FindAllNoActivePlayerSessions(playerID);
+                if (finishedSessions.Count == 0)
+                {
+
+                    response.ResponseMessage = "No se pudo recuperar un historial de sesiones para el player";
+                    return response;
+                }
+
+                foreach (var sessionFinished in finishedSessions) {
+                    FinishedSessionDTO finishedSessionDTO = new FinishedSessionDTO();
+                    List<SessionResult> sessionsResults = sessionService.GetSessionResults(sessionFinished.SessionID);
+                    
+                    finishedSessionDTO.playerLocalStatus = sessionsResults.Where(x => x.Player.PlayerID == playerID).First().StatusPlayer;
+                    Player playerOponent = sessionsResults.Where(x => x.Player.PlayerID != playerID).First().Player;
+                    finishedSessionDTO.OponentID = playerOponent.PlayerID;
+                    finishedSessionDTO.OponentName = playerOponent.PlayerName;
+                    response.Dto.Add(finishedSessionDTO);
+                }
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+                response.ResponseCode = -1;
+                response.ResponseMessage = ex.Message;
+                return response;
+            }
+
+       
+        }
         public ResponseTopicTwister<List<ActiveSessionDTO>> GetActiveSessionsByPlayer(string playerID)
         {
             ResponseTopicTwister<List<ActiveSessionDTO>> response = new ResponseTopicTwister<List<ActiveSessionDTO>>();

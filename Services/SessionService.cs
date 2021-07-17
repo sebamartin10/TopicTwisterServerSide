@@ -139,5 +139,11 @@ namespace Services
             }
         }
 
+        public List<SessionResult> GetSessionResults(string sessionID) {
+            SessionRepository sessionRepo = new SessionRepository();
+            List<SessionResult> sessionsResult = sessionRepo.GetSessionResults(sessionID);
+            return sessionsResult;
+        }
+
     }
 }

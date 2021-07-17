@@ -38,7 +38,14 @@ namespace Repository.Repos
                                             where x.PlayerID == playerID && x.Session.isActive == true
                                             select x.Session).ToList();
             return activeSessions;
-        } 
+        }
+        public List<Session> FindAllNoActivePlayerSessions(string playerID) {
+            List<Session> noActiveSessions = (from x in context.PlayerSessions
+                                              .Include(y => y.Session)
+                                              where x.PlayerID == playerID && x.Session.isActive == false
+                                              select x.Session).ToList();
+            return noActiveSessions;
+        }
         public PlayerSession FindByPlayerAndSession(string PlayerID, string SessionID)
         {
             PlayerSession playerSession = (from x in context.PlayerSessions
