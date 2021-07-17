@@ -97,7 +97,7 @@ namespace Services
         }
         public bool VerifyNullService(string wordAnswered)
         {
-            if (String.IsNullOrEmpty(wordAnswered))
+            if (wordAnswered ==null)
             {
                 return false;
             }

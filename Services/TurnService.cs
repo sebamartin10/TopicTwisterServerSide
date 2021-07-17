@@ -122,6 +122,7 @@ namespace Services
                 }
                 int countCorrect = 0;
                 Letter letter = round.Letter;
+                turn.Answers = new List<Answer>(wordsAnswered.Count);
                 for (int i = 0; i < wordsAnswered.Count; i++)
                 {
                     Category category = CheckCategory(roundCategories[i].CategoryID);
@@ -137,6 +138,7 @@ namespace Services
                 turn.correctAnswers = countCorrect;
                 turn.finishTime = time;
                 turn.finished = true;
+                responseTurn.Dto = ConvertToDTO(turn);
                 return responseTurn;
             }
             catch (Exception ex)

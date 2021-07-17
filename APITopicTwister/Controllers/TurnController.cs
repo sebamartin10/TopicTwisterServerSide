@@ -10,16 +10,22 @@ using System.Threading.Tasks;
 
 namespace APITopicTwister.Controllers
 {
+    [ApiController]
     public class TurnController : Controller
     {
-        [HttpPost("FinishTurn")]
-        public ResponseTopicTwister<TurnDTO> FinishTurn(string turnId, float time, List<string> wordsAnswered)
+        [HttpPost("turn/{turnID}/finish")]
+        public ResponseTopicTwister<TurnDTO> FinishTurn(string turnId, FinishTurnDTO finishTurnDTO)
         {
             TurnService turnService = new TurnService();
-            ResponseTopicTwister<TurnDTO> response = turnService.FinishTurn(turnId, time, wordsAnswered);
+            List<string> words = new List<string>();
+            List<string> categoriesIDs = new List<string>();
+            finishTurnDTO.WordCategories.ForEach(wc=> {
+                words.Add(wc.Word);
+                categoriesIDs.Add(wc.CategoryID);
+            });
+
+            ResponseTopicTwister<TurnDTO> response = turnService.FinishTurn(turnId, finishTurnDTO.Time, words);
             return response;
         }
-
-
     }
 }

@@ -40,7 +40,7 @@ namespace Repository.Repos
         public Round FindById(string id)
         {
             Round round = (from x in context.Rounds
-                           .Include(x => x.Turns)
+                           .Include(x => x.Turns).Include(x =>x.Letter)
                            where x.RoundID == id
                            select x).FirstOrDefault();
             return round;

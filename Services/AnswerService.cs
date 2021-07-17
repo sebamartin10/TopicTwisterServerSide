@@ -120,7 +120,7 @@ namespace Services
                 WordService wordService = new WordService();
                 bool isWordOk = wordService.VerifyWordService(wordAnswered);
                 bool isCorrect = false;
-                if (isWordOk)
+                if (!isWordOk)
                 {
                     throw new ArgumentException("La palabra esta vacia o contiene digitos");
                 }
