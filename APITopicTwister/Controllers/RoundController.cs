@@ -5,23 +5,26 @@ using Services.Errors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 
 namespace APITopicTwister.Controllers
 {
+    [ApiController]
     public class RoundController : Controller {
-        [HttpGet("CreateRound")]
+        /*[HttpGet("CreateRound")]
         public ResponseTopicTwister<RoundDTO> CreateRound(PlayerDTO player1, PlayerDTO player2, SessionDTO session) {
             RoundService roundService = new RoundService();
             ResponseTopicTwister<RoundDTO> response = roundService.CreateRound(player1.playerID, player2.playerID, session.SessionID);
             return response;
-        }
+        }*/
 
-        [HttpPost("AddLetterAndCategories")]
-        public ResponseTopicTwister<RoundDTO> AddLetterAndCategories(string roundId, string letterId, List<string> categoriesID)
+        [HttpPost("round/{roundID}/letterAndCategories")]
+        //[Consumes(MediaTypeNames.Application.Json)]
+        public ResponseTopicTwister<RoundDTO> AddLetterAndCategories(string roundID, RoundLetterAndCategoriesDTO letterAndCategoriesDTO)
         {
             RoundService roundService = new RoundService();
-            ResponseTopicTwister<RoundDTO> response = roundService.AddLetterAndCategories(roundId, letterId, categoriesID);
+            ResponseTopicTwister<RoundDTO> response = roundService.AddLetterAndCategories(roundID, letterAndCategoriesDTO.LetterID, letterAndCategoriesDTO.CategoriesIDs);
             return response;
         }
 

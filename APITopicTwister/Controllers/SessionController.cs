@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace APITopicTwister.Controllers
 {
     [ApiController]
-    [Route("session")]
     public class SessionController : Controller {
         /*[HttpGet("CreateSession")]
         public ResponseTopicTwister<SessionDTO> CreateSession() {
@@ -20,7 +19,7 @@ namespace APITopicTwister.Controllers
             return response;
         }*/
 
-        [HttpGet("{player1},{player2}")]
+        [HttpGet("session/{player1},{player2}")]
         [SwaggerOperation(Summary = "Start new session for 2 players")]
         public ResponseTopicTwister<SessionDTO> CreateSession(string player1, string player2) {
             try {
@@ -32,7 +31,7 @@ namespace APITopicTwister.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("sessions")]
         [SwaggerOperation(Summary = "Get all sessions")]
         public ResponseTopicTwister<List<SessionDTO>> GetAllSessions()
         {
@@ -41,7 +40,7 @@ namespace APITopicTwister.Controllers
             return response;
         }
 
-        [HttpGet("{sessionID}")]
+        [HttpGet("session/{sessionID}")]
         [SwaggerOperation(Summary = "Get a session")]
         public ResponseTopicTwister<SessionDTO> GetSessionById(string sessionID)
         {
