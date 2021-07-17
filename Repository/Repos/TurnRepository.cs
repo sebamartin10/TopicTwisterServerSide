@@ -46,5 +46,14 @@ namespace Repository.Repos
                              select x.Player).First();
             return player;
         }
+
+        public List<Turn> FindByRound(string roundId)
+        {
+            List<Turn> turns = (from x in context.Turns
+                                .Include(y=>y.Answers)
+                                where x.RoundID == roundId
+                                select x).ToList();
+            return turns;
+        }
     }
 }

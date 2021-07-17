@@ -24,5 +24,14 @@ namespace APITopicTwister.Controllers
             ResponseTopicTwister<RoundDTO> response = roundService.AddLetterAndCategories(roundId, letterId, categoriesID);
             return response;
         }
+
+        [HttpGet("GetRoundResult")]
+        public ResponseTopicTwister<RoundResultDTO> GetRoundResult(string idRound)
+        {
+            RoundResultService roundResultService = new RoundResultService();
+            ResponseTopicTwister<RoundResultDTO> response = roundResultService.GetRoundResult(idRound);
+            return response;
+        }
+
     }
 }

@@ -63,6 +63,7 @@ namespace Tests
             Assert.AreEqual(expected, result.ResponseCode);
         }
 
+        [Test]
         public void Register_A_Player()
         {
             //Given
