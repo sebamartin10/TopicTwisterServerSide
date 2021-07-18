@@ -28,11 +28,11 @@ namespace APITopicTwister.Controllers
             return response;
         }
 
-        [HttpGet("GetRoundResult")]
-        public ResponseTopicTwister<RoundResultDTO> GetRoundResult(string idRound)
+        [HttpGet("round/{roundID}/result")]
+        public ResponseTopicTwister<RoundResultDTO> GetRoundResult(string roundID)
         {
             RoundResultService roundResultService = new RoundResultService();
-            ResponseTopicTwister<RoundResultDTO> response = roundResultService.GetRoundResult(idRound);
+            ResponseTopicTwister<RoundResultDTO> response = roundResultService.GetRoundResult(roundID);
             return response;
         }
 

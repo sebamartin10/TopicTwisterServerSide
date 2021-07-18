@@ -83,13 +83,14 @@ namespace Services
                 for (int i = 0; i < categories.Count; i++)
                 {
                     roundResultByCategoryDTOs.Add(new RoundResultByCategoryDTO
-                    {
-                        Category = categories[i].CategoryName,
-                        WordPlayer1 = turns[0].Answers.ElementAt<Answer>(i).WordAnswered,
-                        WordPlayer2 = turns[1].Answers.ElementAt<Answer>(i).WordAnswered,
-                        IsCorrectPlayer1 = turns[0].Answers.ElementAt<Answer>(i).Correct,
-                        IsCorrectPlayer2 = turns[1].Answers.ElementAt<Answer>(i).Correct,
-                    }
+                        {
+                            Category = categories[i].CategoryName,
+                            WordPlayer1 = i < turns[0].Answers.Count? turns[0].Answers.ElementAt<Answer>(i).WordAnswered:"",
+                            IsCorrectPlayer1 = i < turns[0].Answers.Count ? turns[0].Answers.ElementAt<Answer>(i).Correct :false,
+                            
+                            WordPlayer2 = i < turns[1].Answers.Count ? turns[1].Answers.ElementAt<Answer>(i).WordAnswered:"",
+                            IsCorrectPlayer2 = i < turns[1].Answers.Count ? turns[1].Answers.ElementAt<Answer>(i).Correct: false
+                        }
                     );
                 }
 
