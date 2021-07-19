@@ -79,7 +79,7 @@ namespace Services
             return category;
         }
 
-        public ResponseTopicTwister<TurnDTO> FinishTurn(string turnId, float time, List<string> wordsAnswered)
+        public ResponseTopicTwister<TurnDTO> FinishTurn(string turnId, float time, List<string> wordsAnswered, List<string> categoriesIDs)
         {
             try
             {
@@ -125,11 +125,11 @@ namespace Services
                 turn.Answers = new List<Answer>(wordsAnswered.Count);
                 for (int i = 0; i < wordsAnswered.Count; i++)
                 {
-                    Category category = CheckCategory(roundCategories[i].CategoryID);
+                    Category category = CheckCategory(categoriesIDs[i]);
                     Answer answer = answerService.CreateAnswerService(
                         wordsAnswered[i],
-                        category.CategoryName,
-                        letter.LetterName,
+                        categoriesIDs[i],
+                        letter.LetterID,
                         turnId
                     );
                     turn.Answers.Add(answer);

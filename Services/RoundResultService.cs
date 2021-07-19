@@ -42,10 +42,11 @@ namespace Services
 
                 categoryRepository = new CategoryRepository();
                 List<Category> categories = new List<Category>();
-                foreach (RoundCategory roundCategory in roundCategories)
-                {
-                    categories.Add(categoryRepository.FindByCategoryID(roundCategory.CategoryID));
-                }
+                // Se lo agregamos mas abajo con cada answer porq se desordenan las cosas si no
+                //foreach (RoundCategory roundCategory in roundCategories)
+                //{
+                //    categories.Add(categoryRepository.FindByCategoryID(roundCategory.CategoryID));
+                //}
 
                 letterRepository = new LetterRepository();
                 Letter letter = letterRepository.FindById(round.LetterID);
@@ -53,6 +54,8 @@ namespace Services
                 List<Answer> player1answers = new List<Answer>();
                 foreach(Answer answer in turns[0].Answers)
                 {
+                    Category category = categoryRepository.FindByCategoryID(answer.CategoryID);
+                    categories.Add(category);
                     player1answers.Add(answer);
                 }
 
@@ -79,18 +82,30 @@ namespace Services
                     player1Win = true;
                     player2Win = true;
                 }
+                // Comprobar si los dos han terminado, si no todavia no hay ganador
+                if (!turns[0].finished || !turns[1].finished)
+                {
+                    player1Win = false;
+                    player2Win = false;
+                }
+
                 List<RoundResultByCategoryDTO> roundResultByCategoryDTOs = new List<RoundResultByCategoryDTO>();
                 for (int i = 0; i < categories.Count; i++)
                 {
+                    string Category = categories[i].CategoryName;
+                    string WordPlayer1 = i < turns[0].Answers.Count ? turns[0].Answers.ElementAt(i).WordAnswered : "";
+                    bool isCorrectPlayer1 = i < turns[0].Answers.Count ? turns[0].Answers.ElementAt(i).Correct : false;
+                    string WordPlayer2 = i < turns[1].Answers.Count ? turns[1].Answers.ElementAt(i).WordAnswered : "";
+                    bool isCorrectPlayer2 = i < turns[1].Answers.Count ? turns[1].Answers.ElementAt(i).Correct : false;
                     roundResultByCategoryDTOs.Add(new RoundResultByCategoryDTO
                         {
-                            Category = categories[i].CategoryName,
-                            WordPlayer1 = i < turns[0].Answers.Count? turns[0].Answers.ElementAt<Answer>(i).WordAnswered:"",
-                            IsCorrectPlayer1 = i < turns[0].Answers.Count ? turns[0].Answers.ElementAt<Answer>(i).Correct :false,
+                            Category = Category,
+                            WordPlayer1 = WordPlayer1,
+                            IsCorrectPlayer1 = isCorrectPlayer1,
                             
-                            WordPlayer2 = i < turns[1].Answers.Count ? turns[1].Answers.ElementAt<Answer>(i).WordAnswered:"",
-                            IsCorrectPlayer2 = i < turns[1].Answers.Count ? turns[1].Answers.ElementAt<Answer>(i).Correct: false
-                        }
+                            WordPlayer2 = WordPlayer2,
+                            IsCorrectPlayer2 = isCorrectPlayer2
+                    }
                     );
                 }
 

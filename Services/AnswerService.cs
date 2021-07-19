@@ -113,17 +113,27 @@ namespace Services
             return answerDto;
         }
 
-        public Answer CreateAnswerService(string wordAnswered, string categoryName, char letterName, string turnID)
+        public Answer CreateAnswerService(string wordAnswered, string categoryId, string letterId, string turnID)
         {
             try
             {
                 WordService wordService = new WordService();
+
+                //Por ahora debe aceptar null ya que necesitamos la respuesta vacia
+                if (wordAnswered == null || wordAnswered == "") wordAnswered = "Sin respuesta";
+
                 bool isWordOk = wordService.VerifyWordService(wordAnswered);
                 bool isCorrect = false;
                 if (!isWordOk)
                 {
                     throw new ArgumentException("La palabra esta vacia o contiene digitos");
                 }
+
+                string wordUpper = wordAnswered.ToUpper();
+                char startLetterUpper = wordUpper[0];
+                string wordLower = wordAnswered.ToLower();
+                char startLetterLower = wordLower[0];
+
                 wordAnswered = wordService.ConvertToUppercase(wordAnswered);
                 wordAnswered = wordService.ConvertWordBlankSpaces(wordAnswered);
 
@@ -131,31 +141,29 @@ namespace Services
 
                 Category category = new Category();
                 CategoryRepository categoryRepository = new CategoryRepository();
-                category = categoryRepository.FindByCategory(categoryName);
+                category = categoryRepository.FindByCategoryID(categoryId);
 
                 Letter letter = new Letter();
                 LetterRepository letterRepository = new LetterRepository();
-                letter = letterRepository.FindByLetter(letterName);
-
-                char startLetter = wordAnswered[0];
+                letter = letterRepository.FindById(letterId);
 
                 Turn turn = new Turn();
                 TurnRepository turnRepository = new TurnRepository();
                 turn = turnRepository.FindByTurn(turnID);
 
-                Word word = new Word();
                 WordRepository wordRepository = new WordRepository();
 
                 WordCategory wordCategory = new WordCategory();
                 WordCategoryRepository wordCategoryRepository = new WordCategoryRepository();
 
-                if (wordRepository.FindByWord(wordAnswered) != null &&
-                    startLetter == letter.LetterName)
+                Word word = wordRepository.FindByWord(wordAnswered);
+
+                if (word != null &&
+                    (startLetterUpper == letter.LetterName || startLetterLower == letter.LetterName))
                 {
-                    if (wordCategoryRepository.FindByWordAndCategory(wordRepository.FindByWord(wordAnswered).ToString(),
+                    if (wordCategoryRepository.FindByWordAndCategory(word.WordID,
                         category.CategoryID) != null)
                     {
-                        word = wordRepository.FindByWord(wordAnswered);
                         isCorrect = true;
                     }
                 }
@@ -164,7 +172,7 @@ namespace Services
                 {
                     AnswerID = Guid.NewGuid().ToString(),
                     WordAnswered = wordAnswered,
-                    WordID = word.WordID,
+                    WordID = word != null ? word.WordID : null,
                     CategoryID = category.CategoryID,
                     TurnID = turn.TurnID,
                     Correct = isCorrect

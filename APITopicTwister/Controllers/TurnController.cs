@@ -24,7 +24,7 @@ namespace APITopicTwister.Controllers
                 categoriesIDs.Add(wc.CategoryID);
             });
 
-            ResponseTopicTwister<TurnDTO> response = turnService.FinishTurn(turnId, finishTurnDTO.Time, words);
+            ResponseTopicTwister<TurnDTO> response = turnService.FinishTurn(turnId, finishTurnDTO.Time, words, categoriesIDs);
             return response;
         }
     }
