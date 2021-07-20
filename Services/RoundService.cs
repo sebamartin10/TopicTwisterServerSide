@@ -48,6 +48,22 @@ namespace Services
             return category;
         }
 
+        public ResponseTopicTwister<RoundDTO> GetRoundById(string roundID)
+        {
+            try
+            {
+                ResponseTopicTwister<RoundDTO> responseRound = new ResponseTopicTwister<RoundDTO>();
+                roundRepository = new RoundRepository();
+                Round round = roundRepository.FindById(roundID);
+                responseRound.Dto = this.ConvertToDTO(round);
+                return responseRound;
+            }
+            catch (Exception ex)
+            {
+                return new ResponseTopicTwister<RoundDTO>(null, -1, ex.Message);
+            }
+        }
+
         internal Round CreateRound(Player player1, Player player2, Session session, int roundNumber) {
             roundRepository = new RoundRepository();
             Round round = new Round {

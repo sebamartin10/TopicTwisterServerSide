@@ -85,8 +85,7 @@ namespace Services
             {
                 ResponseTopicTwister<TurnDTO> responseTurn = new ResponseTopicTwister<TurnDTO>();
                 turnRepository = new TurnRepository();
-                Turn turn = new Turn();
-                turn = turnRepository.FindByTurn(turnId);
+                Turn turn = turnRepository.FindByTurn(turnId);
                 if (turn == null)
                 {
                     responseTurn.ResponseCode = -1;
@@ -138,6 +137,7 @@ namespace Services
                 turn.correctAnswers = countCorrect;
                 turn.finishTime = time;
                 turn.finished = true;
+                turnRepository.Update(turn);
                 responseTurn.Dto = ConvertToDTO(turn);
                 return responseTurn;
             }
