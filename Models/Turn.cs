@@ -14,5 +14,6 @@ namespace Models
         public float finishTime { get; set; }
         public bool finished { get; set; }
         public int correctAnswers { get; set; }
+        public int turnNumber { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace Services
             Player oponent = turnRepo.FindOponent(playerID);
             return oponent;
         }
-        public Turn CreateTurn(Player player, string roundId) {
+        public Turn CreateTurn(Player player, string roundId, int turnNumber) {
             turnRepository = new TurnRepository();
             Turn turn = new Turn {
                 TurnID = Guid.NewGuid().ToString(),
@@ -38,7 +38,9 @@ namespace Services
                 RoundID = roundId,
                 //Player = player,
                 Answers = new List<Answer>(),
-                finished = false
+                finished = false,
+                turnNumber = turnNumber
+
             };
 
             turnRepository.Create(turn);

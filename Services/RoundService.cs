@@ -73,8 +73,8 @@ namespace Services
             };
             roundRepository.Create(round);
 
-            Turn turn1 = turnService.CreateTurn(player1, round.RoundID);
-            Turn turn2 = turnService.CreateTurn(player2, round.RoundID);
+            Turn turn1 = turnService.CreateTurn(player1, round.RoundID, 1);
+            Turn turn2 = turnService.CreateTurn(player2, round.RoundID, 2);
 
             round.Turns = new List<Turn>() { turn1, turn2 };
 
@@ -118,8 +118,8 @@ namespace Services
                     return responseRound;
                 }
 
-                Turn turn1 = turnService.CreateTurn(player1, restoredRound.RoundID);
-                Turn turn2 = turnService.CreateTurn(player2, restoredRound.RoundID);
+                Turn turn1 = turnService.CreateTurn(player1, restoredRound.RoundID, 1);
+                Turn turn2 = turnService.CreateTurn(player2, restoredRound.RoundID, 2);
                 if (turn1 == null || turn2 == null) {
                     responseRound.ResponseCode = -1;
                     responseRound.ResponseMessage = "Los turnos no pudieron ser creados";
@@ -137,7 +137,7 @@ namespace Services
         public RoundDTO ConvertToDTO(Round round) {
             List<TurnDTO> turnsListDto = new List<TurnDTO>();
             if (round.Turns != null) {
-                foreach (var turn in round.Turns) {
+                foreach (var turn in round.Turns.OrderBy(x => x.turnNumber)) {
                     turnsListDto.Add(turnService.ConvertToDTO(turn));
                 }
             }
@@ -156,7 +156,7 @@ namespace Services
                 Turns = turnsListDto,
                 Winners = null,//todo GetWinners()
                 CurrentPlayer = null,//ToDo GetCurrentPlayer
-                CurrentTurn = turnsListDto.FirstOrDefault(), //ToDo GetCurrentTurn
+                CurrentTurn = turnsListDto.Find(x=>!x.Finished), //ToDo GetCurrentTurn
                 categories = null, //Todo FindCategories
                 Finished = false //Todo Finished
 

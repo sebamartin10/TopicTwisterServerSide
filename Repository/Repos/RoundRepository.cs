@@ -49,7 +49,7 @@ namespace Repository.Repos
         public List<Round> FindBySession(string sessionID)
         {
             List<Round> rounds = (from x in context.Rounds
-                                  .Include(y => y.Turns)
+                                  .Include(y => y.Turns).OrderBy(x => x.roundNumber)
                                   where x.SessionID == sessionID
                                   select x).ToList();
             return rounds;

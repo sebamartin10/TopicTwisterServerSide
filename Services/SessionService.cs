@@ -93,15 +93,17 @@ namespace Services
         }
         public SessionDTO ConvertToDTO(Session session) {
             List<RoundDTO> roundsListDto = new List<RoundDTO>();
+
             if (session.Rounds != null) {
-                foreach (var round in session.Rounds) {
+                foreach (var round in session.Rounds.OrderBy(x => x.roundNumber)) {
                     roundsListDto.Add(roundService.ConvertToDTO(round));
                 }
             }
+
             SessionDTO sessionDto = new SessionDTO {
                 SessionID = session.SessionID,
                 Rounds = roundsListDto,
-                CurrentRound = roundsListDto.FirstOrDefault()//ToDo GetCurrentRound
+                CurrentRound = roundsListDto.Find(x => !x.Finished)
             };
             return sessionDto;
         }
@@ -132,6 +134,12 @@ namespace Services
                     responseSession.ResponseMessage = "No se pudo encontrar la sesion";
                     return responseSession;
                 }
+
+                var roundRepository = new RoundRepository();
+                var rounds = roundRepository.FindBySession(sessionId);
+
+                session.Rounds = rounds;
+
                 responseSession.Dto = this.ConvertToDTO(session);
                 return responseSession;
             } catch (Exception ex) {
