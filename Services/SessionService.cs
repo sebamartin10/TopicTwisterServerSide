@@ -140,6 +140,8 @@ namespace Services
 
                 session.Rounds = rounds;
 
+
+
                 responseSession.Dto = this.ConvertToDTO(session);
                 return responseSession;
             } catch (Exception ex) {

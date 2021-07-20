@@ -124,7 +124,7 @@ namespace Services
                 }
                 int countCorrect = 0;
                 Letter letter = round.Letter;
-                turn.Answers = new List<Answer>(wordsAnswered.Count);
+                var answers = new List<Answer>(wordsAnswered.Count);
                 for (int i = 0; i < wordsAnswered.Count; i++)
                 {
                     Category category = CheckCategory(categoriesIDs[i]);
@@ -134,12 +134,21 @@ namespace Services
                         letter.LetterID,
                         turnId
                     );
-                    turn.Answers.Add(answer);
-                    if (answer.Correct) countCorrect++;
+                    answers.Add(answer);
+                    if (answer.Correct) 
+                        countCorrect++;
                 }
                 turn.correctAnswers = countCorrect;
                 turn.finishTime = time;
                 turn.finished = true;
+
+                round.Finished = round.Turns.All(x => x.finished);
+
+                turnRepository.Update(turn);
+                roundRepository.Update(round);
+
+                turn.Answers = answers;
+
                 responseTurn.Dto = ConvertToDTO(turn);
                 return responseTurn;
             }
