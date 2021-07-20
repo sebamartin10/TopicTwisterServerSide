@@ -39,12 +39,13 @@ namespace Repository.Repos
 
         public List<Session> FindAllSessions()
         {
-            return context.Sessions.ToList();
+            return context.Sessions.Include(x => x.Rounds).ToList();
         }
 
         public Session FindById(string id)
         {
             Session session = (from x in context.Sessions
+                               .Include(x => x.Rounds)
                            where x.SessionID == id
                            select x).FirstOrDefault();
             return session;

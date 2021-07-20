@@ -56,7 +56,8 @@ namespace Services
             try {
                 RoundRepository roundRepo = new RoundRepository();
                 TurnRepository turnRepo = new TurnRepository();
-
+                PlayerRepository playerRepo = new PlayerRepository();
+                
                 response.Dto = new List<ActiveSessionDTO>();
                 PlayerSessionRepository playerSessionRepo = new PlayerSessionRepository();
                 List<Session> activeSessions = playerSessionRepo.FindAllActivePlayerSessions(playerID);
@@ -74,11 +75,15 @@ namespace Services
 
                     Round actualRound = rounds.Where(x => x.Finished == false).OrderBy(x => x.roundNumber).First();
                     asDTO.CurrentRoundNumber = actualRound.roundNumber;
-                    Player oponent = turnRepo.FindOponent(playerID);
-                    asDTO.OpponentName = oponent.PlayerName;
 
-                    Turn actualTurn = actualRound.Turns.Where(x => x.finished == false).OrderBy(x => x.turnNumber).FirstOrDefault();
-                    asDTO.IsLocalPlayer = actualTurn != null && actualTurn.PlayerID == playerID;
+                    if (actualRound != null) {
+                        string opponentId = actualRound.Turns.ToList().Find(x => x.PlayerID != playerID)?.PlayerID;
+                        Player opponent = playerRepo.FindById(opponentId);
+                        asDTO.OpponentName = opponent.PlayerName;
+
+                        Turn actualTurn = actualRound.Turns.Where(x => x.finished == false).OrderBy(x => x.turnNumber).FirstOrDefault();
+                        asDTO.IsLocalPlayer = actualTurn != null && actualTurn.PlayerID == playerID;
+                    }
 
                     response.Dto.Add(asDTO);
                 }

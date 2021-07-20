@@ -28,6 +28,14 @@ namespace APITopicTwister.Controllers
             return response;
         }
 
+        [HttpGet("round/{roundID}")]
+        public ResponseTopicTwister<RoundDTO> GetRoundById(string roundID)
+        {
+            RoundService roundService = new RoundService();
+            ResponseTopicTwister<RoundDTO> response = roundService.GetRoundById(roundID);
+            return response;
+        }
+
         [HttpGet("round/{roundID}/result")]
         public ResponseTopicTwister<RoundResultDTO> GetRoundResult(string roundID)
         {
