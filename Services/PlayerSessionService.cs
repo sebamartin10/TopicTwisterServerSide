@@ -57,7 +57,7 @@ namespace Services
                 RoundRepository roundRepo = new RoundRepository();
                 TurnRepository turnRepo = new TurnRepository();
                 PlayerRepository playerRepo = new PlayerRepository();
-                
+
                 response.Dto = new List<ActiveSessionDTO>();
                 PlayerSessionRepository playerSessionRepo = new PlayerSessionRepository();
                 List<Session> activeSessions = playerSessionRepo.FindAllActivePlayerSessions(playerID);
@@ -73,19 +73,21 @@ namespace Services
                     List<Round> rounds = roundRepo.FindBySession(sessionActive.SessionID);
                     asDTO.RoundsCount = rounds.Count;
 
-                    Round actualRound = rounds.Where(x => x.Finished == false).OrderBy(x => x.roundNumber).First();
-                    asDTO.CurrentRoundNumber = actualRound.roundNumber;
-
+                    Round actualRound = rounds.Where(x => x.Finished == false).OrderBy(x => x.roundNumber).FirstOrDefault();
                     if (actualRound != null) {
-                        string opponentId = actualRound.Turns.ToList().Find(x => x.PlayerID != playerID)?.PlayerID;
-                        Player opponent = playerRepo.FindById(opponentId);
-                        asDTO.OpponentName = opponent.PlayerName;
+                        asDTO.CurrentRoundNumber = actualRound.roundNumber;
+                        if (actualRound != null) {
+                            string opponentId = actualRound.Turns.ToList().Find(x => x.PlayerID != playerID)?.PlayerID;
+                            Player opponent = playerRepo.FindById(opponentId);
+                            asDTO.OpponentName = opponent.PlayerName;
 
-                        Turn actualTurn = actualRound.Turns.Where(x => x.finished == false).OrderBy(x => x.turnNumber).FirstOrDefault();
-                        asDTO.IsLocalPlayer = actualTurn != null && actualTurn.PlayerID == playerID;
+                            Turn actualTurn = actualRound.Turns.Where(x => x.finished == false).OrderBy(x => x.turnNumber).FirstOrDefault();
+                            asDTO.IsLocalPlayer = actualTurn != null && actualTurn.PlayerID == playerID;
+                        }
                     }
 
                     response.Dto.Add(asDTO);
+
                 }
 
                 return response;

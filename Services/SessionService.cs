@@ -103,7 +103,9 @@ namespace Services
             SessionDTO sessionDto = new SessionDTO {
                 SessionID = session.SessionID,
                 Rounds = roundsListDto,
-                CurrentRound = roundsListDto.Find(x => !x.Finished)
+                CurrentRound = roundsListDto.Find(x => !x.Finished),
+                Finished = !session.isActive
+                
             };
             return sessionDto;
         }

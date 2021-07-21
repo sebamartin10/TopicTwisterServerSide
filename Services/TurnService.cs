@@ -143,8 +143,18 @@ namespace Services
 
                 turnRepository.Update(turn);
 
-                round.Finished = round.Turns.Where(x => x.TurnID != turnId).All(x => x.finished);
-                roundRepository.Update(round);
+                if (round.Turns.Where(x => x.TurnID != turnId).All(x => x.finished)) {
+                    round.Finished = true;
+                    roundRepository.Update(round);
+
+                    var sessionRepository = new SessionRepository();
+                    var session = sessionRepository.FindById(round.SessionID);
+
+                    if (session.Rounds.Where(x => x.RoundID != round.RoundID).All(x => x.Finished)) {
+                        session.isActive = false;
+                        sessionRepository.Update(session);
+                    }
+                }
 
                 turn.Answers = answers;
 
