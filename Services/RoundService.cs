@@ -148,6 +148,20 @@ namespace Services
                     LetterName = round.Letter.LetterName
                 };
             }
+            List<CategoryDTO> categoryDTOs = null;
+            var categoryRepository = new CategoryRepository();
+
+            if (round.Categories != null) {
+                categoryDTOs = new List<CategoryDTO>();
+                round.Categories.ToList().ForEach(categoryRound => {
+                    var category = categoryRepository.FindByCategoryID(categoryRound.CategoryID);
+                    categoryDTOs.Add(new CategoryDTO() { 
+                        CategoryID = category.CategoryID,
+                        CategoryName = category.CategoryName
+                    });
+                });
+            }
+
             RoundDTO roundDto = new RoundDTO {
                 RoundID = round.RoundID,
                 //SessionID = round.SessionID,
@@ -157,8 +171,8 @@ namespace Services
                 Winners = null,//todo GetWinners()
                 CurrentPlayer = null,//ToDo GetCurrentPlayer
                 CurrentTurn = turnsListDto.Find(x=>!x.Finished), //ToDo GetCurrentTurn
-                categories = null, //Todo FindCategories
-                Finished = false //Todo Finished
+                categories = categoryDTOs, 
+                Finished = round.Finished
 
             };
             return roundDto;

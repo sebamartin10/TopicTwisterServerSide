@@ -138,9 +138,18 @@ namespace Services
                 var roundRepository = new RoundRepository();
                 var rounds = roundRepository.FindBySession(sessionId);
 
+
+                var roundCategoryRepository = new RoundCategoryRepository();
+                var categoryRepository = new CategoryRepository();
+                var letterRepository = new LetterRepository();
+
+                rounds.ForEach(round => {
+                    List<RoundCategory> roundCategories = roundCategoryRepository.FindAllByRound(round.RoundID);
+                    round.Categories = roundCategories;
+                    round.Letter = letterRepository.FindById(round.LetterID);
+                });
+
                 session.Rounds = rounds;
-
-
 
                 responseSession.Dto = this.ConvertToDTO(session);
                 return responseSession;

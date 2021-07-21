@@ -141,9 +141,9 @@ namespace Services
                 turn.finishTime = time;
                 turn.finished = true;
 
-                round.Finished = round.Turns.All(x => x.finished);
-
                 turnRepository.Update(turn);
+
+                round.Finished = round.Turns.Where(x => x.TurnID != turnId).All(x => x.finished);
                 roundRepository.Update(round);
 
                 turn.Answers = answers;
