@@ -31,12 +31,14 @@ namespace Services
                     return response;
                 }
 
+                PlayerRepository playerRepository = new PlayerRepository();
+
                 foreach (var sessionFinished in finishedSessions) {
                     FinishedSessionDTO finishedSessionDTO = new FinishedSessionDTO();
                     List<SessionResult> sessionsResults = sessionService.GetSessionResults(sessionFinished.SessionID);
 
-                    finishedSessionDTO.playerLocalStatus = sessionsResults.Where(x => x.Player.PlayerID == playerID).First().StatusPlayer;
-                    Player playerOponent = sessionsResults.Where(x => x.Player.PlayerID != playerID).First().Player;
+                    finishedSessionDTO.playerLocalStatus = sessionsResults.Where(x => x.PlayerID == playerID).First().StatusPlayer;
+                    Player playerOponent = playerRepository.FindById(sessionsResults.Where(x => x.PlayerID != playerID).First().PlayerID);
                     finishedSessionDTO.OpponentID = playerOponent.PlayerID;
                     finishedSessionDTO.OpponentName = playerOponent.PlayerName;
                     response.Dto.Add(finishedSessionDTO);
