@@ -55,11 +55,11 @@ namespace Services
                             player1Result ++;
                         }
                     }
-                    else
+                    else if (roundResult.Player.PlayerID == player2.PlayerID)
                     {
                         if (roundResult.StatusPlayer == (int)PlayerEnum.Win)
                         {
-                            player2Result++;
+                            player2Result ++;
                         }
                     }
                 }

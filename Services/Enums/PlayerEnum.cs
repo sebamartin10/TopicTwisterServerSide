@@ -8,8 +8,8 @@ namespace Services.Enums
 {
     public enum PlayerEnum
     {
-        Win,
-        Loss,
-        Tie
+        Win = 1,
+        Lost = 0,
+        Tie = 2
     }
 }

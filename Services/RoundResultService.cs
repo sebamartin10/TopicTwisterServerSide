@@ -125,7 +125,7 @@ namespace Services
                 RoundResult roundResultPlayer1 = new RoundResult()
                 {
                     RoundResultID = Guid.NewGuid().ToString(),
-                    StatusPlayer = player1Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Loss,
+                    StatusPlayer = player1Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Lost,
                     RoundID = idRound,
                     PlayerID = player1.PlayerID,
                     CorrectWords = turns[0].correctAnswers
@@ -134,7 +134,7 @@ namespace Services
                 RoundResult roundResultPlayer2 = new RoundResult()
                 {
                     RoundResultID = Guid.NewGuid().ToString(),
-                    StatusPlayer = player2Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Loss,
+                    StatusPlayer = player2Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Lost,
                     RoundID = idRound,
                     PlayerID = player2.PlayerID,
                     CorrectWords = turns[1].correctAnswers
