@@ -2,6 +2,7 @@
 using Repository.Contracts;
 using Repository.Repos;
 using Services.DTOs;
+using Services.Enums;
 using Services.Errors;
 using System;
 using System.Collections.Generic;
@@ -120,6 +121,28 @@ namespace Services
                 };
 
                 responseRoundResult.Dto = roundResultDTO;
+
+                RoundResult roundResultPlayer1 = new RoundResult()
+                {
+                    RoundResultID = Guid.NewGuid().ToString(),
+                    StatusPlayer = player1Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Loss,
+                    RoundID = idRound,
+                    PlayerID = player1.PlayerID,
+                    CorrectWords = turns[0].correctAnswers
+                };
+
+                RoundResult roundResultPlayer2 = new RoundResult()
+                {
+                    RoundResultID = Guid.NewGuid().ToString(),
+                    StatusPlayer = player2Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Loss,
+                    RoundID = idRound,
+                    PlayerID = player2.PlayerID,
+                    CorrectWords = turns[1].correctAnswers
+                };
+
+                RoundResultRepository roundResultRepository = new RoundResultRepository();
+                roundResultRepository.Create(roundResultPlayer1);
+                roundResultRepository.Create(roundResultPlayer2);
 
                 return responseRoundResult;
             }

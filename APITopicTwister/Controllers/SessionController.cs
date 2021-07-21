@@ -48,5 +48,14 @@ namespace APITopicTwister.Controllers
             ResponseTopicTwister<SessionDTO> response = sessionService.GetSessionById(sessionID);
             return response;
         }
+
+        [HttpGet("session/{sessionID}/result")]
+        public ResponseTopicTwister<SessionResultDTO> GetSessionResult(string sessionID)
+        {
+            SessionResultService sessionResultService = new SessionResultService();
+            ResponseTopicTwister<SessionResultDTO> response = sessionResultService.GetSessionResult(sessionID);
+            return response;
+        }
+
     }
 }

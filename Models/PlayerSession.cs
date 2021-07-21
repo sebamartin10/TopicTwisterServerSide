@@ -10,6 +10,7 @@ namespace Models
         public string PlayerID { get; set; }
         public string SessionID { get; set; }
         public virtual Session Session { get; set; }
+        public virtual Player Player { get; set; }
 
-}
+    }
 }

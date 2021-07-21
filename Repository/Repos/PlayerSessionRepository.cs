@@ -61,5 +61,13 @@ namespace Repository.Repos
                                            select x).First();
             return playerSession;
         }
+
+        public List<Player> FindPlayersBySession(string SessionID)
+        {
+            List<Player> players = (from x in context.PlayerSessions
+                                           where x.SessionID == SessionID
+                                           select x.Player).ToList();
+            return players;
+        }
     }
 }

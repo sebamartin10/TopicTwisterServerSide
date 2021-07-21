@@ -22,6 +22,7 @@ namespace Repository
         public DbSet<RoundCategory> RoundCategories { get; set; }
         public DbSet<WordCategory> WordCategories { get; set; }
         public DbSet<SessionResult> SessionResults { get; set; }
+        public DbSet<RoundResult> RoundResults { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=SQL5101.site4now.net;Initial Catalog=db_a76b7c_jsmartin;User Id=db_a76b7c_jsmartin_admin;Password=Gringo544");
@@ -63,6 +64,9 @@ namespace Repository
             });
             builder.Entity<SessionResult>(entity => {
                 entity.ToTable("SessionResult");
+            });
+            builder.Entity<RoundResult>(entity => {
+                entity.ToTable("RoundResult");
             });
         }
     }

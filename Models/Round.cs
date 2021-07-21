@@ -14,7 +14,8 @@ namespace Models
         public virtual Letter Letter { get; set; }
         public bool Finished { get; set; }
         public int roundNumber { get; set; }
-
         public virtual ICollection<RoundCategory> Categories { get; set; }
+
+        public virtual ICollection<RoundResult> RoundResults { get; set; }
     }
 }
