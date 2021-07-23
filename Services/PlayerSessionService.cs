@@ -35,7 +35,9 @@ namespace Services
                 foreach (var sessionFinished in finishedSessions) {
                     FinishedSessionDTO finishedSessionDTO = new FinishedSessionDTO();
                     List<SessionResult> sessionsResults = sessionService.GetSessionResults(sessionFinished.SessionID);
-                    
+
+                    finishedSessionDTO.SessionID = sessionFinished.SessionID;
+
                     Player playerOponent = playerSessionRepo.FindPlayersBySession(sessionFinished.SessionID).Find(x => x.PlayerID != playerID);
                     finishedSessionDTO.OpponentID = playerOponent.PlayerID;
                     finishedSessionDTO.OpponentName = playerOponent.PlayerName;

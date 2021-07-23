@@ -8,6 +8,7 @@ namespace Services.DTOs
 {
     public class FinishedSessionDTO
     {
+        public string SessionID { get; set; }
         public string OpponentID { get; set; }
         public string OpponentName { get; set; }
         public int playerLocalStatus { get; set; }
