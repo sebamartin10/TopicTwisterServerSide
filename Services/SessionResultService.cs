@@ -97,25 +97,27 @@ namespace Services
 
                 responseSessionResult.Dto = sessionResultDTO;
 
-                SessionResult sessionResultPlayer1 = new SessionResult()
-                {
-                    SessionResultID = Guid.NewGuid().ToString(),
-                    SessionID = idSession,
-                    PlayerID = player1.PlayerID,
-                    StatusPlayer = player1Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Lost
-                };
-
-                SessionResult sessionResultPlayer2 = new SessionResult()
-                {
-                    SessionResultID = Guid.NewGuid().ToString(),
-                    SessionID = idSession,
-                    PlayerID = player2.PlayerID,
-                    StatusPlayer = player2Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Lost
-                };
 
                 SessionResultRepository sessionResultRepository = new SessionResultRepository();
-                sessionResultRepository.Create(sessionResultPlayer1);
-                sessionResultRepository.Create(sessionResultPlayer2);
+                if (sessionResultRepository.FindBySession(idSession).Count == 0) {
+
+                    SessionResult sessionResultPlayer1 = new SessionResult() {
+                        SessionResultID = Guid.NewGuid().ToString(),
+                        SessionID = idSession,
+                        PlayerID = player1.PlayerID,
+                        StatusPlayer = player1Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Lost
+                    };
+
+                    SessionResult sessionResultPlayer2 = new SessionResult() {
+                        SessionResultID = Guid.NewGuid().ToString(),
+                        SessionID = idSession,
+                        PlayerID = player2.PlayerID,
+                        StatusPlayer = player2Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Lost
+                    };
+
+                    sessionResultRepository.Create(sessionResultPlayer1);
+                    sessionResultRepository.Create(sessionResultPlayer2);
+                }
 
                 return responseSessionResult;
             }

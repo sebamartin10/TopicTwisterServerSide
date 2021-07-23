@@ -26,7 +26,6 @@ namespace Services
                 PlayerSessionRepository playerSessionRepo = new PlayerSessionRepository();
                 List<Session> finishedSessions = playerSessionRepo.FindAllNoActivePlayerSessions(playerID);
                 if (finishedSessions.Count == 0) {
-
                     response.ResponseMessage = "No se pudo recuperar un historial de sesiones para el player";
                     return response;
                 }
@@ -36,11 +35,17 @@ namespace Services
                 foreach (var sessionFinished in finishedSessions) {
                     FinishedSessionDTO finishedSessionDTO = new FinishedSessionDTO();
                     List<SessionResult> sessionsResults = sessionService.GetSessionResults(sessionFinished.SessionID);
-
-                    finishedSessionDTO.playerLocalStatus = sessionsResults.Where(x => x.PlayerID == playerID).First().StatusPlayer;
-                    Player playerOponent = playerRepository.FindById(sessionsResults.Where(x => x.PlayerID != playerID).First().PlayerID);
+                    
+                    Player playerOponent = playerSessionRepo.FindPlayersBySession(sessionFinished.SessionID).Find(x => x.PlayerID != playerID);
                     finishedSessionDTO.OpponentID = playerOponent.PlayerID;
                     finishedSessionDTO.OpponentName = playerOponent.PlayerName;
+
+                    if (sessionsResults.Count > 0) {
+                        finishedSessionDTO.playerLocalStatus = sessionsResults.Where(x => x.PlayerID == playerID).First().StatusPlayer;
+                    } else {
+                        finishedSessionDTO.NeedShowResult =true;
+                    }
+
                     response.Dto.Add(finishedSessionDTO);
                 }
                 return response;

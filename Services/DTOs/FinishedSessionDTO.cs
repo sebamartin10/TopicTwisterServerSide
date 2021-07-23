@@ -11,5 +11,6 @@ namespace Services.DTOs
         public string OpponentID { get; set; }
         public string OpponentName { get; set; }
         public int playerLocalStatus { get; set; }
+        public bool NeedShowResult { get; set; }
     }
 }
