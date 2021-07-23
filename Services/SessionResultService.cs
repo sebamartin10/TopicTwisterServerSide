@@ -44,7 +44,7 @@ namespace Services
                 }
                 
                 Player player1 = roundResults[0].Player;
-                Player player2 = roundResults[1].Player;
+                Player player2 = roundResults.Where(x => x.PlayerID != player1.PlayerID).FirstOrDefault().Player;
 
                 foreach(RoundResult roundResult in roundResults)
                 {
