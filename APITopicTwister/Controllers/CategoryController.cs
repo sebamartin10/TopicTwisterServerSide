@@ -24,7 +24,7 @@ namespace APITopicTwister.Controllers
         public ResponseTopicTwister<List<CategoryDTO>> GetRandomCategories()
         {
             CategoryService categoryService = new CategoryService(new CategoryRepository());
-            ResponseTopicTwister<List<CategoryDTO>> response = categoryService.GetRandomCategories(3);
+            ResponseTopicTwister<List<CategoryDTO>> response = categoryService.GetRandomCategories(5);
             return response;
         }
 

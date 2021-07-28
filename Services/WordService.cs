@@ -88,11 +88,12 @@ namespace Services
             {
                 return isOk;
             }
+            /* TODO 
             isOk = VerifyDigitsService(wordAnswered);
             if (!isOk)
             {
                 return isOk;
-            }
+            }*/
             return isOk;
         }
         public bool VerifyNullService(string wordAnswered)

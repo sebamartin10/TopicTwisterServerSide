@@ -76,8 +76,7 @@ namespace Services
         }
         private Category CheckCategory(string categoryId)
         {
-            Category category = new Category();
-            category = categoryService.GetCategory(categoryId);
+            Category category = categoryService.GetCategory(categoryId);
             return category;
         }
 
@@ -121,8 +120,10 @@ namespace Services
                     responseTurn.ResponseMessage = $"La cantidad de respuestas recibidas es diferente de las esperadas: {roundCategories.Count}";
                     return responseTurn;
                 }
+
                 int countCorrect = 0;
                 Letter letter = round.Letter;
+
                 var answers = new List<Answer>(wordsAnswered.Count);
                 for (int i = 0; i < wordsAnswered.Count; i++)
                 {

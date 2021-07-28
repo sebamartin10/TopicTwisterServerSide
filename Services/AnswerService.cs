@@ -120,7 +120,7 @@ namespace Services
                 WordService wordService = new WordService();
 
                 //Por ahora debe aceptar null ya que necesitamos la respuesta vacia
-                if (wordAnswered == null || wordAnswered == "") wordAnswered = "Sin respuesta";
+                if (wordAnswered == null || wordAnswered == "") wordAnswered = "-";
 
                 bool isWordOk = wordService.VerifyWordService(wordAnswered);
                 bool isCorrect = false;
