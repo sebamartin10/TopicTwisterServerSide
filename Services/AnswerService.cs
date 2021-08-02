@@ -136,7 +136,8 @@ namespace Services
 
                 wordAnswered = wordService.ConvertToUppercase(wordAnswered);
                 wordAnswered = wordService.ConvertWordBlankSpaces(wordAnswered);
-
+                wordAnswered = wordService.VerifyAccents(wordAnswered);
+                
                 answerRepository = new AnswerRepository();
 
                 Category category = new Category();

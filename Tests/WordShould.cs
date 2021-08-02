@@ -5,7 +5,7 @@ using Services.DTOs;
 
 namespace Tests
 {
-    public class Tests
+    public class WordShould
     {
         [Test]
         public void Word_Answered_Not_Empty() {
@@ -55,6 +55,18 @@ namespace Tests
             string word = wordService.ConvertWordBlankSpaces(actualWord);
             //Then
             Assert.AreEqual(expectedWord, word);
+        }
+        [TestCase("áéíóú","aeiou")]
+        [TestCase("aé io ú","ae io u")]
+        [TestCase("ÁÁÁ","AAA")]
+        public void Word_Answered_Must_Have_No_Accents(string wordAnswered,string wordExpected) {
+            //Given
+            
+            WordService wordService = new WordService();
+            //When
+            string wordActual = wordService.VerifyAccents(wordAnswered);
+            //Then
+            Assert.AreEqual(wordExpected, wordActual);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Models;
 using Repository.Contracts;
@@ -81,6 +82,14 @@ namespace Services
             }
             return response;
         }
+
+        public string VerifyAccents(string wordAnswered)
+        {
+            string wordAnsweredWitohoutAccents = Regex.Replace(wordAnswered.Normalize(NormalizationForm.FormD), @"[^a-zA-z0-9 ]+", "");
+
+            return wordAnsweredWitohoutAccents;
+        }
+
         public bool VerifyWordService (string wordAnswered)
         {
             bool isOk = VerifyNullService(wordAnswered);
@@ -88,6 +97,7 @@ namespace Services
             {
                 return isOk;
             }
+            
             /* TODO 
             isOk = VerifyDigitsService(wordAnswered);
             if (!isOk)
