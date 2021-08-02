@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -85,7 +86,11 @@ namespace Services
 
         public string VerifyAccents(string wordAnswered)
         {
-            string wordAnsweredWitohoutAccents = Regex.Replace(wordAnswered.Normalize(NormalizationForm.FormD), @"[^a-zA-z0-9 ]+", "");
+            string wordAnsweredWitohoutAccents = string.Concat(Regex.Replace(wordAnswered, @"(?i)[\p{L}-[ña-z]]+", m =>
+                m.Value.Normalize(NormalizationForm.FormD)
+            )
+            .Where(c => CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark));
+            //string wordAnsweredWitohoutAccents = Regex.Replace(wordAnswered.Normalize(NormalizationForm.FormD), @"[^a-zA-z0-9ñÑ ]+", "");
 
             return wordAnsweredWitohoutAccents;
         }
