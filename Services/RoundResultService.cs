@@ -108,7 +108,7 @@ namespace Services
 
                 responseRoundResult.Dto = roundResultDTO;
 
-                if (!turns[0].finished || !turns[1].finished) {
+                if (turns.All(x => x.finished)) {
 
                     RoundResultRepository roundResultRepository = new RoundResultRepository();
 
