@@ -22,15 +22,22 @@ namespace Services
             {
                 ResponseTopicTwister<WordCategoryDTO> response = new ResponseTopicTwister<WordCategoryDTO>();
                 
-                wordCategoryRepository = new WordCategoryRepository();
-                
-                Category category = new Category();
+                wordCategoryRepository = new WordCategoryRepository();                
+               
                 CategoryRepository categoryRepository = new CategoryRepository();
-                category = categoryRepository.FindByCategory(categoryName);
+                Category category = categoryRepository.FindByCategory(categoryName);
 
-                Word word = new Word();
                 WordRepository wordRepository = new WordRepository();
-                word = wordRepository.FindByWord(wordName);
+                Word word = wordRepository.FindByWord(wordName);
+
+                if (word == null) {
+                    var wordService = new WordService();
+                    var wordResponse = wordService.CreateWord(wordName);
+                    if (wordResponse.ResponseCode != 0) {
+                        return new ResponseTopicTwister<WordCategoryDTO>(null, wordResponse.ResponseCode, wordResponse.ResponseMessage);
+                    }
+                    word = wordRepository.FindByWord(wordName);
+                }
 
                 WordCategory wordCategory = new WordCategory
                 {

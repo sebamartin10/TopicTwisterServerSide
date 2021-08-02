@@ -13,10 +13,10 @@ namespace APITopicTwister.Controllers
     public class WordCategoryController : Controller
     {
         [HttpPost("CreateWordCategory")]
-        public ResponseTopicTwister<WordCategoryDTO> CreateWordCategory(CategoryDTO categoryDTO, WordDTO wordDTO)
+        public ResponseTopicTwister<WordCategoryDTO> CreateWordCategory(string categoryName, string wordName)
         {
             WordCategoryService wordCategoryService = new WordCategoryService();
-            ResponseTopicTwister<WordCategoryDTO> response = wordCategoryService.CreateWordCategory(categoryDTO.CategoryName, wordDTO.WordName);
+            ResponseTopicTwister<WordCategoryDTO> response = wordCategoryService.CreateWordCategory(categoryName, wordName);
             return response;
         }
 
