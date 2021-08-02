@@ -59,6 +59,8 @@ namespace Tests
         [TestCase("áéíóú","aeiou")]
         [TestCase("aé io ú","ae io u")]
         [TestCase("ÁÁÁ","AAA")]
+        [TestCase("", "")]
+        [TestCase("ÚGANDA", "UGANDA")]
         public void Word_Answered_Must_Have_No_Accents(string wordAnswered,string wordExpected) {
             //Given
             

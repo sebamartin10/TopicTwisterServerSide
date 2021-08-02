@@ -128,15 +128,15 @@ namespace Services
                 {
                     throw new ArgumentException("La palabra esta vacia o contiene digitos");
                 }
-
+                
                 string wordUpper = wordAnswered.ToUpper();
                 char startLetterUpper = wordUpper[0];
                 string wordLower = wordAnswered.ToLower();
                 char startLetterLower = wordLower[0];
-
+                wordAnswered = wordService.VerifyAccents(wordAnswered);
                 wordAnswered = wordService.ConvertToUppercase(wordAnswered);
                 wordAnswered = wordService.ConvertWordBlankSpaces(wordAnswered);
-                wordAnswered = wordService.VerifyAccents(wordAnswered);
+                
                 
                 answerRepository = new AnswerRepository();
 
