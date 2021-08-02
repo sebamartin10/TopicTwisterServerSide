@@ -49,7 +49,7 @@ namespace Tests
         [TestCase("   WORD   ","WORD")]
         public void Not_Has_Blank_Spaces_At_The_Beginning_And_The_End(string actualWord,string expectedWord) {
             //Given
-            ResponseTopicTwister<AnswerDTO> response = new ResponseTopicTwister<AnswerDTO>();
+            
             WordService wordService = new WordService();
             //When
             string word = wordService.ConvertWordBlankSpaces(actualWord);
@@ -65,6 +65,17 @@ namespace Tests
         public void Word_Answered_Must_Have_No_Accents(string wordAnswered,string wordExpected) {
             //Given
             
+            WordService wordService = new WordService();
+            //When
+            string wordActual = wordService.VerifyAccents(wordAnswered);
+            //Then
+            Assert.AreEqual(wordExpected, wordActual);
+        }
+        [TestCase("España","España")]
+        [TestCase("Ñoqui","Ñoqui")]
+        [TestCase("Año","Año")]
+        public void Word_Answered_Must_Accept_Ñ(string wordAnswered, string wordExpected) {
+
             WordService wordService = new WordService();
             //When
             string wordActual = wordService.VerifyAccents(wordAnswered);

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Moq;
 using NUnit.Framework;
+using Repository.Contracts;
 using Services;
 using Services.DTOs;
 using Services.Errors;
@@ -61,6 +63,13 @@ namespace Tests
             ResponseTopicTwister<PlayerDTO> result = PlayerService.VerifyPass(password);
             //Then
             Assert.AreEqual(expected, result.ResponseCode);
+        }
+
+        public void Be_Unique() {
+            Mock<IPlayerRepository> playerRepo = new Mock<IPlayerRepository>();
+            PlayerService playerService = new PlayerService();
+
+
         }
 
     }
