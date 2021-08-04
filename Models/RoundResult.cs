@@ -13,5 +13,7 @@ namespace Models
         public string PlayerID { get; set; }
         public int CorrectWords  { get; set; }
 
+        public float Time { get; set; }
+
     }
 }

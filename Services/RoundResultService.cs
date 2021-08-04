@@ -112,24 +112,32 @@ namespace Services
 
                     RoundResultRepository roundResultRepository = new RoundResultRepository();
 
-                    RoundResult roundResultPlayer1 = new RoundResult() {
-                        RoundResultID = Guid.NewGuid().ToString(),
-                        StatusPlayer = player1Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Lost,
-                        RoundID = idRound,
-                        PlayerID = player1.PlayerID,
-                        CorrectWords = turns[0].correctAnswers
-                    };
+                    List<RoundResult> resultsRecovered = roundResultRepository.FindByRound(idRound);
+
+                    if (resultsRecovered.Count == 0) {
+
+                        RoundResult roundResultPlayer1 = new RoundResult() {
+                            RoundResultID = Guid.NewGuid().ToString(),
+                            StatusPlayer = player1Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Lost,
+                            RoundID = idRound,
+                            PlayerID = player1.PlayerID,
+                            CorrectWords = turns[0].correctAnswers,
+                            Time = turns[0].finishTime
+
+                        };
 
                     RoundResult roundResultPlayer2 = new RoundResult() {
                         RoundResultID = Guid.NewGuid().ToString(),
                         StatusPlayer = player2Win ? (int)PlayerEnum.Win : (int)PlayerEnum.Lost,
                         RoundID = idRound,
                         PlayerID = player2.PlayerID,
-                        CorrectWords = turns[1].correctAnswers
-                    };
+                        CorrectWords = turns[1].correctAnswers,
+                        Time = turns[1].finishTime
+                        };
 
-                    roundResultRepository.Create(roundResultPlayer1);
-                    roundResultRepository.Create(roundResultPlayer2);
+                        roundResultRepository.Create(roundResultPlayer1);
+                        roundResultRepository.Create(roundResultPlayer2);
+                    }
                 }
 
                 return responseRoundResult;
