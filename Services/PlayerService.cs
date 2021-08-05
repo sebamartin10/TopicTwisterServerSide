@@ -23,8 +23,10 @@ namespace Services
             Player player = playerRepository.FindById(playerID);
 
             Player opponent =null;
-            while(opponent== null || opponent == player) {
+            int trys = 0;
+            while(opponent== null || opponent == player||trys<50) {
                 opponent = playerRepository.FindRandomPlayer();
+                trys++;
             }
 
             return PlayerToDTO(opponent) ;

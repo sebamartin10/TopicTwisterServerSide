@@ -96,14 +96,15 @@ namespace Services
                 }
 
 
-                RoundResultDTO roundResultDTO = new RoundResultDTO
-                {
+                RoundResultDTO roundResultDTO = new RoundResultDTO {
                     Player1Name = player1.PlayerName,
                     Player2Name = player2.PlayerName,
                     RoundResults = roundResultByCategoryDTOs,
                     Letter = letter.LetterName,
                     isPlayer1Winner = player1Win,
-                    isPlayer2Winner = player2Win
+                    isPlayer2Winner = player2Win,
+                    Player1Time = turns[0].finishTime,
+                    Player2Time = turns[1].finishTime
                 };
 
                 responseRoundResult.Dto = roundResultDTO;

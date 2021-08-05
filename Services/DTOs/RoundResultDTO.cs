@@ -14,5 +14,8 @@ namespace Services.DTOs
         public char Letter { get; set; }
         public bool isPlayer1Winner { get; set; }
         public bool isPlayer2Winner { get; set; }
+
+        public float Player1Time { get; set; }
+        public float Player2Time { get; set; }
     }
 }
