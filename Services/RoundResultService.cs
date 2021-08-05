@@ -64,9 +64,9 @@ namespace Services
                         player1Win = true;
                     } else if (turns[0].correctAnswers < turns[1].correctAnswers) {
                         player2Win = true;
-                    } else if (turns[0].finishTime < turns[1].finishTime) {
-                        player1Win = true;
                     } else if (turns[0].finishTime > turns[1].finishTime) {
+                        player1Win = true;
+                    } else if (turns[0].finishTime < turns[1].finishTime) {
                         player2Win = true;
                     } else {
                         player1Win = true;
