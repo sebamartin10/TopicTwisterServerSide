@@ -8,6 +8,7 @@ using Services.Errors;
 using Models;
 using Repository.Contracts;
 using Repository.Repos;
+using Models.Entities;
 
 namespace Services
 {

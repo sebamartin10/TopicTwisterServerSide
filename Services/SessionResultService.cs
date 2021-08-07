@@ -9,6 +9,7 @@ using Models;
 using Repository.Contracts;
 using Repository.Repos;
 using Services.Enums;
+using Models.Entities;
 
 namespace Services
 {

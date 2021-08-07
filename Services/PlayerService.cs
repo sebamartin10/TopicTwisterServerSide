@@ -1,4 +1,5 @@
 ﻿using Models;
+using Models.Entities;
 using Repository.Contracts;
 using Repository.Repos;
 using Services.DTOs;
