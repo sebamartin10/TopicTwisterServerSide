@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NSubstitute;
 using NUnit.Framework;
 using Services;
+using Services.Contracts;
 
 namespace Tests
 {
@@ -14,7 +16,8 @@ namespace Tests
         public void Return_A_Letter()
         {
             //Given
-            LetterService letterService = new LetterService();
+            ILetterService letterService = Substitute.For<ILetterService>();
+            //LetterService letterService = new LetterService();
             //When
             char letter = letterService.GetRandomLetter().Dto.LetterName;
             //Assert

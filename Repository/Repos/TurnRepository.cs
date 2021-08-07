@@ -11,37 +11,37 @@ namespace Repository.Repos
 {
     public class TurnRepository : ITurnRepository
     {
-        private readonly SQLServerContext context;
-        public TurnRepository()
+        private readonly ContextDB contexto;
+        public TurnRepository(ContextDB contexto)
         {
-            context = new SQLServerContext();
+            this.contexto = contexto;
         }
         public void Create(Turn turn)
         {
-            context.Turns.Add(turn);
-            context.SaveChanges();
+            contexto.Turns.Add(turn);
+            contexto.SaveChanges();
 
         }
 
         public void Update(Turn turn)
         {
-            context.Turns.Update(turn);
-            context.SaveChanges();
+            contexto.Turns.Update(turn);
+            contexto.SaveChanges();
         }
 
         public void Delete(Turn turn)
         {
-            context.Turns.Remove(turn);
+            contexto.Turns.Remove(turn);
         }
         public Turn FindByTurn(string id)
         {
-            Turn turn = (from x in context.Turns
+            Turn turn = (from x in contexto.Turns
                          where x.TurnID == id
                            select x).FirstOrDefault();
             return turn;
         }
         public Player FindOponent(string NoOponentplayerID) {
-            Player player = (from x in context.Turns
+            Player player = (from x in contexto.Turns
                              .Include(y=>y.Player)
                              where x.PlayerID != NoOponentplayerID
                              select x.Player).First();
@@ -50,7 +50,7 @@ namespace Repository.Repos
 
         public List<Turn> FindByRound(string roundId)
         {
-            List<Turn> turns = (from x in context.Turns
+            List<Turn> turns = (from x in contexto.Turns
                                 .Include(y=>y.Answers)
                                 where x.RoundID == roundId
                                 select x).ToList();

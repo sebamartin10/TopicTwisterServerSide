@@ -10,32 +10,32 @@ namespace Repository.Repos
 {
     public class WordRepository : IWordRepository
     {
-        private readonly SQLServerContext context;
-        public WordRepository()
+        private readonly ContextDB contexto;
+        public WordRepository(ContextDB contexto)
         {
-            context = new SQLServerContext();
+            this.contexto = contexto;
         }
         public void Create(Word word)
         {
-            context.Words.Add(word);
-            context.SaveChanges();
+            contexto.Words.Add(word);
+            contexto.SaveChanges();
 
         }
 
         public void Delete(Word word)
         {
-            context.Words.Remove(word);
-            context.SaveChanges();
+            contexto.Words.Remove(word);
+            contexto.SaveChanges();
         }
 
         public List<Word> FindAllWord()
         {
-            return context.Words.ToList();
+            return contexto.Words.ToList();
         }
 
         public Word FindByWord(string wordName)
         {
-            Word word = (from x in context.Words
+            Word word = (from x in contexto.Words
                              where x.WordName == wordName
                              select x).FirstOrDefault();
             return word;

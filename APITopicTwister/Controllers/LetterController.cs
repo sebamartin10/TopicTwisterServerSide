@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 using Repository.Repos;
 using Services;
 using Services.DTOs;
@@ -12,10 +13,15 @@ namespace APITopicTwister.Controllers
 {
     public class LetterController: Controller
     {
+        private readonly ContextDB contexto;
+
+        public LetterController(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         [HttpPost("CreateLetter")]
         public ResponseTopicTwister<LetterDTO> CreateCategory(LetterDTO letterDTO)
         {
-            LetterService letterService = new LetterService();
+            LetterService letterService = new LetterService(contexto);
             ResponseTopicTwister<LetterDTO> response = letterService.CreateLetter(letterDTO.LetterName);
             return response;
         }
@@ -23,7 +29,7 @@ namespace APITopicTwister.Controllers
         [HttpGet("GetRandomLetter")]
         public ResponseTopicTwister<LetterDTO> GetRandomLetter()
         {
-            LetterService letterService = new LetterService();
+            LetterService letterService = new LetterService(contexto);
             ResponseTopicTwister<LetterDTO> response = letterService.GetRandomLetter();
             return response;
         }
@@ -31,7 +37,7 @@ namespace APITopicTwister.Controllers
         [HttpGet("GetAllLetters")]
         public ResponseTopicTwister<List<LetterDTO>> GetAllLetters()
         {
-            LetterService letterService = new LetterService();
+            LetterService letterService = new LetterService(contexto);
             ResponseTopicTwister<List<LetterDTO>> response = letterService.GetAllLetters();
             return response;
         }

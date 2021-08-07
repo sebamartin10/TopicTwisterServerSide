@@ -15,6 +15,7 @@ namespace Services
 {
     public class SessionResultService
     {
+        private readonly ContextDB contexto;
         SessionRepository sessionRepository;
         RoundRepository roundRepository;
         RoundResultRepository roundResultRepository;
@@ -25,18 +26,22 @@ namespace Services
         bool player2Win = false;
         int player1Result = 0;
         int player2Result = 0;
+
+        public SessionResultService(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         public ResponseTopicTwister<SessionResultDTO> GetSessionResult(string idSession)
         {
             try
             {
                 ResponseTopicTwister<SessionResultDTO> responseSessionResult = new ResponseTopicTwister<SessionResultDTO>();
-                sessionRepository = new SessionRepository();
+                sessionRepository = new SessionRepository(contexto);
                 Session session = sessionRepository.FindById(idSession);
 
-                roundRepository = new RoundRepository();
+                roundRepository = new RoundRepository(contexto);
                 List<Round> rounds = roundRepository.FindBySession(idSession);
 
-                roundResultRepository = new RoundResultRepository();
+                roundResultRepository = new RoundResultRepository(contexto);
                 List<RoundResult> roundResults = new List<RoundResult>();
 
                 foreach (Round round in rounds)
@@ -99,7 +104,7 @@ namespace Services
                 responseSessionResult.Dto = sessionResultDTO;
 
 
-                SessionResultRepository sessionResultRepository = new SessionResultRepository();
+                SessionResultRepository sessionResultRepository = new SessionResultRepository(contexto);
                 if (sessionResultRepository.FindBySession(idSession).Count == 0) {
 
                     SessionResult sessionResultPlayer1 = new SessionResult() {

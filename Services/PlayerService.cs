@@ -8,10 +8,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace Services
 {
     public class PlayerService
     {
+        private readonly ContextDB contexto;
+        public PlayerService(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         private static PlayerDTO PlayerToDTO(Player player) {
             return new PlayerDTO() {
                 playerID = player.PlayerID,
@@ -20,7 +25,7 @@ namespace Services
         }
 
         public PlayerDTO GetOpponent(string playerID) {
-            IPlayerRepository playerRepository = new PlayerRepository();
+            IPlayerRepository playerRepository = new PlayerRepository(contexto);
             Player player = playerRepository.FindById(playerID);
 
             Player opponent =null;
@@ -35,8 +40,8 @@ namespace Services
 
         public ResponseTopicTwister<PlayerDTO> Login(PlayerDTO playerDTO) {
             ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
-            PlayerRepository playerRepo = new PlayerRepository();
-            Player player = playerRepo.FindByNameAndPassword(playerDTO.playerName, playerDTO.password);
+            PlayerRepository playerRepo = new PlayerRepository(contexto);
+            Player player = playerRepo.FindByNameAndPassword(playerDTO.playerName, playerDTO.password,contexto);
             if (player == null) {
                 response.ResponseCode = -1;
                 response.ResponseMessage = "Credenciales incorrectas.";
@@ -50,7 +55,7 @@ namespace Services
             return response;
         }
 
-        public static ResponseTopicTwister<PlayerDTO> VerifyName(string name)
+        public ResponseTopicTwister<PlayerDTO> VerifyName(string name)
         {
             ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
             if (string.IsNullOrEmpty(name)||name.Length<4) {
@@ -60,9 +65,9 @@ namespace Services
             return response;
         }
 
-        public static ResponseTopicTwister<PlayerDTO> VerifyPlayerDuplicated(string name, string password) {
+        public ResponseTopicTwister<PlayerDTO> VerifyPlayerDuplicated(string name, string password) {
             ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
-            PlayerRepository playerRepo = new PlayerRepository();
+            IPlayerRepository playerRepo = new PlayerRepository(contexto);
             Player player = playerRepo.FindByName(name);
             if (player != null) {
                 response.ResponseCode = -1;
@@ -103,7 +108,7 @@ namespace Services
                     Password = password
                 };
 
-                IPlayerRepository playerRepo = new PlayerRepository();
+                IPlayerRepository playerRepo = new PlayerRepository(contexto);
                 playerRepo.Create(player);
                 Player playerValidator = new Player();
                 playerValidator = playerRepo.FindById(id);
@@ -123,7 +128,7 @@ namespace Services
 
         }
 
-        public static ResponseTopicTwister<PlayerDTO> VerifyPass(string password)
+        public ResponseTopicTwister<PlayerDTO> VerifyPass(string password)
         {
             ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
             if (string.IsNullOrEmpty(password) || password.Length < 4 || password.Length > 10)

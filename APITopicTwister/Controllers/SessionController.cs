@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 using Services;
 using Services.DTOs;
 using Services.Errors;
@@ -12,6 +13,12 @@ namespace APITopicTwister.Controllers
 {
     [ApiController]
     public class SessionController : Controller {
+
+        private readonly ContextDB contexto;
+
+        public SessionController(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         /*[HttpGet("CreateSession")]
         public ResponseTopicTwister<SessionDTO> CreateSession() {
             SessionService sessionService = new SessionService();
@@ -23,7 +30,7 @@ namespace APITopicTwister.Controllers
         [SwaggerOperation(Summary = "Start new session for 2 players")]
         public ResponseTopicTwister<SessionDTO> CreateSession(string player1, string player2) {
             try {
-                SessionService sessionService = new SessionService();
+                SessionService sessionService = new SessionService(contexto);
                 SessionDTO response = sessionService.CreateSession(player1, player2);
                 return new ResponseTopicTwister<SessionDTO>(response);
             } catch (Exception e){
@@ -35,7 +42,7 @@ namespace APITopicTwister.Controllers
         [SwaggerOperation(Summary = "Get all sessions")]
         public ResponseTopicTwister<List<SessionDTO>> GetAllSessions()
         {
-            SessionService sessionService = new SessionService();
+            SessionService sessionService = new SessionService(contexto);
             ResponseTopicTwister<List<SessionDTO>> response = sessionService.GetAllSessions();
             return response;
         }
@@ -44,7 +51,7 @@ namespace APITopicTwister.Controllers
         [SwaggerOperation(Summary = "Get a session")]
         public ResponseTopicTwister<SessionDTO> GetSessionById(string sessionID)
         {
-            SessionService sessionService = new SessionService();
+            SessionService sessionService = new SessionService(contexto);
             ResponseTopicTwister<SessionDTO> response = sessionService.GetSessionById(sessionID);
             return response;
         }
@@ -52,7 +59,7 @@ namespace APITopicTwister.Controllers
         [HttpGet("session/{sessionID}/result")]
         public ResponseTopicTwister<SessionResultDTO> GetSessionResult(string sessionID)
         {
-            SessionResultService sessionResultService = new SessionResultService();
+            SessionResultService sessionResultService = new SessionResultService(contexto);
             ResponseTopicTwister<SessionResultDTO> response = sessionResultService.GetSessionResult(sessionID);
             return response;
         }

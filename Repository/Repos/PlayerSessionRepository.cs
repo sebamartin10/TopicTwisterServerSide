@@ -11,37 +11,37 @@ namespace Repository.Repos
 {
     public class PlayerSessionRepository : IPlayerSessionRepository
     {
-        private readonly SQLServerContext context;
-        public PlayerSessionRepository()
+        private readonly ContextDB contexto;
+        public PlayerSessionRepository(ContextDB contexto)
         {
-            context = new SQLServerContext();
+            this.contexto = contexto;
         }
 
         public void Create(PlayerSession playerSession)
         {
-            context.PlayerSessions.Add(playerSession);
-            context.SaveChanges();
+            contexto.PlayerSessions.Add(playerSession);
+            contexto.SaveChanges();
         }
 
         public void Delete(PlayerSession playerSession)
         {
-            context.PlayerSessions.Remove(playerSession);
-            context.SaveChanges();
+            contexto.PlayerSessions.Remove(playerSession);
+            contexto.SaveChanges();
         }
 
         public List<PlayerSession> FindAllPlayerSession()
         {
-            return context.PlayerSessions.ToList();
+            return contexto.PlayerSessions.ToList();
         }
         public List<Session> FindAllActivePlayerSessions(string playerID) {
-            List<Session> activeSessions = (from x in context.PlayerSessions
+            List<Session> activeSessions = (from x in contexto.PlayerSessions
                                             .Include(y => y.Session)
                                             where x.PlayerID == playerID && x.Session.isActive == true
                                             select x.Session).ToList();
             return activeSessions;
         }
         public List<Session> FindAllNoActivePlayerSessions(string playerID) {
-            List<Session> noActiveSessions = (from x in context.PlayerSessions
+            List<Session> noActiveSessions = (from x in contexto.PlayerSessions
                                               .Include(y => y.Session)
                                               where x.PlayerID == playerID && x.Session.isActive == false
                                               select x.Session).ToList();
@@ -49,7 +49,7 @@ namespace Repository.Repos
         }
         public PlayerSession FindByPlayerAndSession(string PlayerID, string SessionID)
         {
-            PlayerSession playerSession = (from x in context.PlayerSessions
+            PlayerSession playerSession = (from x in contexto.PlayerSessions
                                            where x.PlayerID == PlayerID && x.SessionID == SessionID
                                            select x).First();
             return playerSession;
@@ -57,7 +57,7 @@ namespace Repository.Repos
 
         public PlayerSession FindByPlayerSessionID(string PlayerSessionID)
         {
-            PlayerSession playerSession = (from x in context.PlayerSessions
+            PlayerSession playerSession = (from x in contexto.PlayerSessions
                                            where x.PlayerSessionID == PlayerSessionID
                                            select x).First();
             return playerSession;
@@ -65,7 +65,7 @@ namespace Repository.Repos
 
         public List<Player> FindPlayersBySession(string SessionID)
         {
-            List<Player> players = (from x in context.PlayerSessions
+            List<Player> players = (from x in contexto.PlayerSessions
                                            where x.SessionID == SessionID
                                            select x.Player).ToList();
             return players;

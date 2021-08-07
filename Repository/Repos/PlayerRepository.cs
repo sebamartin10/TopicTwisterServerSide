@@ -10,52 +10,52 @@ namespace Repository.Repos
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private readonly SQLServerContext context;
-        public PlayerRepository() {
-            context = new SQLServerContext();
+        private readonly ContextDB contexto;
+        public PlayerRepository(ContextDB contexto) {
+            this.contexto = contexto;
         }
         public void Create(Player player)
         {
-            context.Players.Add(player);
-            context.SaveChanges();
+            contexto.Players.Add(player);
+            contexto.SaveChanges();
 
         }
 
         public void Delete(Player player)
         {
-            context.Players.Remove(player);
-            context.SaveChanges();
+            contexto.Players.Remove(player);
+            contexto.SaveChanges();
         }
 
         public List<Player> FindAll()
         {
-            return context.Players.ToList();
+            return contexto.Players.ToList();
         }
 
         public Player FindById(string id)
         {
-            Player player = (from x in context.Players
+            Player player = (from x in contexto.Players
                            where x.PlayerID == id
                            select x).First();
             return player;
         }
         public Player FindByName(string name)
         {
-            Player player = (from x in context.Players
+            Player player = (from x in contexto.Players
                              where x.PlayerName == name
                              select x).FirstOrDefault();
             return player;
         }
-        public Player FindByNameAndPassword(string name,string password)
+        public Player FindByNameAndPassword(string name,string password, ContextDB contexto)
         {
-            Player player = (from x in context.Players
+            Player player = (from x in contexto.Players
                              where x.PlayerName == name && x.Password==password
                              select x).FirstOrDefault();
             return player;
         }
 
         public Player FindRandomPlayer() {
-            Player[] players = context.Players.ToArray();
+            Player[] players = contexto.Players.ToArray();
 
             if (players.Length==0) 
                 return null;
@@ -65,8 +65,8 @@ namespace Repository.Repos
 
         public void Update(Player player)
         {
-            context.Players.Update(player);
-            context.SaveChanges();
+            contexto.Players.Update(player);
+            contexto.SaveChanges();
         }
     }
 }

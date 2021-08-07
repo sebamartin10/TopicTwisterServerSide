@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Moq;
+using NSubstitute;
 using NUnit.Framework;
 using Repository.Contracts;
 using Services;
+using Services.Contracts;
 using Services.DTOs;
 using Services.Errors;
 
@@ -12,6 +14,12 @@ namespace Tests
 {
     public class PlayerShould
     {
+        IPlayerService playerService;
+        [SetUp]
+        public void Before() {
+            playerService = Substitute.For<IPlayerService>();
+        }
+
         [TestCase("abcd",0)]
         [TestCase("abc",-1)]
         [TestCase("abcd9080",0)]
@@ -22,9 +30,9 @@ namespace Tests
         public void Write_A_Name_With_At_Least_4_Letters(string name, int expected)
         {
             //Given
-            PlayerService playerService = new PlayerService();
+            //PlayerService playerService = new PlayerService();
             //When
-            ResponseTopicTwister<PlayerDTO> result = PlayerService.VerifyName(name);
+            ResponseTopicTwister<PlayerDTO> result = playerService.VerifyName(name);
             //Then
             Assert.AreEqual(expected, result.ResponseCode);
         }
@@ -41,9 +49,9 @@ namespace Tests
         public void Write_A_Pass_With_At_Least_4_Caracters(string password, int expected)
         {
             //Given
-            PlayerService playerService = new PlayerService();
+            //PlayerService playerService = new PlayerService();
             //When
-            ResponseTopicTwister<PlayerDTO> result = PlayerService.VerifyPass(password);
+            ResponseTopicTwister<PlayerDTO> result = playerService.VerifyPass(password);
             //Then
             Assert.AreEqual(expected, result.ResponseCode);
         }
@@ -58,19 +66,14 @@ namespace Tests
         public void Write_A_Pass_With_Max_Ten_Caracters(string password, int expected)
         {
             //Given
-            PlayerService playerService = new PlayerService();
+            //PlayerService playerService = new PlayerService();
             //When
-            ResponseTopicTwister<PlayerDTO> result = PlayerService.VerifyPass(password);
+            ResponseTopicTwister<PlayerDTO> result = playerService.VerifyPass(password);
             //Then
             Assert.AreEqual(expected, result.ResponseCode);
         }
 
-        public void Be_Unique() {
-            Mock<IPlayerRepository> playerRepo = new Mock<IPlayerRepository>();
-            PlayerService playerService = new PlayerService();
-
-
-        }
+       
 
     }
 }

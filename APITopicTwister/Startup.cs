@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,7 @@ namespace APITopicTwister
             services.Configure<MvcOptions>(options =>
                 options.Filters.Add(new ProducesAttribute("application/json"))
             );
+            services.AddDbContext<ContextDB>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServerConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,20 +7,24 @@ using Models;
 using Models.Entities;
 using Repository.Contracts;
 using Repository.Repos;
+using Services.Contracts;
 using Services.DTOs;
 using Services.Errors;
 
 namespace Services
 {
-    public class CategoryService
+    public class CategoryService : ICategoryService
     {
+        private readonly ContextDB contexto;
         private List<Category> categoryList = new List<Category>();
         public List<Category> CategoryList => categoryList;
 
         ICategoryRepository categoryRepository;
 
-        public CategoryService(ICategoryRepository categoryRepository) {
-            this.categoryRepository = categoryRepository;
+        public CategoryService() { }
+        public CategoryService(ContextDB contexto) {
+            this.contexto = contexto;
+            this.categoryRepository = new CategoryRepository(contexto);
             categoryList = categoryRepository.FindAllCategory();
         }
 

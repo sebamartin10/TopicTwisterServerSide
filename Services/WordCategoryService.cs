@@ -14,25 +14,28 @@ namespace Services
 {
     public class WordCategoryService
     {
+        private readonly ContextDB contexto;
         IWordCategoryRepository wordCategoryRepository;
 
-
+        public WordCategoryService(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         public ResponseTopicTwister<WordCategoryDTO> CreateWordCategory(string categoryName, string wordName)
         {
             try
             {
                 ResponseTopicTwister<WordCategoryDTO> response = new ResponseTopicTwister<WordCategoryDTO>();
                 
-                wordCategoryRepository = new WordCategoryRepository();                
+                wordCategoryRepository = new WordCategoryRepository(contexto);                
                
-                CategoryRepository categoryRepository = new CategoryRepository();
+                CategoryRepository categoryRepository = new CategoryRepository(contexto);
                 Category category = categoryRepository.FindByCategory(categoryName);
 
-                WordRepository wordRepository = new WordRepository();
+                WordRepository wordRepository = new WordRepository(contexto);
                 Word word = wordRepository.FindByWord(wordName);
 
                 if (word == null) {
-                    var wordService = new WordService();
+                    var wordService = new WordService(contexto);
                     var wordResponse = wordService.CreateWord(wordName);
                     if (wordResponse.ResponseCode != 0) {
                         return new ResponseTopicTwister<WordCategoryDTO>(null, wordResponse.ResponseCode, wordResponse.ResponseMessage);

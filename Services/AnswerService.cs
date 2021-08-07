@@ -14,9 +14,14 @@ namespace Services
 {
     public class AnswerService
     {
+        private readonly ContextDB contexto;
         IAnswerRepository answerRepository;
         private bool isCorrect;
 
+
+        public AnswerService(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         public ResponseTopicTwister<AnswerDTO> CreateAnswer(string wordAnswered, string categoryName, char letterName, string turnID)
         {
             try
@@ -24,7 +29,7 @@ namespace Services
                 ResponseTopicTwister<AnswerDTO> response = new ResponseTopicTwister<AnswerDTO>();
 
                 
-                WordService wordService = new WordService();
+                WordService wordService = new WordService(contexto);
                 response = wordService.VerifyWord(wordAnswered);
                 if (response.ResponseCode!=0) {
                     return response;
@@ -32,27 +37,27 @@ namespace Services
                 wordAnswered = wordService.ConvertToUppercase(wordAnswered);
                 wordAnswered = wordService.ConvertWordBlankSpaces(wordAnswered);
 
-                answerRepository = new AnswerRepository();
+                answerRepository = new AnswerRepository(contexto);
                 
                 Category category = new Category();
-                CategoryRepository categoryRepository = new CategoryRepository();
+                CategoryRepository categoryRepository = new CategoryRepository(contexto);
                 category = categoryRepository.FindByCategory(categoryName);
 
                 Letter letter = new Letter();
-                LetterRepository letterRepository = new LetterRepository();
+                LetterRepository letterRepository = new LetterRepository(contexto);
                 letter = letterRepository.FindByLetter(letterName);
 
                 char startLetter = wordAnswered[0];
 
                 Turn turn = new Turn();
-                TurnRepository turnRepository = new TurnRepository();
+                TurnRepository turnRepository = new TurnRepository(contexto);
                 turn = turnRepository.FindByTurn(turnID);
 
                 Word word = new Word();
-                WordRepository wordRepository = new WordRepository();
+                WordRepository wordRepository = new WordRepository(contexto);
 
                 WordCategory wordCategory = new WordCategory();
-                WordCategoryRepository wordCategoryRepository = new WordCategoryRepository();
+                WordCategoryRepository wordCategoryRepository = new WordCategoryRepository(contexto);
 
                 if (wordRepository.FindByWord(wordAnswered) != null &&
                     startLetter == letter.LetterName)
@@ -118,7 +123,7 @@ namespace Services
         {
             try
             {
-                WordService wordService = new WordService();
+                WordService wordService = new WordService(contexto);
 
                 //Por ahora debe aceptar null ya que necesitamos la respuesta vacia
                 if (wordAnswered == null || wordAnswered == "") wordAnswered = "-";
@@ -139,24 +144,24 @@ namespace Services
                 wordAnswered = wordService.ConvertWordBlankSpaces(wordAnswered);
                 
                 
-                answerRepository = new AnswerRepository();
+                answerRepository = new AnswerRepository(contexto);
 
                 Category category = new Category();
-                CategoryRepository categoryRepository = new CategoryRepository();
+                CategoryRepository categoryRepository = new CategoryRepository(contexto);
                 category = categoryRepository.FindByCategoryID(categoryId);
 
                 Letter letter = new Letter();
-                LetterRepository letterRepository = new LetterRepository();
+                LetterRepository letterRepository = new LetterRepository(contexto);
                 letter = letterRepository.FindById(letterId);
 
                 Turn turn = new Turn();
-                TurnRepository turnRepository = new TurnRepository();
+                TurnRepository turnRepository = new TurnRepository(contexto);
                 turn = turnRepository.FindByTurn(turnID);
 
-                WordRepository wordRepository = new WordRepository();
+                WordRepository wordRepository = new WordRepository(contexto);
 
                 WordCategory wordCategory = new WordCategory();
-                WordCategoryRepository wordCategoryRepository = new WordCategoryRepository();
+                WordCategoryRepository wordCategoryRepository = new WordCategoryRepository(contexto);
 
                 Word word = wordRepository.FindByWord(wordAnswered);
 

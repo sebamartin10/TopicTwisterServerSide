@@ -14,25 +14,27 @@ namespace Services
 {
     public class TurnService
     {
+        private readonly ContextDB contexto;
         private TurnRepository turnRepository;
         private AnswerService answerService;
         private CategoryService categoryService;
         private RoundRepository roundRepository;
         private RoundCategoryRepository roundCategoryRepository;
 
-        public TurnService() {
-            this.answerService = new AnswerService();
-            this.categoryService = new CategoryService(new CategoryRepository());
-            this.roundCategoryRepository = new RoundCategoryRepository();
-            this.roundRepository = new RoundRepository();
+        public TurnService(ContextDB contexto) {
+            this.contexto = contexto;
+            this.answerService = new AnswerService(contexto);
+            this.categoryService = new CategoryService(contexto);
+            this.roundCategoryRepository = new RoundCategoryRepository(contexto);
+            this.roundRepository = new RoundRepository(contexto);
         }
         public Player GetOponent(string playerID) {
-            TurnRepository turnRepo = new TurnRepository();
+            TurnRepository turnRepo = new TurnRepository(contexto);
             Player oponent = turnRepo.FindOponent(playerID);
             return oponent;
         }
         public Turn CreateTurn(Player player, string roundId, int turnNumber) {
-            turnRepository = new TurnRepository();
+            turnRepository = new TurnRepository(contexto);
             Turn turn = new Turn {
                 TurnID = Guid.NewGuid().ToString(),
                 PlayerID = player.PlayerID,
@@ -70,7 +72,7 @@ namespace Services
         }
         private Letter CheckLetter(string letterId)
         {
-            LetterRepository letterRepository = new LetterRepository();
+            LetterRepository letterRepository = new LetterRepository(contexto);
             Letter letter = new Letter();
             letter = letterRepository.FindById(letterId);
             return letter;
@@ -86,7 +88,7 @@ namespace Services
             try
             {
                 ResponseTopicTwister<TurnDTO> responseTurn = new ResponseTopicTwister<TurnDTO>();
-                turnRepository = new TurnRepository();
+                turnRepository = new TurnRepository(contexto);
                 Turn turn = turnRepository.FindByTurn(turnId);
                 if (turn == null)
                 {
@@ -149,7 +151,7 @@ namespace Services
                     round.Finished = true;
                     roundRepository.Update(round);
 
-                    var sessionRepository = new SessionRepository();
+                    var sessionRepository = new SessionRepository(contexto);
                     var session = sessionRepository.FindById(round.SessionID);
 
                     if (session.Rounds.Where(x => x.RoundID != round.RoundID).All(x => x.Finished)) {

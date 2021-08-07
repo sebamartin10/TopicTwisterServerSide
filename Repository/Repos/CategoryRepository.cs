@@ -10,32 +10,32 @@ namespace Repository.Repos
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private readonly SQLServerContext context;
-        public CategoryRepository() {
-            context = new SQLServerContext();
+        private readonly ContextDB contexto;
+        public CategoryRepository(ContextDB contexto) {
+            this.contexto = contexto;
         }
         public void Create(Category category)
         {
-            context.Categories.Add(category);
-            context.SaveChanges();
+            contexto.Categories.Add(category);
+            contexto.SaveChanges();
 
         }
 
         public void Delete(Category category)
         {
-            context.Categories.Remove(category);
-            context.SaveChanges();
+            contexto.Categories.Remove(category);
+            contexto.SaveChanges();
         }
 
         public List<Category> FindAllCategory()
         {
-            List<Category> categories = context.Categories.ToList();
+            List<Category> categories = contexto.Categories.ToList();
             return categories;
         }
 
         public Category FindByCategory(string categoryName)
         {
-            Category category = (from x in context.Categories
+            Category category = (from x in contexto.Categories
                              where x.CategoryName == categoryName
                              select x).FirstOrDefault();
             return category;
@@ -43,7 +43,7 @@ namespace Repository.Repos
 
         public Category FindByCategoryID(string categoryID)
         {
-            Category category = (from x in context.Categories
+            Category category = (from x in contexto.Categories
                                  where x.CategoryID == categoryID
                                  select x).FirstOrDefault();
             return category;

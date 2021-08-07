@@ -10,30 +10,30 @@ namespace Repository.Repos
 {
     public class LetterRepository : ILetterRepository
     {
-        private readonly SQLServerContext context;
-        public LetterRepository() {
-            context = new SQLServerContext();
+        private readonly ContextDB contexto;
+        public LetterRepository(ContextDB contexto) {
+            this.contexto = contexto;
         }
         public void Create(Letter letter)
         {
-            context.Letters.Add(letter);
-            context.SaveChanges();
+            contexto.Letters.Add(letter);
+            contexto.SaveChanges();
 
         }
 
         public void Delete(Letter letter)
         {
-            context.Letters.Remove(letter);
-            context.SaveChanges();
+            contexto.Letters.Remove(letter);
+            contexto.SaveChanges();
         }
 
         public List<Letter> FindAllLetter()
         {
-            return context.Letters.ToList();
+            return contexto.Letters.ToList();
         }
         public Letter FindById(string id)
         {
-            Letter letter = (from x in context.Letters
+            Letter letter = (from x in contexto.Letters
                              where x.LetterID == id
                              select x).FirstOrDefault();
             return letter;
@@ -41,7 +41,7 @@ namespace Repository.Repos
 
         public Letter FindByLetter(char letterName)
         {
-            Letter letter = (from x in context.Letters
+            Letter letter = (from x in contexto.Letters
                              where x.LetterName == letterName
                              select x).FirstOrDefault();
             return letter;

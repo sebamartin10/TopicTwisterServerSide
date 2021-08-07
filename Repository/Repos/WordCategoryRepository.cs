@@ -10,15 +10,15 @@ namespace Repository.Repos
 {
     public class WordCategoryRepository : IWordCategoryRepository
     {
-        private readonly SQLServerContext context;
-        public WordCategoryRepository()
+        private readonly ContextDB contexto;
+        public WordCategoryRepository(ContextDB contexto)
         {
-            context = new SQLServerContext();
+            this.contexto = contexto;
         }
         public void Create (WordCategory wordCategory)
         {
-            context.WordCategories.Add(wordCategory);
-            context.SaveChanges();
+            contexto.WordCategories.Add(wordCategory);
+            contexto.SaveChanges();
 
         }
 
@@ -29,12 +29,12 @@ namespace Repository.Repos
 
         public List<WordCategory> FindAllWordCategory()
         {
-            return context.WordCategories.ToList();
+            return contexto.WordCategories.ToList();
         }
 
         public WordCategory FindByWordAndCategory(string wordID, string categoryID)
         {
-            WordCategory wordCategory = (from x in context.WordCategories
+            WordCategory wordCategory = (from x in contexto.WordCategories
                          where x.WordID == wordID && x.CategoryID == categoryID 
                          select x).FirstOrDefault();
             return wordCategory;
@@ -42,7 +42,7 @@ namespace Repository.Repos
 
         public WordCategory FindByWordCategoryID(string WordCategoryID)
         {
-            WordCategory wordCategory = (from x in context.WordCategories
+            WordCategory wordCategory = (from x in contexto.WordCategories
                                          where x.WordCategoryID == WordCategoryID
                                          select x).FirstOrDefault();
             return wordCategory;

@@ -14,30 +14,32 @@ namespace Services
 {
     public class RoundService
     {
+        private readonly ContextDB contexto;
         private RoundRepository roundRepository;
         private TurnService turnService;
         private CategoryService categoryService;
 
-        public RoundService() {
-            this.turnService = new TurnService();
-            this.categoryService = new CategoryService(new CategoryRepository());
+        public RoundService(ContextDB contexto) {
+            this.contexto = contexto;
+            this.turnService = new TurnService(contexto);
+            this.categoryService = new CategoryService(contexto);
         }
 
         private Player CheckPlayer(string playerId) {
-            PlayerRepository playerRepository = new PlayerRepository();
+            PlayerRepository playerRepository = new PlayerRepository(contexto);
             Player player = new Player();
             player = playerRepository.FindById(playerId);
             return player;
         }
         private Session CheckSession(string sessionId) {
-            SessionRepository sessionRepository = new SessionRepository();
+            SessionRepository sessionRepository = new SessionRepository(contexto);
             Session session = new Session();
             session = sessionRepository.FindById(sessionId);
             return session;
         }
 
         private Letter CheckLetter(string letterId) {
-            LetterRepository letterRepository = new LetterRepository();
+            LetterRepository letterRepository = new LetterRepository(contexto);
             Letter letter = new Letter();
             letter = letterRepository.FindById(letterId);
             return letter;
@@ -54,7 +56,7 @@ namespace Services
             try
             {
                 ResponseTopicTwister<RoundDTO> responseRound = new ResponseTopicTwister<RoundDTO>();
-                roundRepository = new RoundRepository();
+                roundRepository = new RoundRepository(contexto);
                 Round round = roundRepository.FindById(roundID);
                 responseRound.Dto = this.ConvertToDTO(round);
                 return responseRound;
@@ -66,7 +68,7 @@ namespace Services
         }
 
         internal Round CreateRound(Player player1, Player player2, Session session, int roundNumber) {
-            roundRepository = new RoundRepository();
+            roundRepository = new RoundRepository(contexto);
             Round round = new Round {
                 RoundID = Guid.NewGuid().ToString(),
                 SessionID = session.SessionID,
@@ -85,7 +87,7 @@ namespace Services
         public ResponseTopicTwister<RoundDTO> CreateRound(string player1Id, string player2Id, string sessionId) {
             try {
                 ResponseTopicTwister<RoundDTO> responseRound = new ResponseTopicTwister<RoundDTO>();
-                PlayerRepository playerRepository = new PlayerRepository();
+                PlayerRepository playerRepository = new PlayerRepository(contexto);
                 Player player1 = CheckPlayer(player1Id);
                 Player player2 = CheckPlayer(player2Id);
                 Session session = CheckSession(sessionId);
@@ -104,7 +106,7 @@ namespace Services
                     responseRound.ResponseMessage = "La sesion no existe";
                     return responseRound;
                 }
-                roundRepository = new RoundRepository();
+                roundRepository = new RoundRepository(contexto);
                 Round round = new Round {
                     RoundID = Guid.NewGuid().ToString(),
                     SessionID = sessionId
@@ -150,7 +152,7 @@ namespace Services
                 };
             }
             List<CategoryDTO> categoryDTOs = null;
-            var categoryRepository = new CategoryRepository();
+            var categoryRepository = new CategoryRepository(contexto);
 
             if (round.Categories != null) {
                 categoryDTOs = new List<CategoryDTO>();
@@ -183,8 +185,8 @@ namespace Services
             try
             {
                 ResponseTopicTwister<RoundDTO> responseTurn = new ResponseTopicTwister<RoundDTO>();
-                RoundRepository roundRepository = new RoundRepository();
-                RoundCategoryService roundCategoryService = new RoundCategoryService();
+                RoundRepository roundRepository = new RoundRepository(contexto);
+                RoundCategoryService roundCategoryService = new RoundCategoryService(contexto);
                 Round round = new Round();
                 round = roundRepository.FindById(roundId);
                 if (round == null)
@@ -228,7 +230,7 @@ namespace Services
         public ResponseTopicTwister<RoundDTO> AddLetter(string roundId, string letterId) {
             try {
                 ResponseTopicTwister<RoundDTO> responseRound = new ResponseTopicTwister<RoundDTO>();
-                roundRepository = new RoundRepository();
+                roundRepository = new RoundRepository(contexto);
                 Round round = new Round();
                 round = roundRepository.FindById(roundId);
                 if (round == null) {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 using Repository.Repos;
 using Services;
 using Services.DTOs;
@@ -12,10 +13,14 @@ namespace APITopicTwister.Controllers
 {
     public class AnswerController : Controller
     {
+        private readonly ContextDB contexto;
+        public AnswerController(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         [HttpPost("CreateAnswer")]
         public ResponseTopicTwister<AnswerDTO> CreateAnswer(string wordAnswered, CategoryDTO categoryDTO, LetterDTO letterDTO, TurnDTO turnDTO)
         {
-            AnswerService answerService = new AnswerService();
+            AnswerService answerService = new AnswerService(contexto);
             ResponseTopicTwister<AnswerDTO> response = answerService.CreateAnswer(wordAnswered, categoryDTO.CategoryName, letterDTO.LetterName, turnDTO.TurnID);
             return response;
         }

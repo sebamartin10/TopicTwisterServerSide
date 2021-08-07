@@ -9,25 +9,30 @@ using Models;
 using Models.Entities;
 using Repository.Contracts;
 using Repository.Repos;
+using Services.Contracts;
 using Services.DTOs;
 using Services.Errors;
 
 namespace Services
 {
-    public class WordService
+    public class WordService : IWordService
     {
+        private readonly ContextDB contexto;
         private List<Word> wordList = new List<Word>();
         public List<Word> WordList => wordList;
 
         IWordRepository wordRepository;
-
+        public WordService() { }
+        public WordService(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         public ResponseTopicTwister<WordDTO> CreateWord(string name)
         {
             try
             {
                 ResponseTopicTwister<WordDTO> response = new ResponseTopicTwister<WordDTO>();
                 char startLetter = name[0];
-                LetterRepository letterRepository = new LetterRepository();
+                LetterRepository letterRepository = new LetterRepository(contexto);
                 Letter letter = new Letter();
                 letter = letterRepository.FindByLetter(startLetter);
                 if (letter == null) {
@@ -35,7 +40,7 @@ namespace Services
                     response.ResponseMessage = "La letra no existe";
                     return response;
                 }
-                wordRepository = new WordRepository();
+                wordRepository = new WordRepository(contexto);
 
                 Word word = new Word
                 {

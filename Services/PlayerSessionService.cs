@@ -15,23 +15,29 @@ namespace Services
 {
     public class PlayerSessionService
     {
+        private readonly ContextDB contexto;
+
+        public PlayerSessionService(ContextDB contexto) {
+            this.contexto = contexto;
+        }
+
         IPlayerSessionRepository playerSessionRepository;
         public ResponseTopicTwister<List<FinishedSessionDTO>> GetFinishedSessionsByPlayer(string playerID) {
             ResponseTopicTwister<List<FinishedSessionDTO>> response = new ResponseTopicTwister<List<FinishedSessionDTO>>();
             try {
-                RoundRepository roundRepo = new RoundRepository();
-                TurnRepository turnRepo = new TurnRepository();
-                SessionService sessionService = new SessionService();
+                RoundRepository roundRepo = new RoundRepository(contexto);
+                TurnRepository turnRepo = new TurnRepository(contexto);
+                SessionService sessionService = new SessionService(contexto);
 
                 response.Dto = new List<FinishedSessionDTO>();
-                PlayerSessionRepository playerSessionRepo = new PlayerSessionRepository();
+                PlayerSessionRepository playerSessionRepo = new PlayerSessionRepository(contexto);
                 List<Session> finishedSessions = playerSessionRepo.FindAllNoActivePlayerSessions(playerID);
                 if (finishedSessions.Count == 0) {
                     response.ResponseMessage = "No se pudo recuperar un historial de sesiones para el player";
                     return response;
                 }
 
-                PlayerRepository playerRepository = new PlayerRepository();
+                PlayerRepository playerRepository = new PlayerRepository(contexto);
 
                 foreach (var sessionFinished in finishedSessions) {
                     FinishedSessionDTO finishedSessionDTO = new FinishedSessionDTO();
@@ -64,12 +70,12 @@ namespace Services
         public ResponseTopicTwister<List<ActiveSessionDTO>> GetActiveSessionsByPlayer(string playerID) {
             ResponseTopicTwister<List<ActiveSessionDTO>> response = new ResponseTopicTwister<List<ActiveSessionDTO>>();
             try {
-                RoundRepository roundRepo = new RoundRepository();
-                TurnRepository turnRepo = new TurnRepository();
-                PlayerRepository playerRepo = new PlayerRepository();
+                RoundRepository roundRepo = new RoundRepository(contexto);
+                TurnRepository turnRepo = new TurnRepository(contexto);
+                PlayerRepository playerRepo = new PlayerRepository(contexto);
 
                 response.Dto = new List<ActiveSessionDTO>();
-                PlayerSessionRepository playerSessionRepo = new PlayerSessionRepository();
+                PlayerSessionRepository playerSessionRepo = new PlayerSessionRepository(contexto);
                 List<Session> activeSessions = playerSessionRepo.FindAllActivePlayerSessions(playerID);
                 if (activeSessions.Count == 0) {
 
@@ -112,14 +118,14 @@ namespace Services
             try {
                 ResponseTopicTwister<PlayerSessionDTO> response = new ResponseTopicTwister<PlayerSessionDTO>();
 
-                playerSessionRepository = new PlayerSessionRepository();
+                playerSessionRepository = new PlayerSessionRepository(contexto);
 
                 Player player = new Player();
-                PlayerRepository playerRepository = new PlayerRepository();
+                PlayerRepository playerRepository = new PlayerRepository(contexto);
                 player = playerRepository.FindById(playerID);
 
                 Session session = new Session();
-                SessionRepository sessionRepository = new SessionRepository();
+                SessionRepository sessionRepository = new SessionRepository(contexto);
                 session = sessionRepository.FindById(sessionID);
 
                 PlayerSession playerSession = new PlayerSession() {

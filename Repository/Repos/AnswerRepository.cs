@@ -10,21 +10,21 @@ namespace Repository.Repos
 {
     public class AnswerRepository : IAnswerRepository
     {
-        private readonly SQLServerContext context;
-        public AnswerRepository()
+        private readonly ContextDB contexto;
+        public AnswerRepository(ContextDB contexto)
         {
-            context = new SQLServerContext();
+            this.contexto = contexto;
         }
         public void Create(Answer answer)
         {
-            context.Answers.Add(answer);
-            context.SaveChanges();
+            contexto.Answers.Add(answer);
+            contexto.SaveChanges();
         }
 
         public void Delete(Answer answer)
         {
-            context.Answers.Remove(answer);
-            context.SaveChanges();
+            contexto.Answers.Remove(answer);
+            contexto.SaveChanges();
         }
 
         public List<Answer> FindAllAnswer()
@@ -34,7 +34,7 @@ namespace Repository.Repos
 
         public Answer FindByAnswer(string wordAnswered)
         {
-            Answer answer = (from x in context.Answers
+            Answer answer = (from x in contexto.Answers
                          where x.WordAnswered == wordAnswered
                          select x).FirstOrDefault();
             return answer;

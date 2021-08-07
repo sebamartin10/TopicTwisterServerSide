@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 using Repository.Repos;
 using Services;
 using Services.DTOs;
@@ -12,10 +13,15 @@ namespace APITopicTwister.Controllers
 {
     public class WordController : Controller
     {
+        private readonly ContextDB contexto;
+
+        public WordController(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         [HttpPost("CreateWord")]
         public ResponseTopicTwister<WordDTO> CreateWord(WordDTO wordDTO)
         {
-            WordService wordService = new WordService();
+            WordService wordService = new WordService(contexto);
             ResponseTopicTwister<WordDTO> response = wordService.CreateWord(wordDTO.WordName);
             return response;
         }

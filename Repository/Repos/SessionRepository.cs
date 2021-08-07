@@ -11,48 +11,48 @@ namespace Repository.Repos
 {
     public class SessionRepository : ISessionRepository
     {
-        private readonly SQLServerContext context;
+        private readonly ContextDB contexto;
 
         
 
-        public SessionRepository()
+        public SessionRepository(ContextDB contexto)
         {
-            context = new SQLServerContext();
+            this.contexto = contexto;
         }
         public void Create(Session session)
         {
-            context.Sessions.Add(session);
-            context.SaveChanges();
+            contexto.Sessions.Add(session);
+            contexto.SaveChanges();
 
         }
 
         public void Update(Session session)
         {
-            context.Sessions.Update(session);
-            context.SaveChanges();
+            contexto.Sessions.Update(session);
+            contexto.SaveChanges();
         }
 
         public void Delete(Session session)
         {
-            context.Sessions.Remove(session);
-            context.SaveChanges();
+            contexto.Sessions.Remove(session);
+            contexto.SaveChanges();
         }
 
         public List<Session> FindAllSessions()
         {
-            return context.Sessions.Include(x => x.Rounds).ToList();
+            return contexto.Sessions.Include(x => x.Rounds).ToList();
         }
 
         public Session FindById(string id)
         {
-            Session session = (from x in context.Sessions
+            Session session = (from x in contexto.Sessions
                                .Include(x => x.Rounds)
                            where x.SessionID == id
                            select x).FirstOrDefault();
             return session;
         }
         public List<SessionResult> GetSessionResults(string sessionID) {
-            Session session = (from x in context.Sessions
+            Session session = (from x in contexto.Sessions
                                                   .Include(y => y.SessionResults)
                                                   where x.SessionID == sessionID
                                                   select x).First();

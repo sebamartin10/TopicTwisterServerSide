@@ -11,36 +11,36 @@ namespace Repository.Repos
 {
     public class RoundRepository : IRoundRepository
     {
-        private readonly SQLServerContext context;
+        private readonly ContextDB contexto;
 
         
 
-        public RoundRepository()
+        public RoundRepository(ContextDB contexto)
         {
-            context = new SQLServerContext();
+            this.contexto = contexto;
         }
         public void Create(Round round)
         {
-            context.Rounds.Add(round);
-            context.SaveChanges();
+            contexto.Rounds.Add(round);
+            contexto.SaveChanges();
 
         }
 
         public void Update(Round round)
         {
-            context.Rounds.Update(round);
-            context.SaveChanges();
+            contexto.Rounds.Update(round);
+            contexto.SaveChanges();
         }
 
         public void Delete(Round round)
         {
-            context.Rounds.Remove(round);
-            context.SaveChanges();
+            contexto.Rounds.Remove(round);
+            contexto.SaveChanges();
         }
 
         public Round FindById(string id)
         {
-            Round round = (from x in context.Rounds
+            Round round = (from x in contexto.Rounds
                            .Include(x => x.Turns).Include(x =>x.Letter)
                            where x.RoundID == id
                            select x).FirstOrDefault();
@@ -49,7 +49,7 @@ namespace Repository.Repos
 
         public List<Round> FindBySession(string sessionID)
         {
-            List<Round> rounds = (from x in context.Rounds
+            List<Round> rounds = (from x in contexto.Rounds
                                   .Include(y => y.Turns).OrderBy(x => x.roundNumber)
                                   where x.SessionID == sessionID
                                   select x).ToList();

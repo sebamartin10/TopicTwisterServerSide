@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 using Services;
 using Services.DTOs;
 using Services.Errors;
@@ -12,6 +13,11 @@ namespace APITopicTwister.Controllers
 {
     [ApiController]
     public class RoundController : Controller {
+        private readonly ContextDB contexto;
+
+        public RoundController(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         /*[HttpGet("CreateRound")]
         public ResponseTopicTwister<RoundDTO> CreateRound(PlayerDTO player1, PlayerDTO player2, SessionDTO session) {
             RoundService roundService = new RoundService();
@@ -23,7 +29,7 @@ namespace APITopicTwister.Controllers
         //[Consumes(MediaTypeNames.Application.Json)]
         public ResponseTopicTwister<RoundDTO> AddLetterAndCategories(string roundID, RoundLetterAndCategoriesDTO letterAndCategoriesDTO)
         {
-            RoundService roundService = new RoundService();
+            RoundService roundService = new RoundService(contexto);
             ResponseTopicTwister<RoundDTO> response = roundService.AddLetterAndCategories(roundID, letterAndCategoriesDTO.LetterID, letterAndCategoriesDTO.CategoriesIDs);
             return response;
         }
@@ -31,7 +37,7 @@ namespace APITopicTwister.Controllers
         [HttpGet("round/{roundID}")]
         public ResponseTopicTwister<RoundDTO> GetRoundById(string roundID)
         {
-            RoundService roundService = new RoundService();
+            RoundService roundService = new RoundService(contexto);
             ResponseTopicTwister<RoundDTO> response = roundService.GetRoundById(roundID);
             return response;
         }
@@ -39,7 +45,7 @@ namespace APITopicTwister.Controllers
         [HttpGet("round/{roundID}/result")]
         public ResponseTopicTwister<RoundResultDTO> GetRoundResult(string roundID)
         {
-            RoundResultService roundResultService = new RoundResultService();
+            RoundResultService roundResultService = new RoundResultService(contexto);
             ResponseTopicTwister<RoundResultDTO> response = roundResultService.GetRoundResult(roundID);
             return response;
         }

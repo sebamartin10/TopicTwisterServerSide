@@ -14,28 +14,30 @@ namespace Services
 {
     public class SessionService
     {
+        private readonly ContextDB contexto;
         private SessionRepository sessionRepository;
         private RoundService roundService;
 
-        public SessionService() {
-            this.roundService = new RoundService();
+        public SessionService(ContextDB contexto) {
+            this.contexto = contexto;
+            this.roundService = new RoundService(contexto);
         }
 
         public SessionDTO CreateSession(string player1ID, string player2ID) {
 
-            sessionRepository = new SessionRepository();
+            sessionRepository = new SessionRepository(contexto);
             Session session = new Session {
                 SessionID = Guid.NewGuid().ToString(),
                 isActive = true
             };
             sessionRepository.Create(session);
 
-            PlayerRepository playerRepository = new PlayerRepository();
+            PlayerRepository playerRepository = new PlayerRepository(contexto);
 
             Player player1 = playerRepository.FindById(player1ID);
             Player player2 = playerRepository.FindById(player2ID);
 
-            RoundService roundService = new RoundService();
+            RoundService roundService = new RoundService(contexto);
 
             int amountOfRounds = 3;
             Round[] rounds = new Round[amountOfRounds];
@@ -49,7 +51,7 @@ namespace Services
 
             session.Rounds = rounds;
 
-            PlayerSessionRepository playerSessionRepository = new PlayerSessionRepository();
+            PlayerSessionRepository playerSessionRepository = new PlayerSessionRepository(contexto);
 
             PlayerSession playerSession = new PlayerSession() {
                 PlayerID = player1.PlayerID,
@@ -72,7 +74,7 @@ namespace Services
         public ResponseTopicTwister<SessionDTO> CreateSession() {
             try {
                 ResponseTopicTwister<SessionDTO> responseSession = new ResponseTopicTwister<SessionDTO>();
-                sessionRepository = new SessionRepository();
+                sessionRepository = new SessionRepository(contexto);
                 Session session = new Session {
                     SessionID = Guid.NewGuid().ToString()
                 };
@@ -113,7 +115,7 @@ namespace Services
         public ResponseTopicTwister<List<SessionDTO>> GetAllSessions() {
             try {
                 ResponseTopicTwister<List<SessionDTO>> responseSessions = new ResponseTopicTwister<List<SessionDTO>>();
-                sessionRepository = new SessionRepository();
+                sessionRepository = new SessionRepository(contexto);
                 List<Session> sessions = new List<Session>();
                 sessions = sessionRepository.FindAllSessions();
                 List<SessionDTO> sessionsDto = new List<SessionDTO>();
@@ -129,7 +131,7 @@ namespace Services
         public ResponseTopicTwister<SessionDTO> GetSessionById(string sessionId) {
             try {
                 ResponseTopicTwister<SessionDTO> responseSession = new ResponseTopicTwister<SessionDTO>();
-                sessionRepository = new SessionRepository();
+                sessionRepository = new SessionRepository(contexto);
                 Session session = new Session();
                 session = sessionRepository.FindById(sessionId);
                 if (session == null) {
@@ -138,13 +140,13 @@ namespace Services
                     return responseSession;
                 }
 
-                var roundRepository = new RoundRepository();
+                var roundRepository = new RoundRepository(contexto);
                 var rounds = roundRepository.FindBySession(sessionId);
 
 
-                var roundCategoryRepository = new RoundCategoryRepository();
-                var categoryRepository = new CategoryRepository();
-                var letterRepository = new LetterRepository();
+                var roundCategoryRepository = new RoundCategoryRepository(contexto);
+                var categoryRepository = new CategoryRepository(contexto);
+                var letterRepository = new LetterRepository(contexto);
 
                 rounds.ForEach(round => {
                     List<RoundCategory> roundCategories = roundCategoryRepository.FindAllByRound(round.RoundID);
@@ -162,7 +164,7 @@ namespace Services
         }
 
         public List<SessionResult> GetSessionResults(string sessionID) {
-            SessionRepository sessionRepo = new SessionRepository();
+            SessionRepository sessionRepo = new SessionRepository(contexto);
             List<SessionResult> sessionsResult = sessionRepo.GetSessionResults(sessionID);
             return sessionsResult;
         }

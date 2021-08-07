@@ -15,22 +15,25 @@ namespace Services
     public class RoundCategoryService
     {
         IRoundCategoryRepository roundCategoryRepository;
+        private readonly ContextDB contexto;
 
-
+        public RoundCategoryService(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         public ResponseTopicTwister<RoundCategoryDTO> CreateRoundCategory(string roundID, string categoryID)
         {
             try
             {
                 ResponseTopicTwister<RoundCategoryDTO> response = new ResponseTopicTwister<RoundCategoryDTO>();
                 
-                roundCategoryRepository = new RoundCategoryRepository();
+                roundCategoryRepository = new RoundCategoryRepository(contexto);
                 
                 Category category = new Category();
-                CategoryRepository categoryRepository = new CategoryRepository();
+                CategoryRepository categoryRepository = new CategoryRepository(contexto);
                 category = categoryRepository.FindByCategoryID(categoryID);
 
                 Round round = new Round();
-                RoundRepository roundRepository = new RoundRepository();
+                RoundRepository roundRepository = new RoundRepository(contexto);
                 round = roundRepository.FindById(roundID);
 
                 RoundCategory roundCategory = new RoundCategory

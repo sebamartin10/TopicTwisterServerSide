@@ -11,21 +11,21 @@ namespace Repository.Repos
 {
     public class SessionResultRepository : ISessionResultRepository
     {
-        private readonly SQLServerContext context;
+        private readonly ContextDB contexto;
 
-        public SessionResultRepository()
+        public SessionResultRepository(ContextDB contexto)
         {
-            context = new SQLServerContext();
+            this.contexto = contexto;
         }
         public void Create(SessionResult sessionResult)
         {
-            context.SessionResults.Add(sessionResult);
-            context.SaveChanges();
+            contexto.SessionResults.Add(sessionResult);
+            contexto.SaveChanges();
         }
 
         public List<SessionResult> FindBySession(string sessionID)
         {
-            List<SessionResult> sessionResult = (from x in context.SessionResults
+            List<SessionResult> sessionResult = (from x in contexto.SessionResults
                                               where x.SessionID == sessionID
                                               select x).ToList();
             return sessionResult;

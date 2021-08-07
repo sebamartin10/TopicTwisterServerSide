@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models;
 using Services;
 using Services.DTOs;
 using Services.Errors;
@@ -14,13 +15,18 @@ namespace APITopicTwister.Controllers
     [ApiController]
     [Route("player")]
     public class PlayerController : Controller {
+        private readonly ContextDB contexto;
+
+        public PlayerController(ContextDB contexto) {
+            this.contexto = contexto;
+        }
 
         [HttpGet("{playerID}/opponent")]
         [SwaggerOperation(Summary = "Get a opponent for a player")]
         public ResponseTopicTwister<PlayerDTO> GetOpponent(string playerID) {
             //throw new Exception("Hola Mundo");
             try {
-                PlayerService playerService = new PlayerService();
+                PlayerService playerService = new PlayerService(contexto);
                 PlayerDTO dto = playerService.GetOpponent(playerID);
                 return new ResponseTopicTwister<PlayerDTO>(dto);
             } catch (Exception e) {
@@ -33,14 +39,14 @@ namespace APITopicTwister.Controllers
         //[Consumes(MediaTypeNames.Application.Json)]
         public ResponseTopicTwister<PlayerDTO> RegisterPlayer(PlayerDTO playerDTO)
         {
-            PlayerService playerService = new PlayerService();
+            PlayerService playerService = new PlayerService(contexto);
             ResponseTopicTwister<PlayerDTO> response = playerService.RegisterPlayer(playerDTO.playerName,playerDTO.password, playerDTO.playerID);
             return response;
         }
 
         [HttpPost("login")]
         public ResponseTopicTwister<PlayerDTO> Login(PlayerDTO playerDTO) {
-            PlayerService playerService = new PlayerService();
+            PlayerService playerService = new PlayerService(contexto);
             ResponseTopicTwister<PlayerDTO> response = playerService.Login(playerDTO);
             return response;
         }

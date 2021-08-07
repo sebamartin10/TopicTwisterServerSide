@@ -9,6 +9,7 @@ using NSubstitute;
 using NUnit.Framework;
 using Repository.Contracts;
 using Services;
+using Services.Contracts;
 using Services.DTOs;
 using Services.Errors;
 
@@ -16,21 +17,25 @@ namespace Tests
 {
     class CategoryShould
     {
-        CategoryService services;
+        ICategoryService services;
         ICategoryRepository repository;
-
+        List<Category> CategoryList = new List<Category>();
         [SetUp]
         public void Before() {
-            repository = Substitute.For<ICategoryRepository>();
-            repository.FindAllCategory().Returns(new List<Category>() {
-                new Category(){CategoryName = "Cat1"},
-                new Category(){CategoryName = "Cat2"},
-                new Category(){CategoryName = "Cat3"},
-                new Category(){CategoryName = "Cat4"},
-                new Category(){CategoryName = "Cat5"}
-            });
-
-            services = new CategoryService(repository);
+            //repository = Substitute.For<ICategoryRepository>();
+            //repository.FindAllCategory().Returns(new List<Category>() {
+            //    new Category(){CategoryName = "Cat1"},
+            //    new Category(){CategoryName = "Cat2"},
+            //    new Category(){CategoryName = "Cat3"},
+            //    new Category(){CategoryName = "Cat4"},
+            //    new Category(){CategoryName = "Cat5"}
+            //});
+            CategoryList.Add(new Category() { CategoryName = "Cat1" });
+            CategoryList.Add(new Category() { CategoryName = "Cat2" });
+            CategoryList.Add(new Category() { CategoryName = "Cat3" });
+            CategoryList.Add(new Category() { CategoryName = "Cat4" });
+            CategoryList.Add(new Category() { CategoryName = "Cat5" });
+            services = Substitute.For<ICategoryService>();
         }
 
         [Test]
@@ -70,7 +75,7 @@ namespace Tests
 
         public void RepeatCategoryNamesIfAmountOfCategoriesIsLowerThanAmountAsk() {
             //When
-            List<CategoryDTO> categoriesName = services.GetRandomCategories(services.CategoryList.Count + 1).Dto;
+            List<CategoryDTO> categoriesName = services.GetRandomCategories(CategoryList.Count + 1).Dto;
             List<CategoryDTO> categoriesAuxiliar = categoriesName;
             categoriesAuxiliar.RemoveAt(categoriesAuxiliar.Count - 1);
             //Assert

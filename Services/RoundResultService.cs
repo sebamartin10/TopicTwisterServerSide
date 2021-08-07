@@ -15,6 +15,7 @@ namespace Services
 {
     public class RoundResultService
     {
+        private readonly ContextDB contexto;
         RoundRepository roundRepository;
         TurnRepository turnRepository;
         PlayerRepository playerRepository;
@@ -24,33 +25,38 @@ namespace Services
         
         bool player1Win = false;
         bool player2Win = false;
+
+        public RoundResultService(ContextDB contexto) {
+            this.contexto = contexto;
+        }
+
         public ResponseTopicTwister<RoundResultDTO> GetRoundResult(string idRound)
         {
             try
             {
                 ResponseTopicTwister<RoundResultDTO> responseRoundResult = new ResponseTopicTwister<RoundResultDTO>();
-                roundRepository = new RoundRepository();
+                roundRepository = new RoundRepository(contexto);
                 Round round = roundRepository.FindById(idRound);
 
-                turnRepository = new TurnRepository();
+                turnRepository = new TurnRepository(contexto);
                 List<Turn> turns = turnRepository.FindByRound(idRound);
 
-                playerRepository = new PlayerRepository();
+                playerRepository = new PlayerRepository(contexto);
                 Player player1 = playerRepository.FindById(turns[0].PlayerID);
                 Player player2 = playerRepository.FindById(turns[1].PlayerID);
 
-                roundCategoryRepository = new RoundCategoryRepository();
+                roundCategoryRepository = new RoundCategoryRepository(contexto);
                 List<RoundCategory> roundCategories = 
                     roundCategoryRepository.FindAllByRound(idRound).OrderBy(x => x.CategoryID).ToList();
 
-                categoryRepository = new CategoryRepository();
+                categoryRepository = new CategoryRepository(contexto);
                 List<Category> categories = new List<Category>();
 
                 foreach (RoundCategory roundCategory in roundCategories) {
                     categories.Add(categoryRepository.FindByCategoryID(roundCategory.CategoryID));
                 }
 
-                letterRepository = new LetterRepository();
+                letterRepository = new LetterRepository(contexto);
                 Letter letter = letterRepository.FindById(round.LetterID);
 
                 List<Answer> player1answers = turns[0].Answers.OrderBy(x => x.CategoryID).ToList();
@@ -112,7 +118,7 @@ namespace Services
 
                 if (turns.All(x => x.finished)) {
 
-                    RoundResultRepository roundResultRepository = new RoundResultRepository();
+                    RoundResultRepository roundResultRepository = new RoundResultRepository(contexto);
 
                     List<RoundResult> resultsRecovered = roundResultRepository.FindByRound(idRound);
 

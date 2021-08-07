@@ -2,6 +2,7 @@
 using Models.Entities;
 using Repository.Contracts;
 using Repository.Repos;
+using Services.Contracts;
 using Services.DTOs;
 using Services.Errors;
 using System;
@@ -12,13 +13,17 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class LetterService
+    public class LetterService : ILetterService
     {
         private List<Letter> letterList = new List<Letter>();
         public List<Letter> LetterList => letterList;
 
         ILetterRepository letterRepo;
+        private readonly ContextDB contexto;
 
+        public LetterService(ContextDB contexto) {
+            this.contexto = contexto;
+        }
         public ResponseTopicTwister<LetterDTO> CreateLetter(char name)
         {
             try
@@ -31,7 +36,7 @@ namespace Services
                     LetterName = name
                 };
 
-                letterRepo = new LetterRepository();
+                letterRepo = new LetterRepository(contexto);
                 letterRepo.Create(letter);
 
                 response.Dto = new LetterDTO
@@ -53,7 +58,7 @@ namespace Services
             try
             {
                 ResponseTopicTwister<List<LetterDTO>> response = new ResponseTopicTwister<List<LetterDTO>>();
-                letterRepo = new LetterRepository();
+                letterRepo = new LetterRepository(contexto);
                 List<Letter> letters = new List<Letter>();
                 letters = letterRepo.FindAllLetter();
                 List<LetterDTO> letterDtos = new List<LetterDTO>(letters.Count);
@@ -78,7 +83,7 @@ namespace Services
             try
             {
                 ResponseTopicTwister<LetterDTO> response = new ResponseTopicTwister<LetterDTO>();
-                letterRepo = new LetterRepository();
+                letterRepo = new LetterRepository(contexto);
                 letterList = letterRepo.FindAllLetter();
                 LetterDTO letterDTO = new LetterDTO();
                 Random rdm = new Random();

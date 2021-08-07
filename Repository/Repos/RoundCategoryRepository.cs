@@ -10,32 +10,32 @@ namespace Repository.Repos
 {
     public class RoundCategoryRepository : IRoundCategoryRepository
     {
-        private readonly SQLServerContext context;
-        public RoundCategoryRepository()
+        private readonly ContextDB contexto;
+        public RoundCategoryRepository(ContextDB contexto)
         {
-            context = new SQLServerContext();
+            this.contexto = contexto;
         }
 
         public void Create(RoundCategory roundCategory)
         {
-            context.RoundCategories.Add(roundCategory);
-            context.SaveChanges();
+            contexto.RoundCategories.Add(roundCategory);
+            contexto.SaveChanges();
         }
 
         public void Delete(RoundCategory roundCategory)
         {
-            context.RoundCategories.Remove(roundCategory);
-            context.SaveChanges();
+            contexto.RoundCategories.Remove(roundCategory);
+            contexto.SaveChanges();
         }
 
         public List<RoundCategory> FindAllRoundCategory()
         {
-            return context.RoundCategories.ToList();
+            return contexto.RoundCategories.ToList();
         }
 
         public RoundCategory FindByRoundAndCategory(string RoundID, string CategoryID)
         {
-            RoundCategory roundCategory = (from x in context.RoundCategories
+            RoundCategory roundCategory = (from x in contexto.RoundCategories
                                            where x.RoundID == RoundID && x.CategoryID == CategoryID
                                            select x).First();
             return roundCategory;
@@ -43,7 +43,7 @@ namespace Repository.Repos
 
         public List<RoundCategory> FindAllByRound(string RoundID)
         {
-            List<RoundCategory> roundCategoryAll = (from x in context.RoundCategories
+            List<RoundCategory> roundCategoryAll = (from x in contexto.RoundCategories
                                                   where x.RoundID == RoundID
                                                   select x).ToList();
             return roundCategoryAll;
@@ -51,7 +51,7 @@ namespace Repository.Repos
 
         public RoundCategory FindByRoundCategoryID(string RoundCategoryID)
         {
-            RoundCategory roundCategory = (from x in context.RoundCategories
+            RoundCategory roundCategory = (from x in contexto.RoundCategories
                                            where x.RoundCategoryID == RoundCategoryID
                                            select x).First();
             return roundCategory;

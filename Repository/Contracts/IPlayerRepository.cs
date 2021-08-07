@@ -14,5 +14,6 @@ namespace Repository.Contracts
         public Player FindById(string id);
         public List<Player> FindAll();
         public Player FindRandomPlayer();
+        public Player FindByName(string name);
     }
 }
