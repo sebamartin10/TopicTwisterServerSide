@@ -12,16 +12,31 @@ namespace Tests
 {
     class LetterShould
     {
-        [Test]
+        [TestCase('a',true)]
+        [TestCase('6',false)]
+        [TestCase('@',false)]
+        [TestCase('\\',false)]
+        [TestCase('A',true)]
         public void Return_A_Letter()
         {
             //Given
-            ILetterService letterService = Substitute.For<ILetterService>();
-            //LetterService letterService = new LetterService();
+            //ILetterService letterService = Substitute.For<ILetterService>();
+            LetterService letterService = new LetterService();
             //When
-            char letter = letterService.GetRandomLetter().Dto.LetterName;
+            
             //Assert
             Assert.IsNotNull(letter);
+        }
+        [Test]
+        public void Not_Be_Empty() {
+            //Given
+            char letter = ' ';
+            LetterService letterService = new LetterService();
+            //When
+            bool result = letterService.VerifyEmptyLetter(letter);
+            //Then
+            Assert.IsFalse(result);
+
         }
 
     }

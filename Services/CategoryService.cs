@@ -21,13 +21,17 @@ namespace Services
 
         ICategoryRepository categoryRepository;
 
-        public CategoryService() { }
+        
         public CategoryService(ContextDB contexto) {
             this.contexto = contexto;
             this.categoryRepository = new CategoryRepository(contexto);
             categoryList = categoryRepository.FindAllCategory();
         }
-
+        public void CreateRepoSubstitute(ICategoryRepository categoryRepository) {
+            this.categoryRepository = categoryRepository;
+            categoryList = categoryRepository.FindAllCategory();
+        }
+        public CategoryService() { }
         public ResponseTopicTwister<CategoryDTO> CreateCategory(string name)
         {
             try

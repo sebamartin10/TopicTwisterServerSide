@@ -11,6 +11,7 @@ namespace Repository.Repos
     public class CategoryRepository : ICategoryRepository
     {
         private readonly ContextDB contexto;
+        public CategoryRepository() { }
         public CategoryRepository(ContextDB contexto) {
             this.contexto = contexto;
         }

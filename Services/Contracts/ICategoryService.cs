@@ -1,4 +1,5 @@
 ﻿using Models.Entities;
+using Repository.Contracts;
 using Services.DTOs;
 using Services.Errors;
 using System;
@@ -16,5 +17,6 @@ namespace Services.Contracts
         public ResponseTopicTwister<List<CategoryDTO>> GetAllCategories();
         public Category GetCategory(string categoryId);
         public CategoryDTO ConvertToDTO(Category category);
+        public void CreateRepoSubstitute(ICategoryRepository categoryRepository);
     }
 }

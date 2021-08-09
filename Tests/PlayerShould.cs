@@ -17,7 +17,7 @@ namespace Tests
         IPlayerService playerService;
         [SetUp]
         public void Before() {
-            playerService = Substitute.For<IPlayerService>();
+            playerService = new PlayerService();
         }
 
         [TestCase("abcd",0)]

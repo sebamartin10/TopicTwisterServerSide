@@ -2,6 +2,7 @@
 using Models.Entities;
 using Repository.Contracts;
 using Repository.Repos;
+using Services.Contracts;
 using Services.DTOs;
 using Services.Errors;
 using System;
@@ -11,9 +12,10 @@ using System.Text;
 
 namespace Services
 {
-    public class PlayerService
+    public class PlayerService : IPlayerService
     {
         private readonly ContextDB contexto;
+        public PlayerService() { }
         public PlayerService(ContextDB contexto) {
             this.contexto = contexto;
         }

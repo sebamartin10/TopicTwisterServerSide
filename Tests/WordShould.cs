@@ -11,13 +11,19 @@ namespace Tests
 {
     public class WordShould
     {
+        IWordService wordService;
+        [SetUp]
+        public void Before() {
+            wordService = new WordService();
+        }
+
         [Test]
         public void Word_Answered_Not_Empty() {
             //Given
             string wordAnswered = "TopicTwister";
             ResponseTopicTwister<AnswerDTO> response = new ResponseTopicTwister<AnswerDTO>();
            
-            WordService wordService = new WordService();
+          
             //When
             response = wordService.VerifyNull(wordAnswered);
             //Then
@@ -30,9 +36,7 @@ namespace Tests
         [TestCase("wORd","WORD")]
         [TestCase("WorD","WORD")]
         public void Word_Answered_Must_Be_In_Uppercase(string actualWord, string expectedWord) {
-            //Given
-       
-            WordService wordService = new WordService();
+            
             //When
             string word = wordService.ConvertToUppercase(actualWord);
             //Then
@@ -44,7 +48,6 @@ namespace Tests
             string wordAnswered = "TOPICTWISTER";
             ResponseTopicTwister<AnswerDTO> response = new ResponseTopicTwister<AnswerDTO>();
             
-            WordService wordService = new WordService();
             //When
             response = wordService.VerifyDigits(wordAnswered);
             //Then
@@ -55,8 +58,7 @@ namespace Tests
         [TestCase("WORD     ","WORD")]
         [TestCase("   WORD   ","WORD")]
         public void Not_Has_Blank_Spaces_At_The_Beginning_And_The_End(string actualWord,string expectedWord) {
-            //Given
-            WordService wordService = new WordService();
+            
             //When
             string word = wordService.ConvertWordBlankSpaces(actualWord);
             //Then
@@ -69,9 +71,7 @@ namespace Tests
         [TestCase("ÚGANDA", "UGANDA")]
         [TestCase("España","España")]
         public void Word_Answered_Must_Have_No_Accents(string wordAnswered,string wordExpected) {
-            //Given
-            //IWordService wordService = Substitute.For<IWordService>();
-            WordService wordService = new WordService();
+            
             //When
             string wordActual = wordService.VerifyAccents(wordAnswered);
             //Then
@@ -82,7 +82,6 @@ namespace Tests
         [TestCase("Año","Año")]
         public void Word_Answered_Must_Accept_Ñ(string wordAnswered, string wordExpected) {
             
-            WordService wordService = new WordService();
             //When
             string wordActual = wordService.VerifyAccents(wordAnswered);
             //Then

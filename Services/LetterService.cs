@@ -20,20 +20,24 @@ namespace Services
 
         ILetterRepository letterRepo;
         private readonly ContextDB contexto;
-
+        public LetterService() { }
         public LetterService(ContextDB contexto) {
             this.contexto = contexto;
         }
-        public ResponseTopicTwister<LetterDTO> CreateLetter(char name)
+        public ResponseTopicTwister<LetterDTO> CreateLetter(char letterName)
         {
             try
             {
                 ResponseTopicTwister<LetterDTO> response = new ResponseTopicTwister<LetterDTO>();
-
+                if (VerifyEmptyLetter(letterName) == false) {
+                    response.ResponseCode = -1;
+                    response.ResponseMessage = "La letra no puede estar vacía";
+                    return response;
+                }
                 Letter letter = new Letter
                 {
                     LetterID = Guid.NewGuid().ToString(),
-                    LetterName = name
+                    LetterName = letterName
                 };
 
                 letterRepo = new LetterRepository(contexto);
@@ -51,6 +55,14 @@ namespace Services
             {
                 return new ResponseTopicTwister<LetterDTO>(null, -1, ex.Message);
             }
+        }
+
+        public bool VerifyEmptyLetter(char letter)
+        {
+            if (letter == ' ') {
+                return false;
+            }
+            return true;
         }
 
         public ResponseTopicTwister<List<LetterDTO>> GetAllLetters()
