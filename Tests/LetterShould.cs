@@ -17,15 +17,15 @@ namespace Tests
         [TestCase('@',false)]
         [TestCase('\\',false)]
         [TestCase('A',true)]
-        public void Return_A_Letter()
+        public void Return_A_Letter(char letter, bool expected)
         {
             //Given
             //ILetterService letterService = Substitute.For<ILetterService>();
             LetterService letterService = new LetterService();
             //When
-            
+            bool actual = letterService.VerifyLetter(letter);
             //Assert
-            Assert.IsNotNull(letter);
+            Assert.AreEqual(expected, actual);
         }
         [Test]
         public void Not_Be_Empty() {

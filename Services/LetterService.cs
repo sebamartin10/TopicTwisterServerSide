@@ -24,6 +24,16 @@ namespace Services
         public LetterService(ContextDB contexto) {
             this.contexto = contexto;
         }
+
+        public bool VerifyLetter(char letter)
+        {
+
+            if (!char.IsLetter(letter)) {
+                return false;
+            }
+            return true;
+        }
+
         public ResponseTopicTwister<LetterDTO> CreateLetter(char letterName)
         {
             try
@@ -32,6 +42,11 @@ namespace Services
                 if (VerifyEmptyLetter(letterName) == false) {
                     response.ResponseCode = -1;
                     response.ResponseMessage = "La letra no puede estar vacía";
+                    return response;
+                }
+                if (VerifyLetter(letterName)==false) {
+                    response.ResponseCode = -1;
+                    response.ResponseMessage = "Debe ingresar una letra";
                     return response;
                 }
                 Letter letter = new Letter
