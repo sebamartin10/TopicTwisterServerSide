@@ -15,5 +15,6 @@ namespace Repository.Contracts
         public List<Player> FindAll();
         public Player FindRandomPlayer();
         public Player FindByName(string name);
+        Player FindByNameAndPassword(string playerName, string password, ContextDB contexto);
     }
 }

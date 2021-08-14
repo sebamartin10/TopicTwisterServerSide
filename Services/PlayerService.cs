@@ -15,9 +15,11 @@ namespace Services
     public class PlayerService : IPlayerService
     {
         private readonly ContextDB contexto;
+        private IPlayerRepository playerRepository;
         public PlayerService() { }
         public PlayerService(ContextDB contexto) {
             this.contexto = contexto;
+            playerRepository = new PlayerRepository(contexto);
         }
         private static PlayerDTO PlayerToDTO(Player player) {
             return new PlayerDTO() {
@@ -27,23 +29,37 @@ namespace Services
         }
 
         public PlayerDTO GetOpponent(string playerID) {
-            IPlayerRepository playerRepository = new PlayerRepository(contexto);
             Player player = playerRepository.FindById(playerID);
 
-            Player opponent =null;
-            int trys = 0;
-            while(opponent== null || opponent == player||trys<50) {
-                opponent = playerRepository.FindRandomPlayer();
-                trys++;
+            var playerSesionRepository = new PlayerSessionRepository(contexto);
+            var sessions = playerSesionRepository.FindAllActivePlayerSessions(playerID);
+            var currentOpponents = new List<Player>();
+            var potentialOpponents = playerRepository.FindAll();
+
+            potentialOpponents.RemoveAll(player=> player.PlayerID == playerID);
+            foreach (Session session in sessions) {
+                var players = playerSesionRepository.FindPlayersBySession(session.SessionID);
+                var opponents = players.FindAll(opponent => opponent.PlayerID != playerID);
+                currentOpponents.AddRange(opponents);
+                opponents.ForEach(player => potentialOpponents.Remove(player));
             }
 
+            Player opponent = null;
+            if (potentialOpponents.Count > 0) {
+                opponent = potentialOpponents[new Random().Next(0, potentialOpponents.Count)];
+            } else {
+                int trys = 0;
+                while (opponent == null || opponent == player || trys < 50) {
+                    opponent = playerRepository.FindRandomPlayer();
+                    trys++;
+                }
+            }
             return PlayerToDTO(opponent) ;
         }
 
         public ResponseTopicTwister<PlayerDTO> Login(PlayerDTO playerDTO) {
             ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
-            PlayerRepository playerRepo = new PlayerRepository(contexto);
-            Player player = playerRepo.FindByNameAndPassword(playerDTO.playerName, playerDTO.password,contexto);
+            Player player = playerRepository.FindByNameAndPassword(playerDTO.playerName, playerDTO.password,contexto);
             if (player == null) {
                 response.ResponseCode = -1;
                 response.ResponseMessage = "Credenciales incorrectas.";
@@ -69,8 +85,7 @@ namespace Services
 
         public ResponseTopicTwister<PlayerDTO> VerifyPlayerDuplicated(string name, string password) {
             ResponseTopicTwister<PlayerDTO> response = new ResponseTopicTwister<PlayerDTO>();
-            IPlayerRepository playerRepo = new PlayerRepository(contexto);
-            Player player = playerRepo.FindByName(name);
+            Player player = playerRepository.FindByName(name);
             if (player != null) {
                 response.ResponseCode = -1;
                 response.ResponseMessage = "¡El jugador ya existe!";
@@ -110,10 +125,9 @@ namespace Services
                     Password = password
                 };
 
-                IPlayerRepository playerRepo = new PlayerRepository(contexto);
-                playerRepo.Create(player);
+                playerRepository.Create(player);
                 Player playerValidator = new Player();
-                playerValidator = playerRepo.FindById(id);
+                playerValidator = playerRepository.FindById(id);
                 if (playerValidator == null)
                 {
                     response.ResponseCode = -1;
